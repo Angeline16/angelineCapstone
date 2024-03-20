@@ -1,0 +1,210 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:  'Source Sans Pro', Arial, sans-serif;   
+}
+body{
+    min-height: 100vh;
+    background: #F5F5F5;
+    color: #EDF1F5;
+    background-size: cover;
+    background-position: center;
+}
+.side-bar {
+    background: white;
+    width: 250px;
+    min-height: 100vh;
+    float: left; /* Add this line to float the sidebar to the left */
+    padding-top: 30px;
+}
+
+header img{
+    width: 150px;
+    margin-top: 7px;
+    margin-left: 30px;
+}
+header{
+    background: #87ceeb;
+}
+header h3{
+    color: black;
+    margin-left: 15px;
+    font-weight: 500;
+    font-size: 10px;
+}
+.menu{
+    width: 100%;
+    margin-top: -10px;
+}
+.menu .item{
+    position: relative;
+    cursor: pointer;
+}
+.menu .item a{
+    color: #212121;
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+    padding: 5px 20px;
+    line-height: 35px;
+}
+.item i{
+    margin-right: 15px;
+}
+.item a .dropdown{
+    position:relative;
+    right: 0px;
+    float: inline-end;
+    top: 50%;
+    transform: translateY(60%);
+    transition: 0.3s ease;
+}
+.item .sub-menu{
+    display: none;
+}
+.side-bar::-webkit-scrollbar{
+    width:0px;
+}
+.item .sub-menu a{
+    padding-left: 55px;
+}
+.rotate{
+    transform: rotate(90deg);
+}
+.selected-item {
+    background-color: white;
+    color: #87ceeb;
+}
+
+/*search bar*/
+.search{
+    display: flex;
+    width: 500px;
+    margin-left: 90px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 7px;
+    background: white;
+    border: 1px solid #000;
+    margin-right: 340px;
+}
+
+.search-input{
+    font-size: 16px;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    color: black;
+    margin-left: 16px;
+    outline: none;
+    border: none;
+    width: 500px;
+}
+
+.search-input::placeholder{
+    color: #000;
+}
+.search-icon{
+    color: #000;
+    padding-left: 10px;
+}
+.header-main{
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.header-user-icon{
+    outline: none;
+    border: none;
+    background: transparent;
+    font-size: 25px;
+}
+button{
+    border: none;
+    outline: none;
+    float: inline-end;
+    position: relative;
+    
+}
+.header-main-icon {
+    border: none;
+    outline: none;
+    margin-left: 20px; /* Adjust this margin as needed */
+    text-decoration: none;
+    color: black;
+}
+.content {
+    margin-left: 15px;
+    padding: 0px;
+}
+
+.grid-item {
+    width: calc(50% - 20px);
+    margin-right: 20px;
+    position: right;
+    font-size: 15px;
+}
+
+.grid-item img {
+    max-width: 100%;
+    height: 350px;
+    border-radius: 10px;
+    width: 400px; /* Adjust the width of the image */
+}
+
+.grid-item-details {
+    background-color: none;
+    padding: 0px;
+    border-radius: 10px;
+    position: relative; /* Change position to relative */
+    margin-top: -400px; /* Adjust as needed based on your layout */
+    margin-left: 420px; /* Adjust as needed based on your layout */
+    text-align: left;
+}
+.photo-grid {
+    flex-direction: column;
+}
+
+.grid-item {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+}
+
+.wishlist {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        text-align: left;
+        margin-top: 10px;  
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Custom Styles */
+.container {
+    position: relative;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.send-button {
+    padding: 10px 20px;
+    background-color: #87ceeb;
+    color: #F5F5DC;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: background-color 0.3s; /* Adding smooth transition on hover */
+}
+
+.send-button:hover {
+    background-color: #00FFFF;
+}
+
+/*Cards*/
+

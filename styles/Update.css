@@ -1,0 +1,240 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:  'Source Sans Pro', Arial, sans-serif;   
+}
+body{
+    min-height: 100vh;
+    background: #F5F5F5;
+    color: #EDF1F5;
+    background-size: cover;
+    background-position: center;
+}
+.side-bar {
+    background: white;
+    width: 250px;
+    min-height: 150vh;
+    float: left; /* Add this line to float the sidebar to the left */
+    padding-top: 30px;
+}
+.inside{
+    background-color: white;
+    color: #1D242E; 
+    margin-top: none; 
+    margin-left: 44vh;
+    width: 168vh;
+    height: 200%;
+    border-radius: 10px;
+}
+.padding-top{
+    padding-top:20px;
+}
+.padding-left{
+    padding-left: 20px;
+}
+
+.dashboard-container {
+    display:contents;/* Adjust the left margin to accommodate the width of the sidebar */
+    border-radius: 10px;  
+}
+
+header img{
+    width: 150px;
+    margin-top: 7px;
+    margin-left: 30px;
+}
+header{
+    background: #87ceeb;
+}
+header h3{
+    color: black;
+    margin-left: 15px;
+    font-weight: 500;
+    font-size: 10px;
+}
+.menu{
+    width: 100%;
+    margin-top: -10px;
+}
+.menu .item{
+    position: relative;
+    cursor: pointer;
+}
+.menu .item a{
+    color: #212121;
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+    padding: 5px 20px;
+    line-height: 35px;
+}
+.item i{
+    margin-right: 15px;
+}
+.item a .dropdown{
+    position:relative;
+    right: 0px;
+    float: inline-end;
+    top: 50%;
+    transform: translateY(60%);
+    transition: 0.3s ease;
+}
+.item .sub-menu{
+    display: none;
+}
+.side-bar::-webkit-scrollbar{
+    width:0px;
+}
+.item .sub-menu a{
+    padding-left: 55px;
+}
+.rotate{
+    transform: rotate(90deg);
+}
+.selected-item {
+    background-color: white;
+    color: #87ceeb;
+}
+
+/*search bar*/
+.search{
+    display: flex;
+    width: 500px;
+    margin-left: 90px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 7px;
+    background: white;
+    border: 1px solid #000;
+    margin-right: 340px;
+}
+
+.search-input{
+    font-size: 16px;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    color: black;
+    margin-left: 16px;
+    outline: none;
+    border: none;
+    width: 500px;
+}
+
+.search-input::placeholder{
+    color: #000;
+}
+.search-icon{
+    color: #000;
+    padding-left: 10px;
+}
+.header-main{
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.header-user-icon{
+    outline: none;
+    border: none;
+    background: transparent;
+    font-size: 25px;
+}
+button{
+    border: none;
+    outline: none;
+    float: inline-end;
+    position: relative;
+    
+}
+.header-main-icon {
+    border: none;
+    outline: none;
+    margin-left: 20px; /* Adjust this margin as needed */
+    text-decoration: none;
+    color: black;
+}
+#filterButton {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+/* Style for list items */
+.list-item {
+    display: block;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+    margin-right: 10%; /* Aligning container to the left */
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #87ceeb;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button[type="submit"] {
+    background-color: green;
+}
+
+button[type="submit"]:hover {
+    background-color: #87ceeb;
+}
+
+button[type="button"] {
+    background-color: #f44336;
+}
+
+button[type="button"]:hover {
+    background-color: #da190b;
+}
+.uploaded-image-container {
+    width: 20px; /* Adjust width as needed */
+    float: right; /* Align image to the right */
+    margin-top: 10px; /* Add some top margin */
+}
+
+#uploadedImage {
+    max-width: 200px;
+    max-height: 300px;
+    margin-top: 10px;
+}
+
+/*Cards*/
+
+/* Add CSS for two-column layout */
+.column {
+    float: left;
+    width: 50%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

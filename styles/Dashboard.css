@@ -1,0 +1,222 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:  'Source Sans Pro', Arial, sans-serif;   
+}
+body{
+    min-height: 100vh;
+    background: #F5F5F5;
+    color: #EDF1F5;
+    background-size: cover;
+    background-position: center;
+}
+.side-bar {
+    background: white;
+    width: 250px;
+    min-height: 150vh;
+    float: left; /* Add this line to float the sidebar to the left */
+    padding-top: 30px;
+}
+.inside{
+    background-color: white;
+    color: #1D242E; 
+    margin-top: none; 
+    margin-left: 44vh;
+    width: 168vh;
+    height: 200%;
+    border-radius: 10px;
+}
+.padding-top{
+    padding-top: 20px;
+}
+.padding-left{
+    padding-left: 20px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.header-content .item-list {
+    margin-left: 10px; /* Adjust as needed */
+    font-size: 20px; /* Adjust as needed */
+    margin-top: 7px; /* Adjust as needed */
+}
+header img{
+    width: 150px;
+    margin-top: 7px;
+    margin-left: 30px;
+}
+header{
+    background: #87ceeb;
+}
+header h3{
+    color: black;
+    margin-left: 15px;
+    font-weight: 500;
+    font-size: 10px;
+}
+.menu{
+    width: 100%;
+    margin-top: -10px;
+}
+.menu .item{
+    position: relative;
+    cursor: pointer;
+}
+.menu .item a{
+    color: #212121;
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+    padding: 5px 20px;
+    line-height: 35px;
+}
+.item i{
+    margin-right: 15px;
+}
+.item a .dropdown{
+    position:relative;
+    right: 0px;
+    float: inline-end;
+    top: 50%;
+    transform: translateY(60%);
+    transition: 0.3s ease;
+}
+.item .sub-menu{
+    display: none;
+}
+.side-bar::-webkit-scrollbar{
+    width:0px;
+}
+.item .sub-menu a{
+    padding-left: 55px;
+}
+.rotate{
+    transform: rotate(90deg);
+}
+.selected-item {
+    background-color: white;
+    color: #87ceeb;
+}
+
+/*search bar*/
+.search{
+    display: flex;
+    width: 500px;
+    margin-left: 90px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 7px;
+    background: white;
+    border: 1px solid #000;
+    margin-right: 340px;
+}
+
+.search-input{
+    font-size: 16px;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    color: black;
+    margin-left: 16px;
+    outline: none;
+    border: none;
+    width: 500px;
+}
+
+.search-input::placeholder{
+    color: #000;
+}
+.search-icon{
+    color: #000;
+    padding-left: 10px;
+}
+.header-main{
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.header-user-icon{
+    outline: none;
+    border: none;
+    background: transparent;
+    font-size: 25px;
+}
+button{
+    border: none;
+    outline: none;
+    float: inline-end;
+    position: relative;
+    
+}
+.header-main-icon {
+    border: none;
+    outline: none;
+    margin-left: 20px; /* Adjust this margin as needed */
+    text-decoration: none;
+    color: black;
+}
+.dashboard-container {
+    width: 100%;
+    max-width: 1200px; /* I-adjust ang maximum na lapad depende sa iyong preference */
+    margin: 0 auto; /* I-center ang container */
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Idagdag ang isang shadow para sa dimensyon */
+}
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 20px;
+}
+
+.grid-item {
+    overflow: hidden;
+    text-align: center; /* Center align text */
+    border-radius: 8px;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-bottom: 5px; /* Add some space between image and text */
+}
+
+.grid-item p {
+    margin: 0;
+    font-size: 10px;
+}
+/* Style for the container div */
+.container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the select element to the right */
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+/* Style for the select element */
+#category {
+    width: 160px; /* Adjust width as needed */
+    padding: 5px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    border: 1px solid #87ceeb; /* Adjust border properties as needed */
+    border-radius: 10px; /* Adjust border radius as needed */
+    background-color: #fff; /* Adjust background color as needed */
+    color: #333; /* Adjust text color as needed */
+}
+
+/* Style for the option elements */
+#category option {
+    font-size: 16px; /* Adjust font size as needed */
+    color: #333; /* Adjust text color as needed */
+}
+
+
+
+
+/*Cards*/

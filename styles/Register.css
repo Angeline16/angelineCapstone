@@ -1,0 +1,47 @@
+.register{
+    size: 72px;
+    font-weight: 600;
+}
+.RegisterContainer{
+    box-shadow: 0px 3px 3px 0px gray ;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 492px;
+    height: 470px;
+    padding: 25px;
+    margin-top: 70px;
+    border-radius: 8px;
+}
+.registerbtn{
+    background-color: #87ceeb;
+    border-radius: 225px;
+    color: #212121;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
+    width: 295px;
+    height: 50px;
+    margin-top: 8px;
+    font-weight: 900;
+}
+.inputR{
+    border: 1px solid #87ceeb;
+    border-radius: 8px;
+    height: 40px;
+    width: 456px;
+}
+.have {
+    float: left;
+    margin-left: 15px;
+    margin-top: 16px;
+    text-decoration: none;
+}
+.dec{
+    
+    text-decoration: none;
+}
+.togglePassword {
+    position: relative;
+    top: -33px;
+    right: 40px;
+    cursor: pointer;
+}

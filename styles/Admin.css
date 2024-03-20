@@ -1,0 +1,49 @@
+.login{
+    size: 72px;
+    font-weight: 600 ;
+}
+.LoginContainer{
+    box-shadow: 0px 3px 3px 0px gray ;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 492px;
+    height: 400px;
+    padding: 20px;
+    margin-top: 70px;
+    border-radius: 8px;
+}
+.loginbtn{
+    background-color: #87ceeb;
+    border-radius: 225px;
+    color: #212121;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
+    width: 295px;
+    height: 48px;
+    margin-top: 16px;
+    font-weight: 900;
+    font-size: 17px;  
+}
+.inputL{
+    border: 1px solid #87ceeb;
+    border-radius: 8px;
+    height: 40px;
+    width: 456px;
+}
+.forgotpass {
+    float: left;
+    margin-left: 15px;
+    margin-top: 16px;
+    text-decoration: none;
+}
+.donthave {
+    float: left;
+    margin-left: 15px;
+    margin-top: 16px;
+    text-decoration: none;
+}
+.dec{
+    
+    text-decoration: none;
+}
+
