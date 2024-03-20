@@ -17,16 +17,22 @@
   </style>
   <body>
     <header
-      class="w-full flex sm:pl-72 justify-between items-center bg-cyan-400 py-4 px-5"
+      class="w-full flex sm:pl-60 justify-between items-center bg-cyan-400 py-4 px-5"
     >
       <div class="flex gap-5">
+        <button
+          id="toggleSidebar"
+          class="sm:hidden flex justify-center items-center"
+        >
+          <iconify-icon icon="ic:round-menu" class="text-2xl"></iconify-icon>
+        </button>
         <input
           type="search"
           placeholder="Search..."
-          class="rounded-md bg-gray-100/50 caret-blue-500 placeholder:text-base placeholder:text-gray-800 px-4 py-1 ml-5 sm:w-96 outline-none border"
+          class="rounded-md bg-gray-100/50 sm:ml-5 caret-blue-500 placeholder:text-base placeholder:text-gray-800 px-4 py-1 sm:w-96 outline-none border"
         />
       </div>
-      <div class="text-3xl flex justify-center items-center gap-2">
+      <div class="text-2xl flex justify-center items-center gap-2">
         <iconify-icon
           icon="ic:round-notifications"
           class="hover:text-gray-100 transition"
@@ -42,19 +48,77 @@
       </div>
     </header>
 
-    <aside class="w-72 hidden sm:block bg-gray-100 fixed top-0 left-0 h-full">
+    <aside
+      id="sidebar"
+      class="w-60 hidden sm:block bg-gray-100 fixed top-0 left-0 h-full"
+    >
       <div class="px-3">
-        <div><img src="./assets/Logo.png" alt="" class="w-20 h-14" /></div>
+        <div class="flex justify-between items-center">
+          <img src="./assets/Logo.png" alt="" class="w-20 h-14" />
+          <div
+            id="close"
+            class="bg-slate-400/50 sm:hidden text-red-400 flex justify-center items-center rounded-full p-1"
+          >
+            <iconify-icon icon="iconoir:xmark" class="text-2xl"></iconify-icon>
+          </div>
+        </div>
 
         <div>
           <h1 class="text-gray-800 font-semibold text-xl py-3">Menu</h1>
+          <hr />
+          <div class="my-2">
+            <div
+              class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2"
+            >
+              <iconify-icon
+                icon="material-symbols:dashboard"
+                class="text-xl"
+              ></iconify-icon>
+              <a href="">Dashboard</a>
+            </div>
+            <div
+              class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2"
+            >
+              <iconify-icon
+                icon="carbon:add-filled"
+                class="text-xl"
+              ></iconify-icon>
 
-          <div></div>
+              <a href="">Add Item</a>
+            </div>
+            <div
+              class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2"
+            >
+              <iconify-icon icon="ep:list" class="text-xl"></iconify-icon>
+
+              <a href="">Trade List</a>
+            </div>
+            <div
+              class="py-2 flex justify-start items-center gap-2 w-full hover:bg-gray-300 hover:font-semibold hover:text-cyan-500 transition rounded-md px-2"
+            >
+              <iconify-icon
+                icon="material-symbols-light:chat-sharp"
+                class="text-xl"
+              ></iconify-icon>
+
+              <a href="">Chat Messages</a>
+            </div>
+            <div
+              class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2"
+            >
+              <iconify-icon
+                icon="material-symbols:live-help-sharp"
+                class="text-xl"
+              ></iconify-icon>
+
+              <a href="">Help Center</a>
+            </div>
+          </div>
         </div>
       </div>
     </aside>
 
-    <div class="text-gray-800 bg-gray-50 sm:pl-72 pt-5">
+    <div class="text-gray-800 bg-gray-50 sm:pl-60 pt-5">
       <h1 class="text-xl font-semibold ml-10">Add new Item</h1>
       <div>
         <form
@@ -71,7 +135,7 @@
                   <select
                     id="item_condition"
                     name="item_condition"
-                    class="border p-1 rounded-md text-sm w-full sm:w-1/2"
+                    class="border p-1 rounded-md text-sm w-full sm:w-3/4"
                     required
                   >
                     <option value="">Select Condition</option>
@@ -87,7 +151,7 @@
                     type="text"
                     id="color"
                     name="color"
-                    class="border p-1 rounded-md text-sm w-full sm:w-1/2"
+                    class="border p-1 rounded-md text-sm w-full sm:w-3/4"
                   />
                 </div>
                 <div class="mb-4">
@@ -98,7 +162,7 @@
                     type="text"
                     id="size"
                     name="size"
-                    class="border p-1 rounded-md text-sm w-full sm:w-1/2"
+                    class="border p-1 rounded-md text-sm w-full sm:w-3/4"
                   />
                 </div>
                 <div class="mb-4">
@@ -108,7 +172,7 @@
                   <textarea
                     id="description"
                     name="description"
-                    class="border p-1 rounded-md text-sm w-full sm:w-1/2"
+                    class="border p-1 rounded-md text-sm w-full sm:w-3/4"
                     required
                   ></textarea>
                 </div>
@@ -120,7 +184,7 @@
                     type="text"
                     id="wishlist"
                     name="wishlist"
-                    class="border p-1 rounded-md text-sm w-full sm:w-1/2"
+                    class="border p-1 rounded-md text-sm w-full sm:w-3/4"
                     required
                   />
                 </div>
@@ -132,7 +196,7 @@
                     type="text"
                     id="price"
                     name="price"
-                    class="border p-1 rounded-md text-sm w-full sm:w-1/2"
+                    class="border p-1 rounded-md text-sm w-full sm:w-3/4"
                     required
                   />
                 </div>
@@ -144,7 +208,7 @@
                     type="text"
                     id="year"
                     name="year"
-                    class="border p-1 rounded-md text-sm w-full sm:w-1/2"
+                    class="border p-1 rounded-md text-sm w-full sm:w-3/4"
                   />
                 </div>
                 <div class="mb-4">
@@ -155,7 +219,7 @@
                     type="text"
                     id="brand"
                     name="brand"
-                    class="border p-1 rounded-md text-sm w-full sm:w-1/2"
+                    class="border p-1 rounded-md text-sm w-full sm:w-3/4"
                   />
                 </div>
               </div>
@@ -213,7 +277,7 @@
           </div>
 
           <div
-            class="flex justify-between items-center gap-10 mx-10 mb-5 sm:w-1/2"
+            class="flex justify-between items-center gap-10 mx-10 mb-5 sm:w-3/4"
           >
             <button
               type="submit"
@@ -231,5 +295,18 @@
         </form>
       </div>
     </div>
+
+    <script>
+      const toggleButton = document.getElementById("toggleSidebar");
+      const sidebar = document.getElementById("sidebar");
+      const closeSidebar = document.getElementById("close");
+
+      toggleButton.addEventListener("click", () => {
+        sidebar.classList.toggle("hidden");
+      });
+      closeSidebar.addEventListener("click", () => {
+        sidebar.classList.toggle("hidden");
+      });
+    </script>
   </body>
 </html>
