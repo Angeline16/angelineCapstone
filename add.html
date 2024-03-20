@@ -4,10 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
     <title>Document</title>
   </head>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+    body {
+      font-family: "Nunito", sans-serif;
+    }
+  </style>
   <body>
-    <div class="text-gray-800">
+    <header
+      class="w-full flex sm:pl-72 justify-between items-center bg-cyan-400 py-4 px-5"
+    >
+      <div class="flex gap-5">
+        <input
+          type="search"
+          placeholder="Search..."
+          class="rounded-md bg-gray-100/50 caret-blue-500 placeholder:text-base placeholder:text-gray-800 px-4 py-1 ml-5 sm:w-96 outline-none border"
+        />
+      </div>
+      <div class="text-3xl flex justify-center items-center gap-2">
+        <iconify-icon
+          icon="ic:round-notifications"
+          class="hover:text-gray-100 transition"
+        ></iconify-icon>
+        <iconify-icon
+          icon="mingcute:user-4-fill"
+          class="hover:text-gray-100 transition"
+        ></iconify-icon>
+        <iconify-icon
+          icon="solar:settings-bold"
+          class="hover:text-gray-100 transition"
+        ></iconify-icon>
+      </div>
+    </header>
+
+    <aside class="w-72 hidden sm:block bg-gray-100 fixed top-0 left-0 h-full">
+      <div class="px-3">
+        <div><img src="./assets/Logo.png" alt="" class="w-20 h-14" /></div>
+
+        <div>
+          <h1 class="text-gray-800 font-semibold text-xl py-3">Menu</h1>
+
+          <div></div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="text-gray-800 bg-gray-50 sm:pl-72 pt-5">
       <h1 class="text-xl font-semibold ml-10">Add new Item</h1>
       <div>
         <form
