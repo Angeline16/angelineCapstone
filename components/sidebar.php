@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <aside id="sidebar" class="w-60 hidden sm:block bg-gray-100 fixed top-0 left-0 h-full">
+    <aside id="sidebar" class="w-60 hidden sm:block bg-gray-100 fixed z-50 top-0 left-0 h-full">
         <div class="px-3">
             <div class="flex justify-between items-center">
                 <img src="../assets/Logo.png" alt="" class="w-20 h-14" />
