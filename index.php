@@ -58,7 +58,7 @@
     <div class="flex justify-center items-center h-screen">
         <div>
             <p
-                class="text-4xl px-5 sm:text-2xl drop-shadow-lg md:text-4xl lg:text-7xl sm:text-center sm:px-10 font-extrabold">
+                class="text-4xl px-5 sm:text-4xl drop-shadow-lg md:text-5xl lg:text-7xl sm:text-center sm:px-10 font-extrabold">
                 Trade for something, trade for someone - trade for yourself.
             </p>
             <div class="flex justify-center my-5 items-center gap-5 py-5">
@@ -66,7 +66,7 @@
                     class="bg-cyan-500 px-6 py-2 text-base rounded-md shadow-sm transition hover:bg-cyan-500/20 hover:border border-cyan-500 hover:text-cyan-400"><button
                         type="submit">Trader Login</button></a>
                 <a href="./admin/Admin.php"
-                    class="hover:bg-pink-500 hover:text-gray-50 px-6 py-2 text-base rounded-md shadow-sm transition bg-pink-500/20 border border-pink-500 text-pink-700"><button
+                    class="hover:bg-green-500 hover:text-gray-50 px-6 py-2 text-base rounded-md shadow-sm transition bg-green-500/20 border border-green-500 text-green-400"><button
                         type="button">Admin Login</button></a>
             </div>
         </div>

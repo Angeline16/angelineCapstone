@@ -55,23 +55,84 @@
     </header>
     <div class="flex justify-center items-center h-screen">
       <div>
-        <p
-          class="text-4xl px-5 sm:text-2xl drop-shadow-lg md:text-4xl lg:text-7xl sm:text-center sm:px-10 font-extrabold"
+        <div
+          class="text-4xl px-5 py-4 drop-shadow-lg sm:text-start text-center sm:px-10 font-extrabold"
         >
-          Trade for something, trade for someone - trade for yourself.
-        </p>
-        <div class="flex justify-center my-5 items-center gap-5 py-5">
-          <a
-            href="./views/Login.php"
-            class="bg-cyan-500 px-6 py-2 text-base rounded-md shadow-sm transition hover:bg-cyan-500/20 hover:border border-cyan-500 hover:text-cyan-400"
-            ><button type="submit">Trader Login</button></a
-          >
-          <a
-            href="./admin/Admin.php"
-            class="hover:bg-pink-500 hover:text-gray-50 px-6 py-2 text-base rounded-md shadow-sm transition bg-pink-500/20 border border-pink-500 text-pink-700"
-            ><button type="button">Admin Login</button></a
-          >
+          <h1>Login</h1>
         </div>
+        <form
+          method="post"
+          class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 px-5"
+        >
+          <div>
+            <img
+              src="../assets/Logo.png"
+              alt="logo"
+              class="sm:w-96 sm:h-80 hidden sm:block"
+            />
+          </div>
+          <div class="bg-cyan-500/20 px-4 py-3 rounded-md w-96">
+            <div class="flex">
+              <p>Email</p>
+              <span class="text-red-500">*</span>
+            </div>
+            <input
+              class="w-full p-1 m-1 rounded-md bg-gray-100/30"
+              type="email"
+              name="email"
+              required
+            />
+
+            <div class="flex">
+              <p>Password</p>
+              <span class="text-red-500">*</span>
+            </div>
+
+            <input
+              class="w-full p-1 m-1 rounded-md bg-gray-100/30"
+              type="password"
+              name="password"
+              required
+            /><br />
+            <?php if (isset ($login_error)): ?>
+            <div class="text-red-500 text-xs">
+              <?php echo $login_error; ?>
+            </div>
+            <br />
+            <?php endif; ?>
+            <div class="flex justify-between items-center">
+              <a
+                class="flex justify-start items-center text-sm"
+                href="../index.php"
+              >
+                <iconify-icon
+                  icon="ion:caret-back"
+                  class="text-green-500"
+                ></iconify-icon>
+                <span>Back to Site</span></a
+              >
+              <a
+                class="flex justify-center items-center text-sm"
+                href="Forgotpass.php"
+              >
+                <span class="underline">Forgot password?</span></a
+              >
+            </div>
+            <hr class="border border-gray-400/20 my-3" />
+
+            <button
+              class="px-4 bg-cyan-500 hover:bg-cyan-600 shadow-md transition w-full py-2 rounded-md text-lg font-semibold"
+              type="submit"
+            >
+              Login
+            </button>
+
+            <div class="text-xm py-2 flex gap-1 justify-center items-center">
+              <p class="">Don't have an account</p>
+              <a class="text-red-500" href="Register.php">Register</a>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </body>

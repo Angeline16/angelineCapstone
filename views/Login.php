@@ -54,76 +54,122 @@ if (isset ($_SESSION['registration_message'])) {
 <!DOCTYPE html>
 <html>
 <title>Online Barter System</title>
-<link rel="stylesheet" href="../styles/styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../styles/Login.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
 <style>
-    /* CSS for success message */
-    .success-message {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        z-index: 9999;
-        animation: fadeOut 10s forwards;
-        /* Fade out animation */
-        opacity: 0;
-        /* Initially hidden */
+    @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+    html,
+    body {
+        height: 100%;
+        font-family: "Nunito", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: whitesmoke;
+        position: relative;
+        /* Ensure proper positioning */
     }
 
-    /* Keyframe for fade out animation */
-    @keyframes fadeOut {
-        0% {
-            opacity: 1;
-        }
+    body {
+        overflow: hidden;
+        /* Hide overflow from pseudo-element */
+    }
 
-        100% {
-            opacity: 0;
-        }
+    body::before {
+        content: "";
+        background-image: url("../assets/3.jpg");
+        background-size: cover;
+        background-position: center;
+        filter: blur(4px);
+        /* Adjust the blur radius as needed */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        /* Ensure the pseudo-element is behind other content */
     }
 </style>
 
 <body>
-    <table>
-        <tr>
-            <th style="padding-left: 150px; padding-right:150px; "><img style="width: 300px; height: 200px;"
-                    src="../assets/Logo.png"></th>
-            <th style="margin-left: 30px; ">
-                <div class="LoginContainer">
-                    <h1>TRADER LOGIN</h1>
-                    <form method="post">
-                        <div style="float: left; margin-left: 15px;">Email <span style="color: red;">*</span></div>
-                        <input class="inputL" type="email" name="email" required><br> <br>
-                        <div style="float: left; margin-left: 15px;">Password <span style="color: red;">*</span></div>
-                        <input class="inputL" type="password" name="password" required><br>
-                        <?php if (isset ($login_error)): ?>
-                            <div style="color: red;">
-                                <?php echo $login_error; ?>
-                            </div><br>
-                        <?php endif; ?>
-                        <a class="forgotpass" href="../index.php"> Back to Site</a><br></br>
-                        <a class="forgotpass" href="Forgotpass.php"> Forgot password?</a><br></br>
-                        <div class="donthave">Don't have an account? <a class="dec" href="Register.php">Register?</a>
-                        </div><br></br>
-                        <button class="loginbtn" type="submit">Login</button>
-                    </form>
+    <!--header section-->
+    <header
+        class="bg-cyan-500 shadow-md shadow-cyan-500/50 py-3 px-3 fixed flex sm:justify-center sm:items-center gap-4 top-0 left-0 w-full z-10">
+        <div class="logo-container">
+            <a href=""><img src="../assets/logo.png" class="w-16 h-14" alt="Logo" /></a>
+        </div>
 
+        <h1 class="text-xl font-semibold text-start">
+            Online Barter System in Municipality of Guinobatan
+        </h1>
+    </header>
+    <div class="flex justify-center items-center h-screen">
+        <div>
+            <div class="text-4xl px-5 py-4 drop-shadow-lg sm:text-start text-center sm:px-10 font-extrabold">
+                <h1>Login</h1>
+            </div>
+            <form method="post" class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 px-5">
+                <div>
+                    <img src="../assets/Logo.png" alt="logo" class="sm:w-96 sm:h-80 hidden sm:block" />
                 </div>
-            </th>
-        </tr>
+                <div class="bg-cyan-500/20 px-4 py-3 rounded-md w-96">
+                    <div class="flex">
+                        <p>Email</p>
+                        <span class="text-red-500">*</span>
+                    </div>
+                    <input class="w-full p-1 m-1 rounded-md bg-gray-100/30" type="email" name="email" required />
 
-        <script>
-            // JavaScript to hide the success message after a few seconds
-            setTimeout(function () {
-                var successMessage = document.getElementById('successMessage');
-                if (successMessage) {
-                    successMessage.style.display = 'none';
-                }
-            }, 3000); // Adjust the time as needed (in milliseconds)
-        </script>
+                    <div class="flex">
+                        <p>Password</p>
+                        <span class="text-red-500">*</span>
+                    </div>
+
+                    <input class="w-full p-1 m-1 rounded-md bg-gray-100/30" type="password" name="password"
+                        required /><br />
+                    <?php if (isset ($login_error)): ?>
+                        <div class="text-red-500 text-xs px-3 py-1 bg-red-400/20 my-2 rounded-md">
+                            <?php echo $login_error; ?>
+                        </div>
+                        <br />
+                    <?php endif; ?>
+                    <div class="flex justify-between items-center">
+                        <a class="flex justify-start items-center text-sm" href="../index.php">
+                            <iconify-icon icon="ion:caret-back" class="text-green-500"></iconify-icon>
+                            <span>Back to Site</span></a>
+                        <a class="flex justify-center items-center text-sm" href="Forgotpass.php">
+                            <span class="underline">Forgot password?</span></a>
+                    </div>
+                    <hr class="border border-gray-400/20 my-3" />
+
+                    <button
+                        class="px-4 bg-cyan-500 hover:bg-cyan-600 shadow-md transition w-full py-2 rounded-md text-lg font-semibold"
+                        type="submit">
+                        Login
+                    </button>
+
+                    <div class="text-xm py-2 flex gap-1 justify-center items-center">
+                        <p class="">Don't have an account</p>
+                        <a class="text-red-500" href="Register.php">Register</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        // JavaScript to hide the success message after a few seconds
+        setTimeout(function () {
+            var successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 3000); // Adjust the time as needed (in milliseconds)
+    </script>
 </body>
 
 </html>
