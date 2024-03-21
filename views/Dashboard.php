@@ -1,5 +1,5 @@
 <?php
-include ("./php/connection.php");
+include ("../php/connection.php");
 // Start session
 session_start();
 
@@ -71,8 +71,8 @@ if (!isset ($_SESSION['logged_in'])) {
 
 
 <body>
-    <?php include 'components/header.php'; ?>
-    <?php include 'components/sidebar.php'; ?>
+    <?php include '../components/header.php'; ?>
+    <?php include '../components/sidebar.php'; ?>
     <!-- Your existing HTML content -->
     <div id="content" style="margin-left: 15px;">
         <!-- Dashboard content -->

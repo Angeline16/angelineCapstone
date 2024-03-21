@@ -11,7 +11,7 @@
     <aside id="sidebar" class="w-60 hidden sm:block bg-gray-100 fixed z-50 top-0 left-0 h-full">
         <div class="px-3">
             <div class="flex justify-between items-center">
-                <img src="./assets/Logo.png" alt="" class="w-20 h-14" />
+                <img src="../assets/Logo.png" alt="" class="w-20 h-14" />
                 <div id="close"
                     class="bg-slate-400/50 sm:hidden text-red-400 flex justify-center items-center rounded-full p-1">
                     <iconify-icon icon="iconoir:xmark" class="text-2xl"></iconify-icon>

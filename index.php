@@ -12,12 +12,16 @@
 
     <style>
         body {
-            background-image: url('assets/3.jpg'); /* Adjust the path to your image */
+            background-image: url('assets/3.jpg');
+            /* Adjust the path to your image */
             background-size: cover;
             background-repeat: no-repeat;
-            font-family: 'Source Sans Pro', sans-serif; /* Applying Google Font */
-            text-align: center; /* Center align all content */
-            color: white; /* Text color */
+            font-family: 'Source Sans Pro', sans-serif;
+            /* Applying Google Font */
+            text-align: center;
+            /* Center align all content */
+            color: white;
+            /* Text color */
         }
 
         .header-text {
@@ -25,9 +29,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 50px; /* Adjust font size as needed */
-            font-weight: bold; /* Adjust font weight as needed */
-            text-shadow: 2px 2px 4px rgba(50, 50, 50, 50); /* Adding text shadow */
+            font-size: 50px;
+            /* Adjust font size as needed */
+            font-weight: bold;
+            /* Adjust font weight as needed */
+            text-shadow: 2px 2px 4px rgba(50, 50, 50, 50);
+            /* Adding text shadow */
             color: white;
         }
     </style>
@@ -43,11 +50,12 @@
             <p><b>Online Barter System in Municipality of Guinobatan</b></p>
         </div>
         <div class="header-text">
-            <br><p>Trade for something, trade for someone - trade for yourself.</p>
+            <br>
+            <p>Trade for something, trade for someone - trade for yourself.</p>
             <div class="login-container">
-            <a href="Login.php"><button type="submit">Trader Login</button>
-            <a href="Admin.php"><button type="button">Admin Login</button>
-        </div>
+                <a href="./views/Login.php"><button type="submit">Trader Login</button>
+                    <a href="./admin/Admin.php"><button type="button">Admin Login</button>
+            </div>
     </header>
 </body>
 

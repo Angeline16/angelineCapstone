@@ -1,5 +1,5 @@
 <?php
-include ("./php/connection.php");
+include ("../php/connection.php");
 // At the beginning of the file
 session_start();
 
@@ -54,9 +54,9 @@ if (isset ($_SESSION['registration_message'])) {
 <!DOCTYPE html>
 <html>
 <title>Online Barter System</title>
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../styles/styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="styles/Login.css">
+<link rel="stylesheet" href="../styles/Login.css">
 <style>
     /* CSS for success message */
     .success-message {
@@ -90,7 +90,7 @@ if (isset ($_SESSION['registration_message'])) {
     <table>
         <tr>
             <th style="padding-left: 150px; padding-right:150px; "><img style="width: 300px; height: 200px;"
-                    src="assets/Logo.png"></th>
+                    src="../assets/Logo.png"></th>
             <th style="margin-left: 30px; ">
                 <div class="LoginContainer">
                     <h1>TRADER LOGIN</h1>
@@ -104,7 +104,7 @@ if (isset ($_SESSION['registration_message'])) {
                                 <?php echo $login_error; ?>
                             </div><br>
                         <?php endif; ?>
-                        <a class="forgotpass" href="Homepage.php"> Back to Site</a><br></br>
+                        <a class="forgotpass" href="../index.php"> Back to Site</a><br></br>
                         <a class="forgotpass" href="Forgotpass.php"> Forgot password?</a><br></br>
                         <div class="donthave">Don't have an account? <a class="dec" href="Register.php">Register?</a>
                         </div><br></br>

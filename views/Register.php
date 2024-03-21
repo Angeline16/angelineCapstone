@@ -1,5 +1,5 @@
 <?php
-include ("./php/connection.php");
+include ("../php/connection.php");
 
 // Process registration form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Online Barter System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/Register.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/Register.css">
     <style>
         /* CSS for success message pop-up */
         .success-message {
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <table>
         <tr>
             <th style="padding-left: 150px; padding-right:150px; "><img style="width: 300px; height: 200px;"
-                    src="assets/Logo.png"></th>
+                    src="../assets/Logo.png"></th>
             <th style="margin-left: 30px; ">
                 <div class="RegisterContainer">
                     <h1>TRADER REGISTER</h1>
