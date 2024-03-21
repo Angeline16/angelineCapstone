@@ -150,7 +150,7 @@ if (isset ($_SESSION['registration_message'])) {
                     </button>
 
                     <div class="text-xm py-2 flex gap-1 justify-center items-center">
-                        <p class="">Don't have an account</p>
+                        <p class="">Don't have an account?</p>
                         <a class="text-red-500" href="Register.php">Register</a>
                     </div>
                 </div>

@@ -26,15 +26,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Online Barter System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="stylesheet" href="../styles/Register.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
     <style>
-        /* CSS for success message pop-up */
+        @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+        html,
+        body {
+            height: 100%;
+            font-family: "Nunito", sans-serif;
+            margin: 0;
+            padding: 0;
+            color: whitesmoke;
+            position: relative;
+            /* Ensure proper positioning */
+        }
+
+        body {
+            overflow: hidden;
+            /* Hide overflow from pseudo-element */
+        }
+
+        body::before {
+            content: "";
+            background-image: url("../assets/3.jpg");
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px);
+            /* Adjust the blur radius as needed */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            /* Ensure the pseudo-element is behind other content */
+        }
+
         .success-message {
             display:
                 <?php echo isset ($registration_message) ? 'block' : 'none'; ?>
@@ -60,39 +93,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 
-<body>
+<body class="h-screen">
+    <!--header section-->
+    <header
+        class="bg-cyan-500 shadow-md shadow-cyan-500/50 py-3 px-3 fixed flex sm:justify-center sm:items-center gap-4 top-0 left-0 w-full z-10">
+        <div class="logo-container">
+            <a href=""><img src="../assets/logo.png" class="w-16 h-14" alt="Logo" /></a>
+        </div>
 
-    <table>
-        <tr>
-            <th style="padding-left: 150px; padding-right:150px; "><img style="width: 300px; height: 200px;"
-                    src="../assets/Logo.png"></th>
-            <th style="margin-left: 30px; ">
-                <div class="RegisterContainer">
-                    <h1>TRADER REGISTER</h1>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div style="float: left; margin-left: 15px;">Username <span style="color: red;">*</span></div>
-                        <input class="inputR" type="text" name="username" required><br><br>
-                        <div style="float: left; margin-left: 15px;">Email <span style="color: red;">*</span></div>
-                        <input class="inputR" type="email" name="email" required><br>
-                        <div style="float: left; margin-left: 9px; padding: 10px">Password <span
-                                style="color: red;">*</span></div>
-                        <input class="inputR" type="password" name="password" required><br>
-                        <div style="float: left; margin-left: 9px; padding: 10px">Confirm Password <span
-                                style="color: red;">*</span></div>
-                        <input class="inputR" type="password" name="confirm_password" required><br>
-                        <div class="have">Already have an account? <a class="dec" href="Login.php">Login</a></div>
-                        <br></br>
+        <h1 class="text-xl font-semibold text-start">
+            Online Barter System in Municipality of Guinobatan
+        </h1>
+    </header>
+    <div class="flex justify-center items-center h-screen">
+        <div>
+            <div class="text-4xl px-5 py-4 drop-shadow-lg sm:text-start text-center sm:px-10 font-extrabold">
+                <h1>Register</h1>
+            </div>
+            <form method="post" class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 px-5">
+                <div>
+                    <img src="../assets/Logo.png" alt="logo" class="sm:w-96 sm:h-80 hidden sm:block" />
+                </div>
+                <div class="bg-cyan-500/20 px-4 py-3 rounded-md w-96">
+                    <div class="flex">
+                        <p>Username</p>
+                        <span class="text-red-500">*</span>
+                    </div>
+                    <input class="w-full p-1 m-1 rounded-md bg-gray-100/30" type="text" name="username" required />
 
-                        <button class="registerbtn" type="submit">Register</button>
-                    </form>
-            </th>
-        </tr>
-    </table>
+                    <div class="flex">
+                        <p>Email</p>
+                        <span class="text-red-500">*</span>
+                    </div>
+                    <input class="w-full p-1 m-1 rounded-md bg-gray-100/30" type="email" name="email" required />
+
+                    <div class="flex">
+                        <p>Password</p>
+                        <span class="text-red-500">*</span>
+                    </div>
+
+                    <input class="w-full p-1 m-1 rounded-md bg-gray-100/30" type="password" name="password" required />
+
+                    <div class="flex">
+                        <p>Confirm Password</p>
+                        <span class="text-red-500">*</span>
+                    </div>
+
+                    <input class="w-full p-1 m-1 rounded-md bg-gray-100/30" type="password" name="password" required />
+
+                    <hr class="border border-gray-400/20 my-3" />
+
+                    <button
+                        class="px-4 bg-cyan-500 hover:bg-cyan-600 shadow-md transition w-full py-2 rounded-md text-lg font-semibold"
+                        type="submit">
+                        Register
+                    </button>
+
+                    <div class="text-xm py-2 flex gap-1 justify-center items-center">
+                        <p class="">Already have an account?</p>
+                        <a class="text-red-500" href="Login.php">Login</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div id="successMessage" class="success-message">
         <?php echo isset ($registration_message) ? $registration_message : ''; ?>
     </div>
-
 </body>
 
 </html>
