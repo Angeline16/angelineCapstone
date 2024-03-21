@@ -1,6 +1,5 @@
 <?php
-$conn = new mysqli('localhost', 'root', '', 'TradeSystem');
-// Check connection
-if ($conn->connect_error) {
-    die ("Connection failed: " . $conn->connect_error);
-}
+$link = mysqli_connect("localhost", "root", "") or die ('Unable to connect');
+mysqli_select_db($link, "tradesystem") or die ('Unable to select database');
+
+return $link;

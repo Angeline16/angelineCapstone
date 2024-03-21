@@ -17,9 +17,12 @@
                 class="rounded-md bg-gray-100/50 sm:ml-5 caret-blue-500 placeholder:text-base placeholder:text-gray-800 px-4 py-1 sm:w-96 outline-none border" />
         </div>
         <div class="text-2xl flex justify-center items-center gap-2">
-            <iconify-icon icon="ic:round-notifications" class="hover:text-gray-100 transition"></iconify-icon>
-            <iconify-icon icon="mingcute:user-4-fill" class="hover:text-gray-100 transition"></iconify-icon>
-            <iconify-icon icon="solar:settings-bold" class="hover:text-gray-100 transition"></iconify-icon>
+            <a href="Myprofile.php" class="flex justify-center items-center"> <iconify-icon
+                    icon="ic:round-notifications" class="hover:text-gray-100 transition"></iconify-icon></a>
+            <a href="Myprofile.php" class="flex justify-center items-center"> <iconify-icon icon="mingcute:user-4-fill"
+                    class="hover:text-gray-100 transition"></iconify-icon></a>
+            <a href="logout.php" class="flex justify-center items-center"> <iconify-icon icon="solar:logout-broken"
+                    class="hover:text-gray-100 transition"></iconify-icon></a>
         </div>
     </header>
 </body>

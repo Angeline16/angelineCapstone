@@ -11,7 +11,7 @@
     <aside id="sidebar" class="w-60 hidden sm:block bg-gray-100 fixed z-50 top-0 left-0 h-full">
         <div class="px-3">
             <div class="flex justify-between items-center">
-                <img src="../assets/Logo.png" alt="" class="w-20 h-14" />
+                <img src="./assets/Logo.png" alt="" class="w-20 h-14" />
                 <div id="close"
                     class="bg-slate-400/50 sm:hidden text-red-400 flex justify-center items-center rounded-full p-1">
                     <iconify-icon icon="iconoir:xmark" class="text-2xl"></iconify-icon>
@@ -25,19 +25,19 @@
                     <div
                         class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
                         <iconify-icon icon="material-symbols:dashboard" class="text-xl"></iconify-icon>
-                        <a href="">Dashboard</a>
+                        <a href="Dashboard.php">Dashboard</a>
                     </div>
                     <div
                         class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
                         <iconify-icon icon="carbon:add-filled" class="text-xl"></iconify-icon>
 
-                        <a href="">Add Item</a>
+                        <a href="Add.php">Add Item</a>
                     </div>
                     <div
                         class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
                         <iconify-icon icon="ep:list" class="text-xl"></iconify-icon>
 
-                        <a href="">Trade List</a>
+                        <a href="Tradelist.php">Trade List</a>
                     </div>
                     <div
                         class="py-2 flex justify-start items-center gap-2 w-full hover:bg-gray-300 hover:font-semibold hover:text-cyan-500 transition rounded-md px-2">
@@ -49,13 +49,13 @@
                         class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
                         <iconify-icon icon="material-symbols:live-help-sharp" class="text-xl"></iconify-icon>
 
-                        <a href="">Help Center</a>
+                        <a href="Helpcenter.php">Help Center</a>
                     </div>
                 </div>
             </div>
         </div>
     </aside>
-
+    <script></script>
 </body>
 
 </html>
