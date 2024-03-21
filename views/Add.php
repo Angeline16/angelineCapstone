@@ -1,5 +1,5 @@
 <?php
-include ("./php/connection.php");
+include ("../php/connection.php");
 
 /*
 
@@ -112,8 +112,8 @@ $conn->close();
 
 <body>
 
-    <?php include 'components/header.php'; ?>
-    <?php include 'components/sidebar.php'; ?>
+    <?php include '../components/header.php'; ?>
+    <?php include '../components/sidebar.php'; ?>
 
     <div class="text-gray-800 bg-gray-50 sm:pl-60 pt-5">
         <h1 class="text-xl font-semibold ml-10">Add new Item</h1>
