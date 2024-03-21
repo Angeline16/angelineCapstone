@@ -1,3 +1,7 @@
+<?php
+include ("../php/connection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +35,26 @@
                     <div class="">
                         <div>
                             <div class="mb-4">
+                                <p class="font-semibold">
+                                    Item name <span class="text-red-400">*</span>
+                                </p>
+                                <input type="text" id="color" name="item_name"
+                                    class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
+                            </div>
+                            <div class="mb-4">
+
+                                <p class="font-semibold">
+                                    Category <span class="text-red-400">*</span>
+                                </p>
+                                <select id="item_condition" name="item_condition"
+                                    class="border p-1 rounded-md text-sm w-full sm:w-3/4" required>
+                                    <option value="">Select Category</option>
+                                    <option value="brandNew">Brand New</option>
+                                    <option value="used">Used</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+
                                 <p class="font-semibold">
                                     Condition <span class="text-red-400">*</span>
                                 </p>
