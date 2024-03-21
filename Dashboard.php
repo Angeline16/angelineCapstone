@@ -60,6 +60,11 @@ if (!isset ($_SESSION['logged_in'])) {
         body {
             font-family: "Nunito", sans-serif;
         }
+
+        .dashboard {
+            color: #0e7490;
+            font-weight: bold;
+        }
     </style>
 </head>
 

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <header class="w-full flex sm:pl-60 justify-between items-center bg-cyan-400 py-4 px-5">
+    <header class="w-full flex sm:pl-60 justify-between items-center bg-cyan-400 text-gray-800 py-4 px-5">
         <div class="flex gap-5">
             <button id="toggleSidebar" class="sm:hidden flex justify-center items-center">
                 <iconify-icon icon="ic:round-menu" class="text-2xl"></iconify-icon>
