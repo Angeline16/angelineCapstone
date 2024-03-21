@@ -152,7 +152,7 @@ include ("../php/connection.php");
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center gap-10 mx-10 mb-5 sm:w-3/4">
+                <div class="flex justify-between items-center gap-10 mx-10 mb-5 sm:w-1/2">
                     <button type="submit"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold w-1/2 py-2 px-4 rounded">
                         Save
