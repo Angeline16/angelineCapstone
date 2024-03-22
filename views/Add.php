@@ -1,4 +1,5 @@
 <?php
+include ("../php/connection.php");
 session_start(); // Start the session to access session variables
 
 $hostname = "localhost"; // Change this to your hostname
@@ -41,47 +42,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: Category not found";
         exit();
     }
-
-    // Query to get condition ID
-    $condition_query = "SELECT id FROM item_condition WHERE condi = '$condition_name'";
-    $condition_result = $conn->query($condition_query);
-    if ($condition_result->num_rows > 0) {
-        $condition_row = $condition_result->fetch_assoc();
-        $condition_id = $condition_row['id'];
-    } else {
-        echo "Error: Condition not found";
-        exit();
-    }
-
-    // Check if the form is submitted and file is uploaded
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['file-upload'])) {
-        // Retrieve file data
-        $file_name = $_FILES['file-upload']['name'];
-        $file_tmp = $_FILES['file-upload']['tmp_name'];
-        $file_size = $_FILES['file-upload']['size'];
-        $file_type = $_FILES['file-upload']['type'];
-    
-        // Check if file is uploaded successfully
-        if ($file_tmp != "") {
-            // Open the file in binary mode
-            $file_data = file_get_contents($file_tmp);
-    
-            // Escape special characters to prevent SQL injection
-            $escaped_file_data = $conn->real_escape_string($file_data);
-    
-            // Insert data into the database including UserID and image as BLOB
-            $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID, Image) 
-                    VALUES ('$item_name', '$category_id', '$condition_name', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id', '$escaped_file_data')";
-    
-            if ($conn->query($sql) === TRUE) {
-                echo "New record created successfully";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
+// Query to fetch conditions
+$condition_query = "SELECT id, condi FROM item_condition";
+$condition_result = $conn->query($condition_query);
+if ($condition_result->num_rows > 0) {
+    while ($condition = $condition_result->fetch_assoc()) {
+        echo "<option value='" . $condition['id'] . "'>" . $condition['condi'] . "</option>"; // Change value to ID
     }
 }
-    
+
+// Retrieve form data
+$item_name = $_POST['item_name'];
+$category_name = $_POST['category_name'];
+$condition_id = $_POST['condition']; // Retrieve the ID of the condition
+$color = $_POST['color'];
+$size = $_POST['size'];
+$description = $_POST['description'];
+$wishlist = $_POST['wishlist'];
+$price = $_POST['price'];
+$year = $_POST['year'];
+$brand = $_POST['brand'];
+
+// Insert data into the database including UserID
+$sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID) 
+        VALUES ('$item_name', '$category_id', '$condition_id', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+}
+
+
+
 ?>
 
 
@@ -159,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         $condition_result = $conn->query($condition_query);
                                         if ($condition_result->num_rows > 0) {
                                             while ($condition = $condition_result->fetch_assoc()) {
-                                                echo "<option value='" . $condition['condi'] . "'>" . $condition['condi'] . "</option>";
+                                                echo "<option value='" . $condition['id'] . "'>" . $condition['condi'] . "</option>";
                                             }
                                         }
                                         ?>
@@ -179,6 +174,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="mb-4">
                                 <p class="font-semibold">
                                     Size <span class="text-red-400">*</span>
+                                    <br>
+                                    <small><i>Please specified if the measurement given is in cm, inches, etc.</i></small>
                                 </p>
                                 <input type="text" id="size" name="size"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
