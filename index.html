@@ -16,120 +16,48 @@
     </style>
   </head>
   <body>
-    <div class="px-5 py-5 w-full h-screen bg-white text-gray-800">
-      <div class="flex justify-between items-center">
-        <h1 class="font-extrabold text-xl">Dashboard</h1>
+    <div
+      class="fixed absolute bg-gray-500/20 top-0 text-gray-800 left-0 z-20 h-full w-full"
+    >
+      <div class="flex justify-center items-center h-full">
+        <div class="grid grid-cols-1 gap-x-5 sm:grid-cols-2 m-10">
+          <div>
+            <img src="./assets/uploads/dress.png" alt="" class="rounded-md" />
+          </div>
+          <div class="pt-5 sm:p-0">
+            <h1 class="text-xl font-extrabold">Flower Necklace</h1>
+            <div>
+              <span class="text-sm text-cyan-500">$349</span>
+              <p class="text-sm font-semibold">Item description:</p>
+              <p class="text-sm">
+                The necklace features a stunning gold chain and a delicate
+                flower pendant that is sure to catch the eye.
+              </p>
+              <!-- Additional information -->
+              <p class="text-sm font-semibold">Category:</p>
 
-        <form class="">
-          <select id="countries" class="border rounded-md py-1 px-2">
-            <option selected>Category</option>
-            <option>Clothing</option>
-            <option>Jewelry&Watches</option>
-            <option>MObile Phone & Gadgets</option>
-            <option>Footwear</option>
-            <option>Home & Kitchen</option>
-            <option>Musical Instruments</option>
-          </select>
-        </form>
-      </div>
-      <div>
-        <p class="text-sm font-semibold py-5">Item List</p>
-      </div>
+              <p class="text-sm">Jewelry</p>
 
-      <div class="bg-white py-5">
-        <div class="px-5">
-          <div
-            class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:gap-x-8"
-          >
-            <div class="group relative shadow rounded-md p-2">
-              <div
-                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
-              >
-                <img
-                  src="/assets/uploads/dress.png"
-                  alt=""
-                  class="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div class="mt-4 flex justify-between">
-                <div>
-                  <h3 class="text-sm text-gray-700">
-                    <a href="#" class="font-semibold">
-                      <span aria-hidden="true" class="absolute inset-0"></span>
-                      Dress
-                    </a>
-                  </h3>
-                  <p class="text-sm text-gray-500">Posted by Jm</p>
-                </div>
-              </div>
-            </div>
+              <p class="text-sm font-semibold">Condition:</p>
+              <p class="text-sm">New</p>
+              <p class="text-sm font-semibold">Color:</p>
+              <p class="text-sm">Gold</p>
+              <p class="text-sm font-semibold">Size:</p>
+              <p class="text-sm">One Size</p>
+              <p class="text-sm font-semibold">Year:</p>
+              <p class="text-sm">2022</p>
+              <p class="text-sm font-semibold">Brand: ?</p>
 
-            <div class="group relative shadow rounded-md p-2">
-              <div
-                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
-              >
-                <img
-                  src="/assets/uploads/shirt.png"
-                  alt=""
-                  class="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div class="mt-4 flex justify-between">
-                <div>
-                  <h3 class="text-sm text-gray-700">
-                    <a href="#">
-                      <span aria-hidden="true" class="absolute inset-0"></span>
-                      Shirt
-                    </a>
-                  </h3>
-                  <p class="text-sm text-gray-500">Posted by Cla</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="group relative shadow rounded-md p-2">
-              <div
-                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
-              >
-                <img
-                  src="/assets/uploads/Bag.jpg"
-                  alt=""
-                  class="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div class="mt-4 flex justify-between">
-                <div>
-                  <h3 class="text-sm text-gray-700">
-                    <a href="#">
-                      <span aria-hidden="true" class="absolute inset-0"></span>
-                      Bag
-                    </a>
-                  </h3>
-                  <p class="text-sm text-gray-500">Posted by Jay</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="group relative shadow rounded-md p-2">
-              <div
-                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
-              >
-                <img
-                  src="/assets/uploads/shoes.png"
-                  alt=""
-                  class="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div class="mt-4 flex justify-between">
-                <div>
-                  <h3 class="text-sm text-gray-700">
-                    <a href="#">
-                      <span aria-hidden="true" class="absolute inset-0"></span>
-                      Shoes
-                    </a>
-                  </h3>
-                  <p class="text-sm text-gray-500">Posted by Luffy</p>
-                </div>
+              <!-- Buttons -->
+              <div class="mt-4">
+                <button
+                  class="px-4 py-2 bg-blue-500 text-white rounded-md mr-2"
+                >
+                  Send Request
+                </button>
+                <button class="px-4 py-2 bg-green-500 text-white rounded-md">
+                  Send Message
+                </button>
               </div>
             </div>
           </div>

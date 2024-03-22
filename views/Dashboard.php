@@ -73,8 +73,6 @@ if ($result->num_rows > 0) {
     </style>
 </head>
 
-
-
 <body>
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
@@ -122,7 +120,8 @@ if ($result->num_rows > 0) {
                                 <div class="mt-4 flex justify-between">
                                     <div>
                                         <h3 class="text-sm text-gray-700">
-                                            <a href="item_details.php?id=<?php echo $item['ItemID']; ?>" class="font-semibold">
+                                            <a href="item_details.php?id=<?php echo $item['ItemID']; ?>"
+                                                class=" capitalize font-extrabold">
                                                 <!-- Display item name -->
                                                 <?php echo $item['ItemName']; ?>
                                             </a>
@@ -142,15 +141,8 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
-
-
     <script>
-
         const toggleButton = document.getElementById("toggleSidebar");
         const sidebar = document.getElementById("sidebar");
         const closeSidebar = document.getElementById("close");
@@ -161,7 +153,6 @@ if ($result->num_rows > 0) {
         closeSidebar.addEventListener("click", () => {
             sidebar.classList.toggle("hidden");
         });
-
     </script>
 </body>
 
