@@ -44,6 +44,42 @@ if ($itemId) {
     exit(); // Exit script
 }
 
+// Fetch category name corresponding to the category ID
+$categoryQuery = "SELECT name FROM categories WHERE id = ?";
+$stmt = $link->prepare($categoryQuery);
+$stmt->bind_param("i", $itemCategory);
+$stmt->execute();
+$categoryResult = $stmt->get_result();
+
+// Check if result is not empty
+if ($categoryResult->num_rows > 0) {
+    // Fetch category name
+    $categoryData = $categoryResult->fetch_assoc();
+    $categoryName = $categoryData['name'];
+} else {
+    // Handle case when category data is not found
+    $categoryName = "Category Not Found";
+}
+
+
+// Fetch condition name corresponding to the condition ID
+$conditionQuery = "SELECT condi FROM item_condition WHERE id = ?";
+$stmt = $link->prepare($conditionQuery);
+$stmt->bind_param("i", $itemCondition);
+$stmt->execute();
+$conditionResult = $stmt->get_result();
+
+// Check if result is not empty
+if ($conditionResult->num_rows > 0) {
+    // Fetch condition name
+    $conditionData = $conditionResult->fetch_assoc();
+    $conditionName = $conditionData['condi'];
+} else {
+    // Handle case when condition data is not found
+    $conditionName = "Condition Not Found";
+}
+
+
 // Close statement and database connection
 $stmt->close();
 $link->close();
@@ -99,13 +135,14 @@ $link->close();
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Category:</p>
                         <p class="text-sm">
-                            <?php echo $itemCategory; ?>
+                            <?php echo $categoryName; ?>
                         </p>
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Condition:</p>
                         <p class="text-sm">
-                            <?php echo $itemCondition; ?>
+                            <?php echo $conditionName; ?>
                         </p>
+
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Color:</p>
                         <p class="text-sm">
