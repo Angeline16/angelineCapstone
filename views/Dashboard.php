@@ -71,9 +71,9 @@ if ($result->num_rows > 0) {
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
     <!-- Your existing HTML content -->
-    <div class="px-5 mx-2 py-5 w-full sm:pl-60 h-screen bg-white text-gray-800">
+    <div class="px-5 py-5 w-full sm:pl-60 h-screen bg-white text-gray-800">
 
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center px-2">
             <h1 class="font-extrabold text-xl">Dashboard</h1>
 
             <form class="">
@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
 
         <div class="bg-white py-5">
             <div class="px-5">
-                <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4 xl:gap-x-8">
+                <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
                     <?php foreach ($items as $item): ?>
                         <div class="group relative shadow rounded-md p-2">
                             <div
@@ -137,20 +137,6 @@ if ($result->num_rows > 0) {
 
 
     <script>
-        // JavaScript for filtering items based on category
-        document.getElementById('categoryForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent form submission
-            var category = document.getElementById('category').value;
-            var itemBoxes = document.querySelectorAll('.item-box');
-            itemBoxes.forEach(function (box) {
-                var boxCategory = box.getAttribute('data-category');
-                if (category === '' || category === boxCategory) {
-                    box.style.display = 'block'; // Show item box
-                } else {
-                    box.style.display = 'none'; // Hide item box
-                }
-            });
-        });
 
         const toggleButton = document.getElementById("toggleSidebar");
         const sidebar = document.getElementById("sidebar");
