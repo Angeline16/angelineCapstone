@@ -70,6 +70,22 @@ if ($result->num_rows > 0) {
             color: #0e7490;
             font-weight: bold;
         }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 
@@ -77,7 +93,7 @@ if ($result->num_rows > 0) {
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
     <!-- Your existing HTML content -->
-    <div class="px-5 py-5 w-full sm:pl-60 h-screen bg-white text-gray-800">
+    <div class="px-5 py-5 w-full sm:pl-60 bg-white text-gray-800">
 
         <div class="flex justify-between items-center px-2">
             <h1 class="font-extrabold text-xl">Dashboard</h1>
@@ -103,7 +119,7 @@ if ($result->num_rows > 0) {
                     <?php if (count($items) > 0): ?>
                         <?php foreach ($items as $item): ?>
                             <!-- Item card -->
-                            <div class="group relative shadow rounded-md p-2">
+                            <a href="ViewProductInfo.php" class="group relative shadow rounded-md p-2">
                                 <!-- Item image -->
                                 <div
                                     class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
@@ -120,11 +136,10 @@ if ($result->num_rows > 0) {
                                 <div class="mt-4 flex justify-between">
                                     <div>
                                         <h3 class="text-sm text-gray-700">
-                                            <a href="item_details.php?id=<?php echo $item['ItemID']; ?>"
-                                                class=" capitalize font-extrabold">
+                                            <p class=" capitalize font-extrabold">
                                                 <!-- Display item name -->
                                                 <?php echo $item['ItemName']; ?>
-                                            </a>
+                                            </p>
                                         </h3>
                                         <!-- Display item's owner -->
                                         <p class="text-sm text-gray-500">Posted by
@@ -132,7 +147,7 @@ if ($result->num_rows > 0) {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <!-- Display message when no items are available -->
@@ -142,18 +157,8 @@ if ($result->num_rows > 0) {
             </div>
         </div>
     </div>
-    <script>
-        const toggleButton = document.getElementById("toggleSidebar");
-        const sidebar = document.getElementById("sidebar");
-        const closeSidebar = document.getElementById("close");
 
-        toggleButton.addEventListener("click", () => {
-            sidebar.classList.toggle("hidden");
-        });
-        closeSidebar.addEventListener("click", () => {
-            sidebar.classList.toggle("hidden");
-        });
-    </script>
+    <script src="../scripts/scripts.js"></script>
 </body>
 
 </html>
