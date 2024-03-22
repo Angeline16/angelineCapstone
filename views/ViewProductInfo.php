@@ -1,3 +1,54 @@
+<?php
+include ("../php/connection.php");
+$itemId = isset ($_GET['id']) ? $_GET['id'] : null;
+
+if ($itemId) {
+    // Prepare SQL statement
+    $stmt = $link->prepare("SELECT * FROM items WHERE ItemID = ?");
+    $stmt->bind_param("i", $itemId);
+
+    // Execute SQL statement
+    $stmt->execute();
+
+    // Get result
+    $result = $stmt->get_result();
+
+    // Check if result is not empty
+    if ($result->num_rows > 0) {
+        // Fetch item data
+        $itemData = $result->fetch_assoc();
+
+        // Assign item data to variables
+        $itemName = $itemData['ItemName'];
+        $itemPrice = $itemData['price'];
+        $itemDescription = $itemData['Description'];
+        $itemCategory = $itemData['CategoryId'];
+        $itemCondition = $itemData['condition'];
+        $itemColor = $itemData['color'];
+        $itemSize = $itemData['size'];
+        $itemYear = $itemData['year'];
+        $itemBrand = $itemData['brand'];
+        $itemImage = $itemData['image'];
+        // Convert blob data to base64 format
+        $imageData = base64_encode($itemImage);
+        // Create image source for HTML
+        $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+    } else {
+        // Handle case when item data is not found
+        echo "Item not found.";
+        exit(); // Exit script
+    }
+} else {
+    // Handle case when item ID is not provided or invalid
+    echo "Invalid item ID.";
+    exit(); // Exit script
+}
+
+// Close statement and database connection
+$stmt->close();
+$link->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,38 +79,52 @@
             <div class="grid  py-10 grid-cols-1 gap-x-5 sm:grid-cols-2 m-auto  px-5  ">
 
                 <div>
-                    <img src="../assets/uploads/dress.png" alt="" class=" rounded-md" />
+                    <img src="<?php echo $imageSrc; ?>" alt="Item Image" class=" rounded-md" />
                 </div>
                 <div class="py-5 sm:p-0">
-                    <h1 class="text-xl font-extrabold">Flower Necklace</h1>
+                    <h1 class="text-xl font-extrabold">
+                        <?php echo $itemName; ?>
+                    </h1>
                     <div>
                         <div class="py-2">
-                            <span class="text-sm text-cyan-600 shadow bg-cyan-300/10 rounded-full px-2 py-1">$349</span>
+                            <span class="text-sm text-cyan-600 shadow bg-cyan-300/10 rounded-full px-2 py-1">
+                                <?php echo $itemPrice; ?>
+                            </span>
                         </div>
                         <p class="text-sm font-semibold">Item description:</p>
                         <p class="text-sm">
-                            The necklace features a stunning gold chain and a delicate
-                            flower pendant that is sure to catch the eye.
+                            <?php echo $itemDescription; ?>
                         </p>
                         <!-- Additional information -->
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Category:</p>
-                        <p class="text-sm">Jewelry</p>
+                        <p class="text-sm">
+                            <?php echo $itemCategory; ?>
+                        </p>
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Condition:</p>
-                        <p class="text-sm">New</p>
+                        <p class="text-sm">
+                            <?php echo $itemCondition; ?>
+                        </p>
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Color:</p>
-                        <p class="text-sm">Gold</p>
+                        <p class="text-sm">
+                            <?php echo $itemColor; ?>
+                        </p>
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Size:</p>
-                        <p class="text-sm">One Size</p>
+                        <p class="text-sm">
+                            <?php echo $itemSize; ?>
+                        </p>
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Year:</p>
-                        <p class="text-sm">2022</p>
+                        <p class="text-sm">
+                            <?php echo $itemYear; ?>
+                        </p>
                         <hr class="border border-gray-400/10 my-2" />
-                        <p class="text-sm font-semibold">Brand: ?</p>
-
+                        <p class="text-sm font-semibold">Brand:
+                            <?php echo $itemBrand; ?>
+                        </p>
                         <!-- Buttons -->
                         <div class="mb-10 mt-4 ">
                             <button
@@ -73,7 +138,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
 
