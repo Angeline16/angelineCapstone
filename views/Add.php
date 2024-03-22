@@ -1,6 +1,6 @@
 <?php
-include ("../php/connection.php");
 session_start(); // Start the session to access session variables
+
 
 $hostname = "localhost"; // Change this to your hostname
 $username = "root"; // Change this to your database username
@@ -15,41 +15,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $item_name = $_POST['item_name'];
-    $category_name = $_POST['category_name'];
-    $condition_name = $_POST['condition'];
-    $color = $_POST['color'];
-    $size = $_POST['size'];
-    $description = $_POST['description'];
-    $wishlist = $_POST['wishlist'];
-    $price = $_POST['price'];
-    $year = $_POST['year'];
-    $brand = $_POST['brand'];
-
-    // Retrieve UserID from session
-    $user_id = $_SESSION['user_id'];
-
-    // Query to get category ID
-    $category_query = "SELECT id FROM categories WHERE name = '$category_name'";
-    $category_result = $conn->query($category_query);
-    if ($category_result->num_rows > 0) {
-        $category_row = $category_result->fetch_assoc();
-        $category_id = $category_row['id'];
-    } else {
-        echo "Error: Category not found";
-        exit();
-    }
-// Query to fetch conditions
-$condition_query = "SELECT id, condi FROM item_condition";
-$condition_result = $conn->query($condition_query);
-if ($condition_result->num_rows > 0) {
-    while ($condition = $condition_result->fetch_assoc()) {
-        echo "<option value='" . $condition['id'] . "'>" . $condition['condi'] . "</option>"; // Change value to ID
-    }
-}
 
 // Retrieve form data
 $item_name = $_POST['item_name'];
@@ -63,6 +31,42 @@ $price = $_POST['price'];
 $year = $_POST['year'];
 $brand = $_POST['brand'];
 
+
+    // Query to get category ID
+    $category_query = "SELECT id FROM categories WHERE name = '$category_name'";
+    $category_result = $conn->query($category_query);
+    if ($category_result->num_rows > 0) {
+        $category_row = $category_result->fetch_assoc();
+        $category_id = $category_row['id'];
+    } else {
+        echo "Error: Category not found";
+        exit();
+    }
+
+    // Retrieve UserID from session
+    $user_id = $_SESSION['user_id'];
+
+    // Query to check if the user exists
+    // Query to check if the user exists
+$user_query = "SELECT UserID FROM users WHERE UserID = '$user_id'";
+
+    $user_result = $conn->query($user_query);
+    if ($user_result->num_rows == 0) {
+        echo "Error: User not found";
+        exit();
+    }
+
+// Query to fetch conditions
+$condition_query = "SELECT id, condi FROM item_condition";
+$condition_result = $conn->query($condition_query);
+if ($condition_result->num_rows > 0) {
+    while ($condition = $condition_result->fetch_assoc()) {
+        echo "<option value='" . $condition['id'] . "'>" . $condition['condi'] . "</option>"; // Change value to ID
+    }
+}
+
+
+
 // Insert data into the database including UserID
 $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID) 
         VALUES ('$item_name', '$category_id', '$condition_id', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id')";
@@ -72,6 +76,8 @@ if ($conn->query($sql) === TRUE) {
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
+
+
 
 }
 

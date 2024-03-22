@@ -1,6 +1,6 @@
 <?php
 include ("../php/connection.php");
-
+session_start();
 // Process registration form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];

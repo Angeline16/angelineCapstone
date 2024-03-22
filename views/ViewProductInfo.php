@@ -1,4 +1,5 @@
 <?php
+session_start();
 include ("../php/connection.php");
 $itemId = isset ($_GET['id']) ? $_GET['id'] : null;
 

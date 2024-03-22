@@ -1,10 +1,11 @@
 <?php
-include ("../php/connection.php");
+
+include("../php/connection.php");
 // At the beginning of the file
 session_start();
 
 // Check if the user is already logged in
-if (isset ($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+if (isset($_SESSION['user_id'])) {
     // Redirect to dashboard
     header("Location: Dashboard.php");
     exit();
@@ -28,10 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stored_hashed_password = $getuser['Password']; // get the hashed pass in the database
 
         if (password_verify($login_password, $stored_hashed_password)) {
-            $_SESSION['login'] = $getuser;
+            // Store user ID in session
+            $_SESSION['user_id'] = $getuser['UserID'];
             $_SESSION['logged_in'] = true;
             header("Location: Dashboard.php");
-            $login_error = "Logging you in...";
+            exit(); // Exit after redirect
         } else {
             $login_error = "Invalid username or password. Please try again.";
         }
@@ -41,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Check if registration message exists and display it
-if (isset ($_SESSION['registration_message'])) {
+if (isset($_SESSION['registration_message'])) {
     $registration_message = $_SESSION['registration_message'];
     // Display the message
     echo "<div class='success-message'>$registration_message</div>";
@@ -50,6 +52,7 @@ if (isset ($_SESSION['registration_message'])) {
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
