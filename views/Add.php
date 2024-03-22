@@ -53,17 +53,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Insert data into the database including UserID
-    $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID) 
-            VALUES ('$item_name', '$category_id', '$condition_name', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+    // Check if the form is submitted and file is uploaded
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['file-upload'])) {
+        // Retrieve file data
+        $file_name = $_FILES['file-upload']['name'];
+        $file_tmp = $_FILES['file-upload']['tmp_name'];
+        $file_size = $_FILES['file-upload']['size'];
+        $file_type = $_FILES['file-upload']['type'];
+    
+        // Check if file is uploaded successfully
+        if ($file_tmp != "") {
+            // Open the file in binary mode
+            $file_data = file_get_contents($file_tmp);
+    
+            // Escape special characters to prevent SQL injection
+            $escaped_file_data = $conn->real_escape_string($file_data);
+    
+            // Insert data into the database including UserID and image as BLOB
+            $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID, Image) 
+                    VALUES ('$item_name', '$category_id', '$condition_name', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id', '$escaped_file_data')";
+    
+            if ($conn->query($sql) === TRUE) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
     }
 }
-
+    
 ?>
 
 
@@ -222,8 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <label for="file-upload"
                                                 class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                                 <span>Browse on your</span>
-                                                <input id="file-upload" name="file-upload" type="file" class="sr-only"
-                                                    accept="image/*" />
+                                                <input id="file-upload" name="file-upload" type="file" class="sr-only" accept="image/*" />
                                                 </label>
                                             <p class="pl-1">or drag and drop</p>
                                         </div>
@@ -231,6 +248,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             Note: Make sure image should be gif, jpeg, or png
                                             format.
                                         </p>
+                                        
                                     </div>
                                 </div>
                             </div>
