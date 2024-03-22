@@ -1,2 +1,142 @@
-/* this is for creating ui templates nothings going on here. anyways taraaa,
-open */
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+      html,
+      body {
+        font-family: "Nunito", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="px-5 py-5 w-full h-screen bg-white text-gray-800">
+      <div class="flex justify-between items-center">
+        <h1 class="font-extrabold text-xl">Dashboard</h1>
+
+        <form class="">
+          <select id="countries" class="border rounded-md py-1 px-2">
+            <option selected>Category</option>
+            <option>Clothing</option>
+            <option>Jewelry&Watches</option>
+            <option>MObile Phone & Gadgets</option>
+            <option>Footwear</option>
+            <option>Home & Kitchen</option>
+            <option>Musical Instruments</option>
+          </select>
+        </form>
+      </div>
+      <div>
+        <p class="text-sm font-semibold py-5">Item List</p>
+      </div>
+
+      <div class="bg-white py-5">
+        <div class="px-5">
+          <div
+            class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:gap-x-8"
+          >
+            <div class="group relative shadow rounded-md p-2">
+              <div
+                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
+              >
+                <img
+                  src="/assets/uploads/dress.png"
+                  alt=""
+                  class="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                />
+              </div>
+              <div class="mt-4 flex justify-between">
+                <div>
+                  <h3 class="text-sm text-gray-700">
+                    <a href="#" class="font-semibold">
+                      <span aria-hidden="true" class="absolute inset-0"></span>
+                      Dress
+                    </a>
+                  </h3>
+                  <p class="text-sm text-gray-500">Posted by Jm</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative shadow rounded-md p-2">
+              <div
+                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
+              >
+                <img
+                  src="/assets/uploads/shirt.png"
+                  alt=""
+                  class="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                />
+              </div>
+              <div class="mt-4 flex justify-between">
+                <div>
+                  <h3 class="text-sm text-gray-700">
+                    <a href="#">
+                      <span aria-hidden="true" class="absolute inset-0"></span>
+                      Shirt
+                    </a>
+                  </h3>
+                  <p class="text-sm text-gray-500">Posted by Cla</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative shadow rounded-md p-2">
+              <div
+                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
+              >
+                <img
+                  src="/assets/uploads/Bag.jpg"
+                  alt=""
+                  class="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                />
+              </div>
+              <div class="mt-4 flex justify-between">
+                <div>
+                  <h3 class="text-sm text-gray-700">
+                    <a href="#">
+                      <span aria-hidden="true" class="absolute inset-0"></span>
+                      Bag
+                    </a>
+                  </h3>
+                  <p class="text-sm text-gray-500">Posted by Jay</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="group relative shadow rounded-md p-2">
+              <div
+                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
+              >
+                <img
+                  src="/assets/uploads/shoes.png"
+                  alt=""
+                  class="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                />
+              </div>
+              <div class="mt-4 flex justify-between">
+                <div>
+                  <h3 class="text-sm text-gray-700">
+                    <a href="#">
+                      <span aria-hidden="true" class="absolute inset-0"></span>
+                      Shoes
+                    </a>
+                  </h3>
+                  <p class="text-sm text-gray-500">Posted by Luffy</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script></script>
+  </body>
+</html>
