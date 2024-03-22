@@ -10,41 +10,38 @@ if (!isset ($_SESSION['logged_in'])) {
     exit;
 }
 
+
+
 // // Query to retrieve categories from the database
-// $categoryQuery = "SELECT * FROM category_list";
-// $categoryResult = $link->query($categoryQuery);
+$categoryQuery = "SELECT * FROM categories";
+$categoryResult = $link->query($categoryQuery);
 
-// // Array to store category options
-// $categories = array();
+// Array to store category options
+$categories = array();
 
-// // Fetch each row from the category result and store it in the $categories array
-// if ($categoryResult->num_rows > 0) {
-//     while ($row = $categoryResult->fetch_assoc()) {
-//         $categories[] = $row;
-//     }
-// }
+// Fetch each row from the category result and store it in the $categories array
+if ($categoryResult->num_rows > 0) {
+    while ($row = $categoryResult->fetch_assoc()) {
+        $categories[] = $row;
+    }
+}
 
-// // Query to retrieve items and user information
-// $sql = "SELECT item_list.*, client_list.client_id, client_list.Username, category_list.category_name
-//         FROM item_list 
-//         LEFT JOIN client_list ON item_list.client_id = client_list.client_id
-//         LEFT JOIN category_list ON item_list.category_id = category_list.category_id";
+$getItems = "SELECT items.*, users.UserName AS userName 
+             FROM items 
+             INNER JOIN users ON items.UserID = users.UserID";
+
+$result = $link->query($getItems);
+
+$items = array();
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $items[] = $row;
+    }
+    shuffle($items);
+}
 
 
-// $result = $conn->query($sql);
-
-// // Array to store all the items
-// $items = array();
-
-// // Fetch each row from the result and store it in the $items array
-// if ($result->num_rows > 0) {
-//     while ($row = $result->fetch_assoc()) {
-//         $items[] = $row;
-//     }
-
-//     // Shuffle the items array to randomize the display
-//     shuffle($items);
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,65 +71,70 @@ if (!isset ($_SESSION['logged_in'])) {
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
     <!-- Your existing HTML content -->
-    <div id="content" style="margin-left: 15px;">
-        <!-- Dashboard content -->
-        <div
-            style="float:right; width: calc(100% - 250px); height: 150vh; margin-top: 5px; border-radius: 20px; background-color: white;">
-            <div style="background-color: white; color: #1D242E; width: 95%; margin-top: 25px; padding-left: 40px;">
-                <!-- Item List -->
-                <div class="item">
-                    <!-- Navigation and title -->
-                    <a href="Dashboard.php"><i class="fas fa-arrow-left"></i></a>
-                    <span class="add-item" style="font-size: 25px; margin-left: 10px;"><b>Dashboard</b></span><br>
-                    <span class="add-item" style="font-size: 18px; margin-left: 50px;">Item List</span>
-                    <hr style="margin-top: 10px; border-color: #87ceeb;"> <!-- Line with color --><br>
-                    <!-- Select category dropdown -->
-                    <div class="container">
-                        <form id="categoryForm">
-                            <label for="category">Select Category:</label>
-                            <select id="category" name="category" required>
-                                <option value="">All Categories</option>
-                                <?php foreach ($categories as $category): ?>
-                                    <option value="<?php echo $category['category_name']; ?>">
-                                        <?php echo $category['category_name']; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <button type="submit">Filter</button>
-                        </form>
-                    </div>
+    <div class="px-5 mx-2 py-5 w-full sm:pl-60 h-screen bg-white text-gray-800">
 
-                    <!-- Display all items -->
-                    <div class="item-list">
-                        <?php foreach ($items as $item): ?>
-                            <a href="item_details.php?id=<?php echo $item['id']; ?>" class="item-box"
-                                data-category="<?php echo $item['category_name']; ?>">
-                                <div class="item-info clickable-box">
-                                    <div class="image-placeholder">
-                                        <?php if (!empty ($item['img_path'])): ?>
-                                            <img src="<?php echo $item['img_path']; ?>" alt="Item Image">
-                                        <?php else: ?>
-                                            <p>No Image Available</p>
-                                        <?php endif; ?>
-                                    </div>
-                                    <h3>
-                                        <?php echo $item['item_name']; ?>
+        <div class="flex justify-between items-center">
+            <h1 class="font-extrabold text-xl">Dashboard</h1>
+
+            <form class="">
+                <select id="countries" class="border rounded-md py-1 px-2">
+                    <option selected hidden>Category</option>
+                    <?php foreach ($categories as $category): ?>
+
+                        <option value="<?php echo $category['name']; ?>">
+                            <?php echo $category['name']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </form>
+        </div>
+
+
+
+
+        <div class="bg-white py-5">
+            <div class="px-5">
+                <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4 xl:gap-x-8">
+                    <?php foreach ($items as $item): ?>
+                        <div class="group relative shadow rounded-md p-2">
+                            <div
+                                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                                <?php if (!empty ($item['image'])): ?>
+                                    <?php
+                                    $imageData = base64_encode($item['image']);
+                                    $src = 'data:image/jpeg;base64,' . $imageData;
+                                    ?>
+                                    <img src="<?php echo $src; ?>" alt="Item Image"
+                                        class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+                                <?php else: ?>
+                                    <p>No Image Available</p>
+                                <?php endif; ?>
+
+                            </div>
+                            <div class="mt-4 flex justify-between">
+                                <div>
+                                    <h3 class="text-sm text-gray-700">
+                                        <a href="item_details.php?id=<?php echo $item['ItemID']; ?>" class="font-semibold">
+                                            <span aria-hidden="true" class="absolute inset-0"></span>
+                                            <?php echo $item['ItemName']; ?>
+                                        </a>
                                     </h3>
-                                    <p><strong>Category:</strong> <small>
-                                            <?php echo $item['category_name']; ?>
-                                        </small></p>
-                                    <p><strong>Condition:</strong> <small>
-                                            <?php echo $item['condition']; ?>
-                                        </small></p>
-                                    <!-- Add more item details as needed -->
+                                    <p class="text-sm text-gray-500">Posted by
+                                        <?php echo $item['userName']; ?>
+                                    </p>
                                 </div>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
+
+
+
+
     </div>
+
 
     <script>
         // JavaScript for filtering items based on category
