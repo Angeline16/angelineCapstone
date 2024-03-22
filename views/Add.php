@@ -28,6 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $year = $_POST['year'];
     $brand = $_POST['brand'];
 
+    // Retrieve UserID from session
+    $user_id = $_SESSION['user_id'];
+
     // Query to get category ID
     $category_query = "SELECT id FROM categories WHERE name = '$category_name'";
     $category_result = $conn->query($category_query);
@@ -49,23 +52,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: Condition not found";
         exit();
     }
-    
 
+    // Insert data into the database including UserID
+    $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID) 
+            VALUES ('$item_name', '$category_id', '$condition_name', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id')";
 
-// Insert data into the database including UserID
-$sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand) 
-        VALUES ('$item_name', '$category_id', '$condition_name', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand')";
-
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
 }
-}
-
-
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
