@@ -100,7 +100,7 @@ if ($result->num_rows > 0) {
 
             <form method="POST">
                 <select id="categories" name="category" class="border rounded-md py-1 px-2">
-                    <option selected hidden>Category</option>
+                    <option selected >All Category</option>
                     <?php foreach ($categories as $category): ?>
 
                         <option value="<?php echo $category['name']; ?>">

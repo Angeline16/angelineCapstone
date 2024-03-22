@@ -1,15 +1,25 @@
 <?php
-include ("../php/connection.php");
+session_start(); // Start the session to access session variables
 
-/*
+$hostname = "localhost"; // Change this to your hostname
+$username = "root"; // Change this to your database username
+$password = ""; // Change this to your database password
+$database = "tradesystem"; // Change this to your database name
 
- // Initialize popup message variable
-$popupMessage = "";
-// Process form submission
+// Create connection
+$conn = new mysqli($hostname, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
     $item_name = $_POST['item_name'];
-    $category_id = $_POST['category'];
-    $item_condition = $_POST['item_condition']; // Correctly retrieve the item_condition value
+    $category_name = $_POST['category_name'];
+    $condition_name = $_POST['condition'];
     $color = $_POST['color'];
     $size = $_POST['size'];
     $description = $_POST['description'];
@@ -18,75 +28,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $year = $_POST['year'];
     $brand = $_POST['brand'];
 
-    // Validate that item_condition is not empty
-    if(empty($item_condition)) {
-        // Handle the case where item_condition is empty
-        $popupMessage = "Error: Item condition cannot be empty.";
+    // Query to get category ID
+    $category_query = "SELECT id FROM categories WHERE name = '$category_name'";
+    $category_result = $conn->query($category_query);
+    if ($category_result->num_rows > 0) {
+        $category_row = $category_result->fetch_assoc();
+        $category_id = $category_row['id'];
     } else {
-        session_start(); // Start the session if not already started
-        // Check if the client_id is set in the session
-if (!isset($_SESSION['client_id'])) {
-    // Handle the case where the client_id is not set (user not logged in)
-    // For example, you might redirect the user to the login page
-    header("Location: login.php");
-    exit(); // Stop further execution of the script
-}
-        $client_id = $_SESSION['client_id'];
-        // Proceed with the insertion
-        // Prepare SQL statement
-        $sql = "INSERT INTO item_list (item_name, item_condition, color, size, description, wishlist, price, year, brand) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        if ($stmt) {
-            // Bind parameters with data types
-            $stmt->bind_param("sissssssss", $item_name, $category_id, $item_condition, $color, $size, $description, $wishlist, $price, $year, $brand);
-
-            // Execute the statement
-            if ($stmt->execute()) {
-                // Successful insertion
-                $popupMessage = "Item added successfully.";
-            } else {
-                // Error in insertion
-                $popupMessage = "Error: " . $stmt->error;
-            }
-
-            // Close statement
-            $stmt->close();
-        }else {
-            // Error in preparing the statement
-            $popupMessage = "Error: Unable to prepare statement.";
-        }
+        echo "Error: Category not found";
+        exit();
     }
-}
-?>
-<?php
 
-
-// Initialize popup message variable
-$popupMessage = "";
-
-// Fetch categories from the database
-$categoryOptions = array(); // Initialize empty array
-$sql = "SELECT category_id, category_name FROM category_list";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $categoryOptions[$row['category_id']] = $row['category_name'];
+    // Query to get condition ID
+    $condition_query = "SELECT id FROM item_condition WHERE condi = '$condition_name'";
+    $condition_result = $conn->query($condition_query);
+    if ($condition_result->num_rows > 0) {
+        $condition_row = $condition_result->fetch_assoc();
+        $condition_id = $condition_row['id'];
+    } else {
+        echo "Error: Condition not found";
+        exit();
     }
+    
+
+
+// Insert data into the database including UserID
+$sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand) 
+        VALUES ('$item_name', '$category_id', '$condition_name', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
 }
 
-// Process form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Your existing form processing code goes here
-}
 
-//Close the database connection (not necessary here as PHP will close it automatically at the end of script execution)
-$conn->close();
-
-*/
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,8 +98,8 @@ $conn->close();
     <div class="text-gray-800 bg-gray-50 sm:pl-60 pt-5">
         <h1 class="text-xl font-semibold ml-10">Add new Item</h1>
         <div>
-            <form action="
-">
+        <form action="" method="post">
+
                 <div class="m-2 grid grid-cols-1 sm:grid-cols-2 mx-10">
                     <div class="">
                         <div>
@@ -131,29 +111,46 @@ $conn->close();
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                             </div>
                             <div class="mb-4">
-
                                 <p class="font-semibold">
                                     Category <span class="text-red-400">*</span>
                                 </p>
-                                <select id="item_condition" name="item_condition"
-                                    class="border p-1 rounded-md text-sm w-full sm:w-3/4" required>
+                                <select id="categories" name="category_name" class="border p-1 rounded-md text-sm w-full sm:w-3/4" required>
                                     <option value="">Select Category</option>
-                                    <option value="brandNew">Brand New</option>
-                                    <option value="used">Used</option>
+                                    <?php
+                                    // Query to fetch categories
+                                    $category_query = "SELECT id, name FROM categories";
+                                    $category_result = $conn->query($category_query);
+                                    if ($category_result->num_rows > 0) {
+                                        while ($category = $category_result->fetch_assoc()) {
+                                            echo "<option value='" . $category['name'] . "'>" . $category['name'] . "</option>";
+                                        }
+                                    }
+                                    ?>
                                 </select>
+
                             </div>
                             <div class="mb-4">
+                                    <p class="font-semibold">
+                                        Condition <span class="text-red-400">*</span>
+                                    </p>
+                                    <select id="item_condition" name="condition" class="border p-1 rounded-md text-sm w-full sm:w-3/4" required>
+                                        <option value="">Select Condition</option>
+                                        <?php
+                                        // Query to fetch conditions
+                                        $condition_query = "SELECT id, condi FROM item_condition";
+                                        $condition_result = $conn->query($condition_query);
+                                        if ($condition_result->num_rows > 0) {
+                                            while ($condition = $condition_result->fetch_assoc()) {
+                                                echo "<option value='" . $condition['condi'] . "'>" . $condition['condi'] . "</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
 
-                                <p class="font-semibold">
-                                    Condition <span class="text-red-400">*</span>
-                                </p>
-                                <select id="item_condition" name="item_condition"
-                                    class="border p-1 rounded-md text-sm w-full sm:w-3/4" required>
-                                    <option value="">Select Condition</option>
-                                    <option value="brandNew">Brand New</option>
-                                    <option value="used">Used</option>
-                                </select>
-                            </div>
+
+
+
                             <div class="mb-4">
                                 <p class="font-semibold">
                                     Color <span class="text-red-400">*</span>
@@ -186,14 +183,14 @@ $conn->close();
                                 <p class="font-semibold">
                                     Price <span class="text-red-400">*</span>
                                 </p>
-                                <input type="text" id="price" name="price"
+                                <input type="number" id="price" name="price"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" required />
                             </div>
                             <div class="mb-4">
                                 <p class="font-semibold">
                                     Year <span class="text-red-400">*</span>
                                 </p>
-                                <input type="text" id="year" name="year"
+                                <input type="number" id="year" name="year"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                             </div>
                             <div class="mb-4">
@@ -227,7 +224,7 @@ $conn->close();
                                                 <span>Browse on your</span>
                                                 <input id="file-upload" name="file-upload" type="file" class="sr-only"
                                                     accept="image/*" />
-                                            </label>
+                                                </label>
                                             <p class="pl-1">or drag and drop</p>
                                         </div>
                                         <p class="text-xs leading-5 text-gray-600">
