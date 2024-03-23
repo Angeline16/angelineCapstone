@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2024 at 02:04 AM
+-- Generation Time: Mar 22, 2024 at 05:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -83,14 +83,7 @@ INSERT INTO `items` (`ItemID`, `UserID`, `ItemName`, `Description`, `CategoryId`
 (41, 0, 'Pants', 'scasgdrtjhrsterhgs dvszvc', 2, '', 'Navy', '23X30 inch', 2024, 'Louis Vuitt', 50, 0, 'Original Wallet of Gucci'),
 (45, 0, 'Cellphone', 'uigig', 2, '', 'Navy', '23X30 inch', 2024, 'Louis Vuitt', 5, 0, 'asds'),
 (46, 0, 'Félicie Pochette', 'setwhdrths dv dssdfw ef wefw', 1, '', 'Navy', '23X30 inch', 2024, 'Louis Vuitt', 10000, 0, 'Original Wallet of Gucci'),
-(47, 23, 'Pants', 'www egeoge fhuwif  ;af hawpfei ', 1, '', 'Navy', '23X30 inch', 2024, 'Louis Vuitt', 10000, 0, 'Original Wallet of Gucci'),
-(48, 23, 'skirt', 'adasdas', 2, '', 'aasd', '231111', 234234, 'Louis Vuitt', 323423, 0, 'asdasda'),
-(49, 23, 'Félicie Pochette5', 'adasdasd', 2, '', 'Navy', '23X30 inch', 234234, '234234', 32434, 0, 'asdas'),
-(50, 23, 'Acer Laptop', 'slightly ysed laptop', 2, '', 'Silver Matt', '23X30 inch', 2024, 'Louis Vuitt', 10000, 0, 'iphone na cellphone tabi'),
-(51, 23, 'Hello Kitty Mug', 'defwer3243 2342', 2, '', 'pink', '23X30 inch', 2024, 'Louis Vuitt', 10000, 1, 'Original Wallet of Gucci'),
-(52, 23, 'Félicie Pochette', 'Original LV Bag', 4, '', 'Navy', '23X30 inch', 2024, 'Louis Vuitt', 10000, 1, 'Original Wallet of Gucci'),
-(77, 22, 'Vivo Y11', 'asdasd asdaasda ', 3, '', 'Red', '15.5x7.5cm', 2019, 'ViVo', 7000, 2, 'realme syempre bago dapat'),
-(78, 24, 'tumbler', 'bbuoyg l;j', 2, '', 'Navy', '23X30 inch', 2024, '3423', 10000, 2, 'Original Wallet of Gucci');
+(47, 23, 'Pants', 'www egeoge fhuwif  ;af hawpfei ', 1, '', 'Navy', '23X30 inch', 2024, 'Louis Vuitt', 10000, 0, 'Original Wallet of Gucci');
 
 -- --------------------------------------------------------
 
@@ -132,8 +125,7 @@ INSERT INTO `users` (`UserID`, `Username`, `Email`, `Password`) VALUES
 (20, 'cla', 'cla@gmail.com', '$2y$10$UR/MY9bckuiv6/dfH/RwcuNzg0fjqgR9u8BnYNjKWb1edeVgXtH.q'),
 (21, 'deudajm', 'deudajm1@gmail.com', '$2y$10$fGaYSlMFx4vU1MqoXHJYRelbp1cLF9QxX9qW5QTTlkUs/pRMlspSW'),
 (22, 'angel', 'angel@gmail.com', '$2y$10$YNzNYvXWCb63pNHIP2e2u.QpYwQMT1RVK8wW298a0OQ.SOHADV8u.'),
-(23, 'user', 'user@gmail.com', '$2y$10$WCuq6P.I/g.00Y4AIwR5pe08Uf5QHTzlZpkIHdZZWzN5hgWKGyZ72'),
-(24, 'campos', 'campos@gmail.com', '$2y$10$5SRjkLNx3IhatifNOl.xbe5Kx.GTfwKLJ63i7XpZgnpu9006L37eW');
+(23, 'user', 'user@gmail.com', '$2y$10$WCuq6P.I/g.00Y4AIwR5pe08Uf5QHTzlZpkIHdZZWzN5hgWKGyZ72');
 
 --
 -- Indexes for dumped tables
@@ -178,7 +170,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `ItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `ItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `item_condition`
@@ -190,7 +182,7 @@ ALTER TABLE `item_condition`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
