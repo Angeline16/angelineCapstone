@@ -29,11 +29,11 @@
             <h1 class="text-3xl font-extrabold">Trade</h1>
         </div>
         <div class="flex justify-start items-center gap-5 py-3">
-            <a href=""
+            <a href="#"
                 class="px-3 py-1 bg-cyan-500 cursor-pointer text-white font-bold rounded-md shadow hover:bg-cyan-600 transition">
                 Request
             </a>
-            <a href="" class="text-sm cursor-pointer font-semibold hover:text-cyan-500 transition">
+            <a href="TradeCompleted.php" class="text-sm cursor-pointer font-semibold hover:text-cyan-500 transition">
                 Completed
             </a>
         </div>
@@ -57,10 +57,10 @@
                 </div>
             </div>
             <div class="absolute top-2 right-5">
-                <button
-                    class="bg-green-400 px-3 py-1 text-xs rounded-full shadow text-white hover:bg-green-500 transition">
+                <a href="TradeRequest.ViewFullRequest.php"
+                    class="bg-green-400 px-3 cursor-pointer py-1 text-xs rounded-full shadow text-white hover:bg-green-500 transition">
                     View Full Request
-                </button>
+                </a>
             </div>
         </div>
 

@@ -116,11 +116,11 @@ $conn->close();
     <?php include '../components/sidebar.php'; ?>
 
     <div class="text-gray-800 bg-gray-50 sm:pl-60 pt-5">
-        <h1 class="text-xl font-semibold ml-10">Add new Item</h1>
+        <h1 class="text-3xl font-extrabold ml-5">Add new Item</h1>
         <div>
             <form action="
 ">
-                <div class="m-2 grid grid-cols-1 sm:grid-cols-2 mx-10">
+                <div class="m-2 grid grid-cols-1 sm:grid-cols-2 mx-5">
                     <div class="">
                         <div>
                             <div class="mb-4">

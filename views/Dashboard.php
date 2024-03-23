@@ -96,7 +96,7 @@ if ($result->num_rows > 0) {
     <div class="px-5 py-5 w-full sm:pl-60 bg-white text-gray-800">
 
         <div class="flex justify-between items-center px-2">
-            <h1 class="font-extrabold text-xl">Dashboard</h1>
+            <h1 class="font-extrabold text-3xl">Dashboard</h1>
 
             <form method="POST">
                 <select id="categories" name="category" class="border rounded-md py-1 px-2">
