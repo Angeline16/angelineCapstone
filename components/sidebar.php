@@ -33,11 +33,11 @@
 
                         Add Item
                     </a>
-                    <a href="Tradelist.php"
-                        class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
+                    <a href="TradeRequest.php"
+                        class="py-2 flex justify-start items-center trade gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
                         <iconify-icon icon="ep:list" class="text-xl"></iconify-icon>
 
-                        Trade List
+                        Trade
                     </a>
                     <a href=""
                         class="py-2 flex justify-start items-center gap-2 w-full hover:bg-gray-300 hover:font-semibold hover:text-cyan-500 transition rounded-md px-2">
