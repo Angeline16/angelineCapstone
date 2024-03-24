@@ -14,7 +14,7 @@
             font-family: "Nunito", sans-serif;
         }
 
-        .trade {
+        .chat {
             color: #0e7490;
             font-weight: bold;
         }
@@ -61,7 +61,7 @@
 
             <!--  send message form -->
             <div class="">
-                <div class="fixed bottom-0 p-5 sm:pl-64 w-full right-0">
+                <div class="fixed bottom-0 bg-white p-5 sm:pl-64 w-full right-0">
                     <div class="flex w-full justify-center items-center gap-2">
                         <div class="flex justify-center items-center gap-2">
                             <div class="flex justify-center items-center">
