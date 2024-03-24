@@ -62,7 +62,7 @@
             <!--  send message form -->
             <div class="">
                 <div class="fixed bottom-0 p-5 sm:pl-64 w-full right-0">
-                    <div class="flex w-full gap-2">
+                    <div class="flex w-full justify-center items-center gap-2">
                         <div class="flex justify-center items-center gap-2">
                             <div class="flex justify-center items-center">
                                 <button type="submit"
