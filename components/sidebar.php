@@ -39,7 +39,7 @@
 
                         Trade
                     </a>
-                    <a href=""
+                    <a href="Chats.php"
                         class="py-2 flex justify-start items-center gap-2 w-full hover:bg-gray-300 hover:font-semibold hover:text-cyan-500 transition rounded-md px-2">
                         <iconify-icon icon="material-symbols-light:chat-sharp" class="text-xl"></iconify-icon>
 
