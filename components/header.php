@@ -27,7 +27,8 @@
             </a>
             <a href="Myprofile.php" class="flex justify-center items-center">
                 <?php if (isset ($profile)): ?>
-                    <img src="<?php echo blobToBase64($profile); ?>" alt="Profile Picture" class="rounded-full w-8 h-8">
+                    <img src="<?php echo blobToBase64($profile); ?>" alt="Profile Picture"
+                        class="rounded-full w-5 h-5 sm:w-8 sm:h-8">
                 <?php endif; ?>
             </a>
             <a href="../php/logout.php" class="flex justify-center items-center">

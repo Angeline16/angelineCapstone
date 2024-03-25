@@ -105,20 +105,20 @@ if (isset ($_SESSION['login'])) {
                                 class="flex w-full justify-center items-center gap-2">
                                 <div class="flex justify-center items-center gap-2">
                                     <div class="flex justify-center items-center">
-                                        <button type="submit"
+                                        <button
                                             class="p-2 flex justify-center items-center bg-blue-400/10 hover:bg-blue-400/20 transition text-xl shadow text-blue-400 rounded-full">
                                             <iconify-icon icon="ri:file-add-fill"></iconify-icon>
                                         </button>
                                     </div>
                                     <div class="flex justify-center items-center">
-                                        <button type="submit"
+                                        <button
                                             class="p-2 flex justify-center items-center bg-blue-400/10 hover:bg-blue-400/20 transition text-xl shadow text-blue-400 rounded-full">
                                             <iconify-icon icon="heroicons:camera-solid"></iconify-icon>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="flex justify-center w-full items-center rounded-full border mx-3 gap-2">
-                                    <input type="text" class="py-2 px-4 bg-transparent w-full outline-none"
+                                    <input required type="text" class="py-2 px-4 bg-transparent w-full outline-none"
                                         name="message_content" />
 
                                     <button type="submit"
