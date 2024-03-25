@@ -1,7 +1,6 @@
 <?php
 // Include the database connection file
 include ("../php/connection.php");
-
 // Start the session
 session_start();
 
@@ -10,10 +9,8 @@ if (isset ($_SESSION['login'])) {
     // Retrieve the user ID from the session
     $loginInfo = $_SESSION['login'];
     $id = $loginInfo['UserID'];
-
     // Include the messageFunctions.php file
     include ("../php/messageFunctions.php");
-
     // Assign sender_id and receiver_id
     $sender_id = $id;
     $receiver_id = 21; // Assuming a fixed receiver ID, adjust as needed
@@ -26,11 +23,23 @@ if (isset ($_SESSION['login'])) {
     {
         return date('h:i A', strtotime($timestamp)); // Format timestamp as 12-hour time
     }
+
+
+
+    $receiverQuery = "SELECT * FROM users WHERE UserID = ?";
+    $stmt = $link->prepare($receiverQuery);
+    $stmt->bind_param('i', $receiver_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
 } else {
     // Redirect the user to the login page or handle the case where the user is not logged in
     header("Location: login.php");
     exit; // Terminate script execution
 }
+
+
+
 ?>
 
 
@@ -61,15 +70,32 @@ if (isset ($_SESSION['login'])) {
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
     <div class="m-3 sm:pl-60 text-gray-800">
-        <div class="flex">
+        <div class="flex justify-start items-center">
             <a href="Dashboard.php" class="text-cyan-600 px-5">
                 <iconify-icon icon="lets-icons:back-light" class="text-2xl"></iconify-icon>
             </a>
             <div class="flex justify-center gap-2 items-center">
-                <div class="h-10 w-10 bg-cyan-500 rounded-full"></div>
-                <h1 class="text-xl font-extrabold">Cecilia Lopez</h1>
+                <?php
+                if ($row = $result->fetch_assoc()) {
+                    echo '<div class="h-10 w-10 bg-cyan-500 rounded-full">';
+                    $profile_image_blob = $row['image']; // Assuming 'image' is the column name storing the blob data of the profile image
+                    if ($profile_image_blob) {
+                        // If profile image blob data is available
+                        $profile_image_data = base64_encode($profile_image_blob);
+                        echo "<img src='data:image/jpeg;base64,$profile_image_data' alt='Receiver Profile Image' class='h-10 w-10 rounded-full'>";
+                    } else {
+                        // If no profile image is available
+                        echo "<div class='h-10 w-10 bg-gray-400 rounded-full'></div>";
+                    }
+                    echo '</div>';
+                    echo '<h1 class="text-xl capitalize font-extrabold">';
+                    echo $row['Username']; // Assuming 'Username' is the column name storing the name of the user
+                    echo '</h1>';
+                }
+                ?>
             </div>
         </div>
+
 
         <!-- chat box -->
 
