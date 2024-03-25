@@ -1,3 +1,39 @@
+<?php
+// Include the database connection file
+include ("../php/connection.php");
+
+// Start the session
+session_start();
+
+// Check if the user is logged in
+if (isset ($_SESSION['login'])) {
+    // Retrieve the user ID from the session
+    $loginInfo = $_SESSION['login'];
+    $id = $loginInfo['UserID'];
+
+    // Include the messageFunctions.php file
+    include ("../php/messageFunctions.php");
+
+    // Assign sender_id and receiver_id
+    $sender_id = $id;
+    $receiver_id = 21; // Assuming a fixed receiver ID, adjust as needed
+
+    // Call fetchMessages() function to get messages
+    $messages = fetchMessages($sender_id, $receiver_id, $link);
+
+    // Function to format timestamp to display time
+    function formatTimestamp($timestamp)
+    {
+        return date('h:i A', strtotime($timestamp)); // Format timestamp as 12-hour time
+    }
+} else {
+    // Redirect the user to the login page or handle the case where the user is not logged in
+    header("Location: login.php");
+    exit; // Terminate script execution
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,66 +75,72 @@
 
         <div class="p-5 relative">
             <div class="">
-                <div class="my-2">
-                    <div class="flex justify-start w-3/4">
-                        <span class="relative bg-gray-300/50 px-3 py-1 rounded-md">
-                            <span class="absolute -top-6 text-xs right-0">2:50 pm</span>
-                            <span class="">Hi good morning! Where are we going to meet up po?</span>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="my-10">
-                    <div class="flex justify-end ml-[30%]">
-                        <span class="relative bg-cyan-300/50 px-3 py-1 rounded-md">
-                            <span class="absolute -top-6 text-xs left-0">2:51 pm</span>
-                            <span class="">Hello☺️, i’m only available on saturday 1 o’clock in the
-                                afternoon.</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!--  send message form -->
-            <div class="">
-                <div class="fixed bottom-0 bg-white p-5 sm:pl-64 w-full right-0">
-                    <div class="flex w-full justify-center items-center gap-2">
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="flex justify-center items-center">
-                                <button type="submit"
-                                    class="p-2 flex justify-center items-center bg-blue-400/10 hover:bg-blue-400/20 transition text-xl shadow text-blue-400 rounded-full">
-                                    <iconify-icon icon="ri:file-add-fill"></iconify-icon>
-                                </button>
-                            </div>
-                            <div class="flex justify-center items-center">
-                                <button type="submit"
-                                    class="p-2 flex justify-center items-center bg-blue-400/10 hover:bg-blue-400/20 transition text-xl shadow text-blue-400 rounded-full">
-                                    <iconify-icon icon="heroicons:camera-solid"></iconify-icon>
-                                </button>
+                <?php foreach ($messages as $message): ?>
+                    <div class="my-2">
+                        <?php if ($message['sender_id'] == $sender_id): ?>
+                            <div class="flex justify-end ml-[30%]">
+                            <?php else: ?>
+                                <div class="flex justify-start w-3/4">
+                                <?php endif; ?>
+                                <span
+                                    class="relative <?php echo $message['sender_id'] == $sender_id ? 'bg-cyan-300/50' : 'bg-gray-300/50'; ?> px-3 py-1 rounded-md">
+                                    <span
+                                        class="absolute -top-0 text-xs <?php echo $message['sender_id'] == $sender_id ? '-left-16' : '-right-16'; ?>">
+                                        <?php echo formatTimestamp($message['timestamp']); ?>
+                                    </span>
+                                    <span>
+                                        <?php echo htmlspecialchars($message['message_content']); ?>
+                                    </span>
+                                </span>
                             </div>
                         </div>
-                        <div class="flex justify-center w-full items-center rounded-full border mx-3 gap-2">
-                            <input type="text" class="py-2 px-4 bg-transparent w-full outline-none" />
+                    <?php endforeach; ?>
+                </div>
 
-                            <button type="submit"
-                                class="mx-2 flex justify-center items-center py-1.5 pl-2 pr-1 bg-cyan-400/10 hover:bg-cyan-400/20 transition text-xl shadow text-cyan-500 rounded-full">
-                                <iconify-icon icon="basil:send-solid"></iconify-icon>
-                            </button>
-                        </div>
+                <!--  send message form -->
+                <div class="">
+                    <div class="fixed bottom-0 bg-white p-5 sm:pl-64 w-full right-0">
+                        <div class="flex w-full justify-center items-center gap-2">
+                            <form action="../php/sendMessage.php" method="post"
+                                class="flex w-full justify-center items-center gap-2">
+                                <div class="flex justify-center items-center gap-2">
+                                    <div class="flex justify-center items-center">
+                                        <button type="submit"
+                                            class="p-2 flex justify-center items-center bg-blue-400/10 hover:bg-blue-400/20 transition text-xl shadow text-blue-400 rounded-full">
+                                            <iconify-icon icon="ri:file-add-fill"></iconify-icon>
+                                        </button>
+                                    </div>
+                                    <div class="flex justify-center items-center">
+                                        <button type="submit"
+                                            class="p-2 flex justify-center items-center bg-blue-400/10 hover:bg-blue-400/20 transition text-xl shadow text-blue-400 rounded-full">
+                                            <iconify-icon icon="heroicons:camera-solid"></iconify-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center w-full items-center rounded-full border mx-3 gap-2">
+                                    <input type="text" class="py-2 px-4 bg-transparent w-full outline-none"
+                                        name="message_content" />
 
-                        <div class="flex justify-center items-center">
-                            <button type="submit"
-                                class="p-2 flex justify-center items-center bg-green-400/10 hover:bg-green-400/20 transition text-xl shadow text-green-500 rounded-full">
-                                <iconify-icon icon="solar:like-bold"></iconify-icon>
-                            </button>
+                                    <button type="submit"
+                                        class="mx-2 flex justify-center items-center py-1.5 pl-2 pr-1 bg-cyan-400/10 hover:bg-cyan-400/20 transition text-xl shadow text-cyan-500 rounded-full">
+                                        <iconify-icon icon="basil:send-solid"></iconify-icon>
+                                    </button>
+                                </div>
+
+                                <div class="flex justify-center items-center">
+                                    <button type="submit"
+                                        class="p-2 flex justify-center items-center bg-green-400/10 hover:bg-green-400/20 transition text-xl shadow text-green-500 rounded-full">
+                                        <iconify-icon icon="solar:like-bold"></iconify-icon>
+                                    </button>
+                                </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="../scripts/scripts.js"></script>
+        <script src="../scripts/scripts.js"></script>
 </body>
 
 </html>

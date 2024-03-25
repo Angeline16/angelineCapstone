@@ -4,7 +4,7 @@ include ("../php/connection.php");
 session_start();
 
 // Check if the user is not logged in
-if (!isset ($_SESSION['logged_in'])) {
+if (!isset ($_SESSION['login'])) {
     // Redirect to the login page
     header("Location: Login.php");
     exit;

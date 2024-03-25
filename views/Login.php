@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (password_verify($login_password, $stored_hashed_password)) {
             $_SESSION['login'] = $getuser;
-            $_SESSION['logged_in'] = true;
+
             header("Location: Dashboard.php");
             $login_error = "Logging you in...";
         } else {

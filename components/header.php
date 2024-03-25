@@ -1,3 +1,8 @@
+<?php
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +26,7 @@
                     icon="ic:round-notifications" class="hover:text-gray-100 transition"></iconify-icon></a>
             <a href="Myprofile.php" class="flex justify-center items-center"> <iconify-icon icon="mingcute:user-4-fill"
                     class="hover:text-gray-100 transition"></iconify-icon></a>
+
             <a href="../php/logout.php" class="flex justify-center items-center"> <iconify-icon
                     icon="solar:logout-broken" class="hover:text-gray-100 transition"></iconify-icon></a>
         </div>
