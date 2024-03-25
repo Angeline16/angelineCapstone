@@ -1,5 +1,6 @@
 <?php
 include ("../php/connection.php");
+session_start();
 $itemId = isset ($_GET['id']) ? $_GET['id'] : null;
 
 if ($itemId) {

@@ -1,3 +1,17 @@
+<?php
+if (isset ($_SESSION['login'])) {
+    // Retrieve the user profile picture from the session
+    $loginInfo = $_SESSION['login'];
+    $profile = $loginInfo['image'];
+}
+
+// Function to convert blob data to base64 encoded string
+function blobToBase64($blobData)
+{
+    return 'data:image/png;base64,' . base64_encode($blobData);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,10 +22,7 @@
 </head>
 
 <body>
-    <?php
 
-    include ("php/header.components.php");
-    ?>
     <header class="w-full flex sm:pl-60 justify-between items-center bg-cyan-400 text-gray-800 py-4 px-5">
         <div class="flex gap-5">
             <button id="toggleSidebar" class="sm:hidden flex justify-center items-center">

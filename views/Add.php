@@ -1,6 +1,8 @@
 <?php
 include ("../php/connection.php");
 
+session_start();
+
 /*
 
  // Initialize popup message variable
