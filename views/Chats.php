@@ -25,7 +25,7 @@ if (isset ($_SESSION['login'])) {
     }
 
 
-
+    // get the reciever info
     $receiverQuery = "SELECT * FROM users WHERE UserID = ?";
     $stmt = $link->prepare($receiverQuery);
     $stmt->bind_param('i', $receiver_id);
@@ -38,10 +38,7 @@ if (isset ($_SESSION['login'])) {
     exit; // Terminate script execution
 }
 
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
