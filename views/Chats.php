@@ -144,7 +144,8 @@ if (isset ($_SESSION['login'])) {
                                     </div>
                                 </div>
                                 <div class="flex justify-center w-full items-center rounded-full border mx-3 gap-2">
-                                    <input required type="text" class="py-2 px-4 bg-transparent w-full outline-none"
+                                    <input required type="text"
+                                        class="py-2 caret-cyan-500 px-4 bg-transparent w-full outline-none"
                                         name="message_content" />
 
                                     <button type="submit"
