@@ -97,29 +97,32 @@ if (isset ($_SESSION['login'])) {
 
 
         <!-- chat box -->
-
         <div class="p-5 relative">
             <div class="">
-                <?php foreach ($messages as $message): ?>
-                    <div class="my-2">
-                        <?php if ($message['sender_id'] == $sender_id): ?>
-                            <div class="flex justify-end ml-[30%]">
-                            <?php else: ?>
-                                <div class="flex justify-start w-3/4">
-                                <?php endif; ?>
-                                <span
-                                    class="relative <?php echo $message['sender_id'] == $sender_id ? 'bg-cyan-300/50' : 'bg-gray-300/50'; ?> px-3 py-1 rounded-md">
+                <?php if (empty ($messages)): ?>
+                    <p class="text-cyan-600 p-2 rounded-md bg-cyan-400/10">No messages yet.</p>
+                <?php else: ?>
+                    <?php foreach ($messages as $message): ?>
+                        <div class="my-2">
+                            <?php if ($message['sender_id'] == $sender_id): ?>
+                                <div class="flex justify-end ml-[30%]">
+                                <?php else: ?>
+                                    <div class="flex justify-start w-3/4">
+                                    <?php endif; ?>
                                     <span
-                                        class="absolute -top-0 text-xs <?php echo $message['sender_id'] == $sender_id ? '-left-16' : '-right-16'; ?>">
-                                        <?php echo formatTimestamp($message['timestamp']); ?>
+                                        class="relative <?php echo $message['sender_id'] == $sender_id ? 'bg-cyan-300/50' : 'bg-gray-300/50'; ?> px-3 py-1 rounded-md">
+                                        <span
+                                            class="absolute -top-0 text-xs <?php echo $message['sender_id'] == $sender_id ? '-left-16' : '-right-16'; ?>">
+                                            <?php echo formatTimestamp($message['timestamp']); ?>
+                                        </span>
+                                        <span>
+                                            <?php echo htmlspecialchars($message['message_content']); ?>
+                                        </span>
                                     </span>
-                                    <span>
-                                        <?php echo htmlspecialchars($message['message_content']); ?>
-                                    </span>
-                                </span>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
 
                 <!--  send message form -->
