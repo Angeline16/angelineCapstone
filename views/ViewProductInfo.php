@@ -157,10 +157,14 @@ $link->close();
                                     Send Request
                                 </button>
                             </form>
-                            <button
-                                class="px-4 py-2 bg-green-500 shadow hover:bg-green-600 transition text-white rounded-md">
-                                Send Message
-                            </button>
+                            <form method="post" action="Chats.php">
+                                <input type="hidden" name="recipient_id" value="<?php echo $recipientId; ?>">
+                                <button type="submit" name="send_message"
+                                    class="px-4 py-2 bg-green-500 shadow hover:bg-green-600 transition text-white rounded-md">
+                                    Send Message
+                                </button>
+                            </form>
+
                         </div>
                     </div>
                 </div>

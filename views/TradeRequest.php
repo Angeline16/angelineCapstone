@@ -89,7 +89,7 @@ $stmt->close();
                     <div class="w-full shadow p-2 my-3 rounded-md border relative">
                         <div class="flex justify-start items-center gap-2">
                             <div>
-                                <!-- Display image -->
+
                                 <img src="data:image/jpeg;base64,<?php echo $imageData; ?>" class="w-20 h-20" alt="" />
                             </div>
                             <div>
@@ -98,7 +98,6 @@ $stmt->close();
                                 </p>
                                 <span
                                     class="text-xs shadow flex gap-1 bg-cyan-300/10 justify-start items-center px-4 py-1 text-cyan-600 rounded-md">
-                                    <!-- Display requester's name and request message -->
                                     <span class="font-semibold text-sm">
                                         <?php echo $recipientName; ?>
                                     </span> sent you a request
@@ -118,7 +117,7 @@ $stmt->close();
             }
         } else {
             // No trade requests found for the user
-            echo "<p>No trade requests found.</p>";
+            echo "<p class='bg-cyan-400/10 p-2 rounded-md text-cyan-600'>No trade requests found.</p>";
         }
         ?>
     </div>

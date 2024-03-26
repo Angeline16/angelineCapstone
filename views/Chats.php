@@ -13,7 +13,9 @@ if (isset ($_SESSION['login'])) {
     include ("../php/messageFunctions.php");
     // Assign sender_id and receiver_id
     $sender_id = $id;
-    $receiver_id = 21; // Assuming a fixed receiver ID, adjust as needed
+
+    $recipientId = isset ($_POST['recipient_id']) ? $_POST['recipient_id'] : null;
+    $receiver_id = $recipientId; // Assuming a fixed receiver ID, adjust as needed
 
     // Call fetchMessages() function to get messages
     $messages = fetchMessages($sender_id, $receiver_id, $link);
