@@ -1,6 +1,18 @@
 <?php
 include ("../php/connection.php");
 session_start();
+
+// Retrieve user ID from session
+$userId = $_SESSION['login']['UserID'];
+
+// Retrieve trade requests associated with the logged-in user
+$stmt = $link->prepare("SELECT * FROM requests WHERE recipient_id = ?");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Close statement
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,48 +58,69 @@ session_start();
             <h1 class="text-xl font-extrabold">Trade Request</h1>
         </div>
 
-        <!-- item request -->
-        <div class="w-full shadow p-2 my-3 rounded-md border relative">
-            <div class="flex justify-start items-center gap-2">
-                <div>
-                    <img src="../assets//uploads/watch.png" class="w-20 h-20" alt="" />
-                </div>
-                <div>
-                    <p class="font-semibold text-base mb-2">Vintage Watch</p>
-                    <span
-                        class="text-xs shadow flex gap-1 bg-cyan-300/10 justify-start items-center px-4 py-1 text-cyan-600 rounded-md"><span
-                            class="font-semibold text-sm">Jm</span> sent you a
-                        request</span>
-                </div>
-            </div>
-            <div class="absolute top-2 right-5">
-                <a href="TradeRequest.ViewFullRequest.php"
-                    class="bg-green-400 px-3 cursor-pointer py-1 text-xs rounded-full shadow text-white hover:bg-green-500 transition">
-                    View Full Request
-                </a>
-            </div>
-        </div>
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Fetch item details associated with the request
+                $itemId = $row['item_id'];
+                $stmt_item = $link->prepare("SELECT * FROM items WHERE ItemID = ?");
+                $stmt_item->bind_param("i", $itemId);
+                $stmt_item->execute();
+                $result_item = $stmt_item->get_result();
+                if ($result_item->num_rows > 0) {
+                    $itemData = $result_item->fetch_assoc();
+                    // Decode the blob image data
+                    $imageData = base64_encode($itemData['image']);
 
-        <div class="w-full shadow p-2 my-3 rounded-md border relative">
-            <div class="flex justify-start items-center">
-                <div>
-                    <img src="../assets//uploads/dress.png" class="w-20 h-20" alt="" />
-                </div>
-                <div>
-                    <p class="font-semibold text-base mb-2">Vintage Dress</p>
-                    <span
-                        class="text-xs shadow flex gap-1 bg-cyan-300/10 justify-start items-center px-4 py-1 text-cyan-600 rounded-md"><span
-                            class="font-semibold text-sm">Cla</span> sent you a
-                        request</span>
-                </div>
-            </div>
-            <div class="absolute top-2 right-5">
-                <button
-                    class="bg-green-400 px-3 py-1 text-xs rounded-full shadow text-white hover:bg-green-500 transition">
-                    View Full Request
-                </button>
-            </div>
-        </div>
+                    // Fetch recipient's name based on requester_id
+                    $requesterId = $row['requester_id'];
+                    $stmt_recipient = $link->prepare("SELECT Username FROM users WHERE UserID = ?");
+                    $stmt_recipient->bind_param("i", $requesterId);
+                    $stmt_recipient->execute();
+                    $result_recipient = $stmt_recipient->get_result();
+                    if ($result_recipient->num_rows > 0) {
+                        $recipientData = $result_recipient->fetch_assoc();
+                        $recipientName = $recipientData['Username'];
+                    } else {
+                        $recipientName = "Unknown"; // Default if recipient not found
+                    }
+                    $stmt_recipient->close();
+                    ?>
+                    <div class="w-full shadow p-2 my-3 rounded-md border relative">
+                        <div class="flex justify-start items-center gap-2">
+                            <div>
+                                <!-- Display image -->
+                                <img src="data:image/jpeg;base64,<?php echo $imageData; ?>" class="w-20 h-20" alt="" />
+                            </div>
+                            <div>
+                                <p class="font-semibold text-base mb-2">
+                                    <?php echo $itemData['ItemName']; ?>
+                                </p>
+                                <span
+                                    class="text-xs shadow flex gap-1 bg-cyan-300/10 justify-start items-center px-4 py-1 text-cyan-600 rounded-md">
+                                    <!-- Display requester's name and request message -->
+                                    <span class="font-semibold text-sm">
+                                        <?php echo $recipientName; ?>
+                                    </span> sent you a request
+                                </span>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 right-5">
+                            <a href="TradeRequest.ViewFullRequest.php?request_id=<?php echo $row['request_id']; ?>"
+                                class="bg-green-400 px-3 cursor-pointer py-1 text-xs rounded-full shadow text-white hover:bg-green-500 transition">
+                                View Full Request
+                            </a>
+                        </div>
+                    </div>
+                    <?php
+                }
+                $stmt_item->close();
+            }
+        } else {
+            // No trade requests found for the user
+            echo "<p>No trade requests found.</p>";
+        }
+        ?>
     </div>
 
     <script src="../scripts/scripts.js"></script>

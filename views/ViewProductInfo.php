@@ -1,6 +1,7 @@
 <?php
 include ("../php/connection.php");
 session_start();
+
 $itemId = isset ($_GET['id']) ? $_GET['id'] : null;
 
 if ($itemId) {
@@ -34,6 +35,9 @@ if ($itemId) {
         $imageData = base64_encode($itemImage);
         // Create image source for HTML
         $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+
+        // Get the recipient ID (UserID associated with the item)
+        $recipientId = $itemData['UserID'];
     } else {
         // Handle case when item data is not found
         echo "Item not found.";
@@ -45,10 +49,29 @@ if ($itemId) {
     exit(); // Exit script
 }
 
+// Check if the request button is clicked
+if (isset ($_POST['send_request'])) {
+    if (isset ($_SESSION['login'])) {
+        $loginInfo = $_SESSION['login'];
+        // You can perform further validation here if needed
+        // Assuming user_id of the requester is stored in $_SESSION['user_id']
+        $requesterId = $loginInfo['UserID'];
+        // Insert the request into the database
+        $stmt = $link->prepare("INSERT INTO requests (item_id, requester_id, recipient_id) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii", $itemId, $requesterId, $recipientId);
+        $stmt->execute();
+
+        // Redirect to prevent form resubmission on page refresh
+        header("Location: Dashboard.php");
+        exit(); // Make sure to exit after redirection
+    }
+}
+
 // Close statement and database connection
 $stmt->close();
 $link->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -127,11 +150,13 @@ $link->close();
                             <?php echo $itemBrand; ?>
                         </p>
                         <!-- Buttons -->
-                        <div class="mb-10 mt-4 ">
-                            <button
-                                class="px-4 py-2 bg-cyan-500 shadow hover:bg-cyan-600 transition text-white rounded-md mr-2">
-                                Send Request
-                            </button>
+                        <div class="mb-10 mt-4 flex">
+                            <form method="post">
+                                <button type="submit" name="send_request"
+                                    class="px-4 py-2 bg-cyan-500 shadow hover:bg-cyan-600 transition text-white rounded-md mr-2">
+                                    Send Request
+                                </button>
+                            </form>
                             <button
                                 class="px-4 py-2 bg-green-500 shadow hover:bg-green-600 transition text-white rounded-md">
                                 Send Message
@@ -140,12 +165,8 @@ $link->close();
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-
-
     <script src="../scripts/scripts.js"></script>
 </body>
 
