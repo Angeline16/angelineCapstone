@@ -28,8 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stored_hashed_password = $getuser['Password']; // get the hashed pass in the database
 
         if (password_verify($login_password, $stored_hashed_password)) {
+
             $_SESSION['user_id'] = $getuser['UserID'];
             $_SESSION['login'] = $getuser;
+            /*
+            **
+                this line of code will store all the current user login data in a login varibale that can be accessed anywhere
+            **
+                $_SESSION['login'] = $getuser; 
+            **
+                it's not necessary to store all the info about the user again
+                $_SESSION['user_id'] = $getuser['UserID']; 
+            **
+            */
 
             header("Location: Dashboard.php");
             $login_error = "Logging you in...";

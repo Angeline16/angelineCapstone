@@ -9,13 +9,10 @@ if (isset($_SESSION['login'])) {
     // Retrieve the user ID from the session
     $loginInfo = $_SESSION['login'];
     $id = $loginInfo['UserID'];
-    // Include the messageFunctions.php file
     include ("../php/messageFunctions.php");
-    // Assign sender_id and receiver_id
+
+
     $sender_id = $id;
-
-
-
     if (isset($_GET['recipient_id'])) {
         $recipient_id = $_GET['recipient_id'];
         $receiver_id = $recipient_id;
@@ -41,7 +38,7 @@ if (isset($_SESSION['login'])) {
 } else {
     // Redirect the user to the login page or handle the case where the user is not logged in
     header("Location: login.php");
-    exit; // Terminate script execution
+    exit;
 }
 
 ?>
@@ -81,7 +78,7 @@ if (isset($_SESSION['login'])) {
                 <?php
                 if ($row = $result->fetch_assoc()) {
                     echo '<div class="h-10 w-10 bg-cyan-500 rounded-full">';
-                    $profile_image_blob = $row['image']; // Assuming 'image' is the column name storing the blob data of the profile image
+                    $profile_image_blob = $row['image'];
                     if ($profile_image_blob) {
                         // If profile image blob data is available
                         $profile_image_data = base64_encode($profile_image_blob);
@@ -92,7 +89,7 @@ if (isset($_SESSION['login'])) {
                     }
                     echo '</div>';
                     echo '<h1 class="text-xl capitalize font-extrabold">';
-                    echo $row['Username']; // Assuming 'Username' is the column name storing the name of the user
+                    echo $row['Username'];
                     echo '</h1>';
                 }
                 ?>

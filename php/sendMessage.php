@@ -14,9 +14,9 @@ if (isset($_SESSION['login'])) {
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the sender_id, receiver_id, and message_content from the form
-        $sender_id = $id; // Assuming you have a session variable storing the current user's ID
+        $sender_id = $id; // current user's ID
         $recipientId = isset($_POST['recipient_id']) ? $_POST['recipient_id'] : null;
-        $receiver_id = $recipientId; // Assuming a fixed receiver ID, adjust as needed
+        $receiver_id = $recipientId; //  receiver ID from the routes
 
 
         $message_content = $_POST["message_content"];
@@ -24,7 +24,7 @@ if (isset($_SESSION['login'])) {
         // Call the sendMessage function to insert the message into the database
         if (sendMessage($sender_id, $receiver_id, $message_content, $link)) {
             // Message sent successfully
-            // You can redirect the user to the chat page or display a success message
+            //  redirect the user to the chat page or display a success message
             header("Location: ../views/chats.php?recipient_id=" . $receiver_id);
             exit;
         } else {
@@ -33,9 +33,8 @@ if (isset($_SESSION['login'])) {
             echo "Error: Failed to send message.";
         }
     } else {
-        // If the form was not submitted via POST method, redirect the user to the form page
-        header("Location: ../views/chats.php");
+        // If the form was not submitted via POST method, redirect the user to the form page along  with any necessary parameters
+        header("Location: ../views/chats.php?recipient_id=" . $receiver_id);
         exit;
     }
 }
-// Check if the form was submitted

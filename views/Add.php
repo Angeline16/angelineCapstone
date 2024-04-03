@@ -37,6 +37,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Retrieve UserID from session
     $user_id = $_SESSION['user_id'];
+
+    /* 
+    
+    *
+    *
+        one way to get the  user's IP address is by using the following code snippet
+    *
+    *
+
+    if (isset($_SESSION['login'])) {
+        // Retrieve the user ID from the session
+        $loginInfo = $_SESSION['login'];
+        $userId = $loginInfo['UserID'];
+        $userName = $loginInfo['Username'];
+        $userEmail = $loginInfo['Email'];
+    }
+
+    *
+    *
+        so in login page you dont want to set every user data for every variables
+    *
+    *
+    */
+
     // Query to check if the user exists
     $user_query = "SELECT UserID FROM users WHERE UserID = '$user_id'";
 
@@ -46,15 +70,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Insert data into the database including UserID and image data
+    // Insert data into the database
     $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID, image) 
             VALUES ('$item_name', '$category_id', '$condition_id', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id', '$image_data')";
 
     if ($link->query($sql) === TRUE) {
-        header("Location: $_SERVER[PHP_SELF]?status=success");
+        header("Location: $_SERVER[PHP_SELF]?status=success"); //  Redirect back to the profile page with a success
         exit();
     } else {
-        header("Location: $_SERVER[PHP_SELF]?status=error");
+        header("Location: $_SERVER[PHP_SELF]?status=error"); //  Send them back with an error message
         exit();
     }
 }
