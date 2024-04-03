@@ -5,7 +5,7 @@ include ("../php/connection.php");
 session_start();
 
 // Check if the user is logged in
-if (isset ($_SESSION['login'])) {
+if (isset($_SESSION['login'])) {
     // Retrieve the user ID from the session
     $loginInfo = $_SESSION['login'];
     $id = $loginInfo['UserID'];
@@ -14,8 +14,12 @@ if (isset ($_SESSION['login'])) {
     // Assign sender_id and receiver_id
     $sender_id = $id;
 
-    $recipientId = isset ($_POST['recipient_id']) ? $_POST['recipient_id'] : null;
-    $receiver_id = $recipientId; // Assuming a fixed receiver ID, adjust as needed
+
+
+    if (isset($_GET['recipient_id'])) {
+        $recipient_id = $_GET['recipient_id'];
+        $receiver_id = $recipient_id;
+    }
 
     // Call fetchMessages() function to get messages
     $messages = fetchMessages($sender_id, $receiver_id, $link);
@@ -99,7 +103,7 @@ if (isset ($_SESSION['login'])) {
         <!-- chat box -->
         <div class="p-5 relative">
             <div class="">
-                <?php if (empty ($messages)): ?>
+                <?php if (empty($messages)): ?>
                     <p class="text-cyan-600 p-2 rounded-md bg-cyan-400/10">No messages yet.</p>
                 <?php else: ?>
                     <?php foreach ($messages as $message): ?>
@@ -131,6 +135,7 @@ if (isset ($_SESSION['login'])) {
                         <div class="flex w-full justify-center items-center gap-2">
                             <form action="../php/sendMessage.php" method="post"
                                 class="flex w-full justify-center items-center gap-2">
+                                <input type="hidden" name="recipient_id" value="<?php echo $receiver_id; ?>">
                                 <div class="flex justify-center items-center gap-2">
                                     <div class="flex justify-center items-center">
                                         <button

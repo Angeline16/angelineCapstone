@@ -3,7 +3,7 @@ include ("../php/connection.php");
 session_start();
 
 // Check if the user is logged in
-if (isset ($_SESSION['login'])) {
+if (isset($_SESSION['login'])) {
     // Retrieve the user ID from the session
     $loginInfo = $_SESSION['login'];
     $userId = $loginInfo['UserID'];
@@ -22,7 +22,7 @@ if (isset ($_SESSION['login'])) {
     $result = mysqli_query($link, $sql);
 
     if (!$result) {
-        die ("Error in SQL query: " . mysqli_error($link));
+        die("Error in SQL query: " . mysqli_error($link));
     }
 
     // Fetch result rows as an associative array
@@ -40,6 +40,7 @@ if (isset ($_SESSION['login'])) {
     // Free result set
     mysqli_free_result($result);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -73,19 +74,23 @@ if (isset ($_SESSION['login'])) {
             <h1 class="text-3xl font-extrabold">Messages</h1>
         </div>
 
-        <?php if (empty ($users)): ?>
+        <?php if (empty($users)): ?>
             <div class="bg-cyan-400/10 p-2 my-5 text-cyan-600 rounded-md">
                 No messages yet!
             </div>
         <?php else: ?>
             <?php foreach ($users as $user): ?>
-                <div class="flex gap-2 justify-start items-center p-2 my-2 bg-cyan-300/10 rounded-md shadow">
-                    <div><img src="<?php echo $user['ImageSrc']; ?>" alt="" class="w-10 h-10 rounded-full"></div>
-                    <h1 class="font-semibold capitalize">
-                        <?php echo $user['Username']; ?>
-                    </h1>
-                </div>
+                <form method="post" action="Chats.php?recipient_id=<?php echo $user['sender_id']; ?>" class="w-full">
+                    <button type="submit" name="send_message"
+                        class="flex gap-2 w-full justify-start items-center p-2 my-2 bg-cyan-300/10 rounded-md shadow">
+                        <div><img src="<?php echo $user['ImageSrc']; ?>" alt="" class="w-10 h-10 rounded-full"></div>
+                        <h1 class="font-semibold capitalize">
+                            <?php echo $user['Username']; ?>
+                        </h1>
+                    </button>
+                </form>
             <?php endforeach; ?>
+
         <?php endif; ?>
     </div>
 
