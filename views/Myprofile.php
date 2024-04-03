@@ -1,10 +1,50 @@
+<?php
+include '../php/connection.php';
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['login'])) {
+    // Redirect to login page or handle unauthorized access
+    header("Location: login.php");
+    exit();
+}
+
+// Fetch user data from the database
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT * FROM users WHERE UserID = $user_id";
+$result = mysqli_query($link, $sql);
+
+// Check if query was successful
+if ($result) {
+    // Fetch user data
+    $userData = mysqli_fetch_assoc($result);
+} else {
+    // Handle error (e.g., display error message)
+    echo "Error: " . mysqli_error($link);
+}
+
+// Fetch gender options from the database
+$sql_gender = "SELECT * FROM gender";
+$result_gender = mysqli_query($link, $sql_gender);
+
+// Check if query was successful
+if ($result_gender) {
+    // Fetch gender options into an array
+    $genders = mysqli_fetch_all($result_gender, MYSQLI_ASSOC);
+} else {
+    // Handle error (e.g., display error message)
+    echo "Error: " . mysqli_error($link);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
     <style>
@@ -35,7 +75,7 @@
                         <p class="font-semibold">
                             UserName <span class="text-red-400">*</span>
                         </p>
-                        <input type="text" required id="color" name="item_name"
+                        <input type="text" required id="color" name="name" value="<?php echo $userData['Username']; ?>"
                             class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                     </div>
 
@@ -43,21 +83,22 @@
                         <p class="font-semibold">
                             Name <span class="text-red-400">*</span>
                         </p>
-                        <input type="text" required id="color" name="item_name"
+                        <input type="text" required id="color" name="name" value="<?php echo $userData['Username']; ?>"
                             class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                     </div>
                     <div class="mb-4">
                         <p class="font-semibold">
                             Email <span class="text-red-400">*</span>
                         </p>
-                        <input type="text" required id="color" name="item_name"
+                        <input type="email" required id="color" name="email" value="<?php echo $userData['Email']; ?>"
                             class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                     </div>
                     <div class="mb-4">
                         <p class="font-semibold">
                             Phone Number <span class="text-red-400">*</span>
                         </p>
-                        <input type="number" required id="color" name="item_name"
+                        <input type="number" required id="color" name="phone_num"
+                            value="<?php echo $userData['phone_num']; ?>"
                             class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                     </div>
                     <div class="mb-4">
@@ -65,16 +106,19 @@
                             Gender <span class="text-red-400">*</span>
                         </p>
                         <select name="gender" id="" class="w-full sm:w-3/4 p-1 rounded-md border">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="others">Others</option>
+                            <?php foreach ($genders as $gender): ?>
+                                <option value="<?php echo $gender['gender_id']; ?>" <?php echo ($gender['gender_id'] == $userData['gender']) ? 'selected' : ''; ?>>
+                                    <?php echo $gender['gender']; ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="mb-4">
                         <p class="font-semibold">
                             Date of Birth <span class="text-red-400">*</span>
                         </p>
-                        <input type="date" required id="color" name="item_name"
+                        <input type="date" required id="color" name="date_birth"
+                            value="<?php echo $userData['date_of_birth']; ?>"
                             class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                     </div>
                     <div class="mb-4">
