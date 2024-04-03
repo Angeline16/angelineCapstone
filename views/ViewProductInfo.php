@@ -2,7 +2,7 @@
 include ("../php/connection.php");
 session_start();
 
-$itemId = isset ($_GET['id']) ? $_GET['id'] : null;
+$itemId = isset($_GET['id']) ? $_GET['id'] : null;
 
 if ($itemId) {
     // Prepare SQL statement
@@ -50,8 +50,8 @@ if ($itemId) {
 }
 
 // Check if the request button is clicked
-if (isset ($_POST['send_request'])) {
-    if (isset ($_SESSION['login'])) {
+if (isset($_POST['send_request'])) {
+    if (isset($_SESSION['login'])) {
         $loginInfo = $_SESSION['login'];
         // You can perform further validation here if needed
         // Assuming user_id of the requester is stored in $_SESSION['user_id']

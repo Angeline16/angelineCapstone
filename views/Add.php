@@ -3,15 +3,12 @@ include ("../php/connection.php");
 
 session_start();
 
-/*
-
- // Initialize popup message variable
-$popupMessage = "";
-// Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Retrieve form data
     $item_name = $_POST['item_name'];
-    $category_id = $_POST['category'];
-    $item_condition = $_POST['item_condition']; // Correctly retrieve the item_condition value
+    $category_name = $_POST['category_name'];
+    $condition_id = $_POST['condition']; // Retrieve the ID of the condition
     $color = $_POST['color'];
     $size = $_POST['size'];
     $description = $_POST['description'];
@@ -20,73 +17,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $year = $_POST['year'];
     $brand = $_POST['brand'];
 
-    // Validate that item_condition is not empty
-    if(empty($item_condition)) {
-        // Handle the case where item_condition is empty
-        $popupMessage = "Error: Item condition cannot be empty.";
+
+    // Query to get category ID
+    $category_query = "SELECT id FROM categories WHERE name = '$category_name'";
+    $category_result = $link->query($category_query);
+    if ($category_result->num_rows > 0) {
+        $category_row = $category_result->fetch_assoc();
+        $category_id = $category_row['id'];
     } else {
-        session_start(); // Start the session if not already started
-        // Check if the client_id is set in the session
-if (!isset($_SESSION['client_id'])) {
-    // Handle the case where the client_id is not set (user not logged in)
-    // For example, you might redirect the user to the login page
-    header("Location: login.php");
-    exit(); // Stop further execution of the script
-}
-        $client_id = $_SESSION['client_id'];
-        // Proceed with the insertion
-        // Prepare SQL statement
-        $sql = "INSERT INTO item_list (item_name, item_condition, color, size, description, wishlist, price, year, brand) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        if ($stmt) {
-            // Bind parameters with data types
-            $stmt->bind_param("sissssssss", $item_name, $category_id, $item_condition, $color, $size, $description, $wishlist, $price, $year, $brand);
-
-            // Execute the statement
-            if ($stmt->execute()) {
-                // Successful insertion
-                $popupMessage = "Item added successfully.";
-            } else {
-                // Error in insertion
-                $popupMessage = "Error: " . $stmt->error;
-            }
-
-            // Close statement
-            $stmt->close();
-        }else {
-            // Error in preparing the statement
-            $popupMessage = "Error: Unable to prepare statement.";
-        }
+        echo "Error: Category not found";
+        exit();
     }
-}
-?>
-<?php
 
+    // Retrieve UserID from session
+    $user_id = $_SESSION['user_id'];
+    // Query to check if the user exists
+    $user_query = "SELECT UserID FROM users WHERE UserID = '$user_id'";
 
-// Initialize popup message variable
-$popupMessage = "";
+    $user_result = $link->query($user_query);
+    if ($user_result->num_rows == 0) {
+        echo "Error: User not found";
+        exit();
+    }
 
-// Fetch categories from the database
-$categoryOptions = array(); // Initialize empty array
-$sql = "SELECT category_id, category_name FROM category_list";
-$result = $conn->query($sql);
+    // Insert data into the database including UserID
+    $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID) 
+            VALUES ('$item_name', '$category_id', '$condition_id', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id')";
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $categoryOptions[$row['category_id']] = $row['category_name'];
+    if ($link->query($sql) === TRUE) {
+        header("Location: $_SERVER[PHP_SELF]?status=success");
+        exit();
+    } else {
+        header("Location: $_SERVER[PHP_SELF]?status=error");
+        exit();
     }
 }
 
-// Process form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Your existing form processing code goes here
-}
-
-//Close the database connection (not necessary here as PHP will close it automatically at the end of script execution)
-$conn->close();
-
-*/
 
 ?>
 <!DOCTYPE html>
@@ -113,48 +79,65 @@ $conn->close();
 </head>
 
 <body>
+
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
 
     <div class="text-gray-800 bg-gray-50 sm:pl-60 pt-5">
-        <h1 class="text-3xl font-extrabold ml-5">Add new Item</h1>
+        <h1 class="text-xl font-semibold ml-10">Add new Item</h1>
         <div>
-            <form action="
-">
-                <div class="m-2 grid grid-cols-1 sm:grid-cols-2 mx-5">
+            <form action="" method="post">
+
+                <div class="m-2 grid grid-cols-1 sm:grid-cols-2 mx-10">
                     <div class="">
                         <div>
                             <div class="mb-4">
                                 <p class="font-semibold">
                                     Item name <span class="text-red-400">*</span>
                                 </p>
-                                <input type="text" id="color" name="item_name"
+                                <input type="text" required id="color" name="item_name"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                             </div>
                             <div class="mb-4">
-
                                 <p class="font-semibold">
                                     Category <span class="text-red-400">*</span>
                                 </p>
-                                <select id="item_condition" name="item_condition"
+                                <select id="categories" name="category_name"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" required>
                                     <option value="">Select Category</option>
-                                    <option value="brandNew">Brand New</option>
-                                    <option value="used">Used</option>
+                                    <?php
+                                    // Query to fetch categories
+                                    $category_query = "SELECT id, name FROM categories";
+                                    $category_result = $link->query($category_query);
+                                    if ($category_result->num_rows > 0) {
+                                        while ($category = $category_result->fetch_assoc()) {
+                                            echo "<option value='" . $category['name'] . "'>" . $category['name'] . "</option>";
+                                        }
+                                    }
+                                    ?>
                                 </select>
+
                             </div>
                             <div class="mb-4">
-
                                 <p class="font-semibold">
                                     Condition <span class="text-red-400">*</span>
                                 </p>
-                                <select id="item_condition" name="item_condition"
+                                <select id="item_condition" name="condition"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" required>
                                     <option value="">Select Condition</option>
-                                    <option value="brandNew">Brand New</option>
-                                    <option value="used">Used</option>
+                                    <?php
+                                    // Query to fetch conditions
+                                    $condition_query = "SELECT id, condi FROM item_condition";
+                                    $condition_result = $link->query($condition_query);
+                                    if ($condition_result->num_rows > 0) {
+                                        while ($condition = $condition_result->fetch_assoc()) {
+                                            echo "<option value='" . $condition['id'] . "'>" . $condition['condi'] . "</option>";
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </div>
+
                             <div class="mb-4">
                                 <p class="font-semibold">
                                     Color <span class="text-red-400">*</span>
@@ -165,6 +148,9 @@ $conn->close();
                             <div class="mb-4">
                                 <p class="font-semibold">
                                     Size <span class="text-red-400">*</span>
+                                    <br>
+                                    <small><i>Please specified if the measurement given is in cm, inches,
+                                            etc.</i></small>
                                 </p>
                                 <input type="text" id="size" name="size"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
@@ -187,14 +173,14 @@ $conn->close();
                                 <p class="font-semibold">
                                     Price <span class="text-red-400">*</span>
                                 </p>
-                                <input type="text" id="price" name="price"
+                                <input type="number" id="price" name="price"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" required />
                             </div>
                             <div class="mb-4">
                                 <p class="font-semibold">
                                     Year <span class="text-red-400">*</span>
                                 </p>
-                                <input type="text" id="year" name="year"
+                                <input type="number" id="year" name="year"
                                     class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                             </div>
                             <div class="mb-4">
@@ -235,6 +221,7 @@ $conn->close();
                                             Note: Make sure image should be gif, jpeg, or png
                                             format.
                                         </p>
+
                                     </div>
                                 </div>
                             </div>
@@ -256,14 +243,16 @@ $conn->close();
         </div>
     </div>
 
-    <!-- Popup message
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <h2>
-                <?php echo $popupMessage; ?>
-            </h2>
-        </div>
-    </div> -->
+    <?php
+    // Check for the status query parameter
+    $status = isset($_GET['status']) ? $_GET['status'] : '';
+
+    if ($status == 'success') {
+        echo "<div id='successNotification' class='fixed bottom-0 right-0 mb-4 mr-4 bg-green-500 text-white px-4 py-2 rounded'>New record created successfully</div>";
+    } elseif ($status == 'error') {
+        echo "<div id='errorNotification' class='fixed bottom-0 right-0 mb-4 mr-4 bg-red-500 text-white px-4 py-2 rounded'>Error in creating a record.</div>";
+    }
+    ?>
 
 
     <!--JQuery CDN Link-->
@@ -272,13 +261,21 @@ $conn->close();
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+
+
         $(document).ready(function () {
             //jquery for toggle sub-menu
             $('.sub-btn').click(function () {
                 $(this).next('.sub-menu').slideToggle();
                 $(this).find('.dropdown').toggleClass('rotate');
             });
+
+
         });
+
+        setTimeout(function () {
+            document.getElementById('successNotification').style.display = 'none';
+        }, 2000);
 
 
         const toggleButton = document.getElementById("toggleSidebar");
@@ -291,6 +288,8 @@ $conn->close();
         closeSidebar.addEventListener("click", () => {
             sidebar.classList.toggle("hidden");
         });
+
+
 
     </script>
 

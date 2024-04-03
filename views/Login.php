@@ -4,7 +4,7 @@ include ("../php/connection.php");
 session_start();
 
 // Check if the user is already logged in
-if (isset ($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     // Redirect to dashboard
     header("Location: Dashboard.php");
     exit();
@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stored_hashed_password = $getuser['Password']; // get the hashed pass in the database
 
         if (password_verify($login_password, $stored_hashed_password)) {
+            $_SESSION['user_id'] = $getuser['UserID'];
             $_SESSION['login'] = $getuser;
 
             header("Location: Dashboard.php");
@@ -41,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Check if registration message exists and display it
-if (isset ($_SESSION['registration_message'])) {
+if (isset($_SESSION['registration_message'])) {
     $registration_message = $_SESSION['registration_message'];
     // Display the message
     echo "<div class='success-message'>$registration_message</div>";
@@ -128,7 +129,7 @@ if (isset ($_SESSION['registration_message'])) {
 
                     <input class="w-full p-1 m-1 rounded-md bg-gray-100/30" type="password" name="password"
                         required /><br />
-                    <?php if (isset ($login_error)): ?>
+                    <?php if (isset($login_error)): ?>
                         <div class="text-red-500 text-xs px-3 py-1 bg-red-400/20 my-2 rounded-md">
                             <?php echo $login_error; ?>
                         </div>
