@@ -8,3 +8,8 @@ toggleButton.addEventListener("click", () => {
 closeSidebar.addEventListener("click", () => {
   sidebar.classList.toggle("hidden");
 });
+
+function updateFileName(input) {
+  const fileName = input.files[0].name;
+  document.getElementById("file-name").innerText = fileName;
+}

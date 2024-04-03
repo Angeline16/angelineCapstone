@@ -2,16 +2,11 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OBS Dashboard</title>
-    <link rel="stylesheet" href="../styles/MyProfile.css">
-    <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
-
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
@@ -19,78 +14,9 @@
             font-family: "Nunito", sans-serif;
         }
 
-
-        .profile-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .profile-details .item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .profile-details .item label {
-            margin-bottom: 5px;
-        }
-
-        .profile-details .item input,
-        .profile-details .item select,
-        .profile-details .item button {
-            margin-bottom: 10px;
-            padding: 5px;
-            width: 100%;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: left;
-            margin-top: 30px;
-        }
-
-        .btn-container button {
-            margin: 0 5px;
-            color: white;
-        }
-
-        /* Profile styling */
-        .profile {
-            font-size: 16px;
-            color: #87ceeb;
-            /* Light blue color */
-        }
-
-        /* Dropdown styling */
-        .container select {
-            padding: 10px;
-            /* Padding for the select element */
-            font-size: 16px;
-            /* Font size for the select element */
-            border: 1px solid #ccc;
-            /* Border style */
-            border-radius: 5px;
-            /* Border radius to make it rounded */
-            background-color: #f9f9f9;
-            /* Background color */
-            color: #333;
-            /* Text color */
-            width: 200px;
-            /* Set width as needed */
-        }
-
-        /* Style when select element is hovered */
-        .container select:hover {
-            border-color: #87ceeb;
-            /* Change border color on hover */
-        }
-
-        /* Style when select element is focused */
-        .container select:focus {
-            outline: none;
-            /* Remove outline */
-            border-color: #87ceeb;
-            /* Change border color when focused */
+        .trade {
+            color: #0e7490;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -98,96 +24,116 @@
 <body>
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
-
-    <div class="menu">
-
-
-        <div id="content" style="margin-left: 15px;">
-            <div
-                style="float:right; width: calc(100% - 250px); height: 150vh; margin-top: 5px; border-radius: 20px; background-color: white;">
-                <div style="background-color: white; color: #1D242E; width: 95%; margin-top: 25px; padding-left: 40px;">
-                    <!-- My Profile -->
-                    <div class="item">
-                        <a href="Dashboard.php"><i class="fas fa-arrow-left"></i></a>
-                        <span class="add-item" style="font-size: 25px; margin-left: 10px;"><b>My Profile</b></span><br>
-                        <span class="add-item" style="font-size: 15px; margin-left: 45px;">Manage and protect your
-                            account</span>
-                        <hr style="margin-top: 10px; border-color: #87ceeb;"> <!-- Line with color -->
-                    </div>
-                    <br>
-                    <div class="profile-details">
-                        <div class="item">
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" value="" readonly>
-                        </div>
-                        <div class="item">
-                            <label for="name">Name:</label>
-                            <input type="text" id="name" name="name" value="">
-                        </div>
-                        <div class="item">
-                            <label for="email">Email:</label>
-                            <input type="text" id="email" name="email" value="">
-                        </div>
-                        <div class="item">
-                            <label for="phone">Phone Number:</label>
-                            <input type="number" id="phone" name="phone" value="">
-                        </div>
-                        <div class="item">
-                            <label for="gender">Gender:</label>
-                            <select id="gender" name="gender">
-                                <option value="male" selected>Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="item">
-                            <label for="dob">Date of Birth:</label>
-                            <input type="date" id="dob" name="dob" value="">
-                        </div>
-                        <div class="item">
-                            <label for="image">Select Image:</label>
-                            <input type="file" id="image" name="image" onchange="displayImage(this)">
-                        </div>
+    <div class="m-3 sm:pl-60 text-gray-800">
+        <div class="">
+            <a href="Dashboard.php" class="text-cyan-600">
+                <iconify-icon icon="lets-icons:back-light" class="text-2xl"></iconify-icon>
+            </a>
+            <h1 class="text-3xl font-extrabold">My Profile</h1>
+        </div>
+        <div>
+            <p class="text-sm text-gray-700">Manage and protect your account</p>
+            <hr class="my-2" />
+            <form action="" method="post" enctype="multipart/form-data" class="py-5">
+                <div class="m-2 grid grid-cols-1 sm:grid-cols-2">
+                    <div class="mb-4">
+                        <p class="font-semibold">
+                            UserName <span class="text-red-400">*</span>
+                        </p>
+                        <input type="text" required id="color" name="item_name"
+                            class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
                     </div>
 
-                    <!-- Container for displaying uploaded image -->
-                    <div id="imageContainer"></div>
-
-                    <!-- Buttons -->
-                    <div class="btn-container">
-                        <button type="submit">Cancel</button>
-                        <button type="button">Save</button>
+                    <div class="mb-4">
+                        <p class="font-semibold">
+                            Name <span class="text-red-400">*</span>
+                        </p>
+                        <input type="text" required id="color" name="item_name"
+                            class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold">
+                            Email <span class="text-red-400">*</span>
+                        </p>
+                        <input type="text" required id="color" name="item_name"
+                            class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold">
+                            Phone Number <span class="text-red-400">*</span>
+                        </p>
+                        <input type="number" required id="color" name="item_name"
+                            class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold">
+                            Gender <span class="text-red-400">*</span>
+                        </p>
+                        <select name="gender" id="" class="w-full sm:w-3/4 p-1 rounded-md border">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold">
+                            Date of Birth <span class="text-red-400">*</span>
+                        </p>
+                        <input type="date" required id="color" name="item_name"
+                            class="border p-1 rounded-md text-sm w-full sm:w-3/4" />
+                    </div>
+                    <div class="mb-4">
+                        <div class="col-span-full">
+                            <p class="font-semibold">
+                                Select Image <span class="text-red-400">*</span>
+                            </p>
+                            <div
+                                class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                                        <label for="file-upload"
+                                            class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                            <span>Browse on your</span>
+                                            <input id="file-upload" name="file-upload" type="file" class="sr-only"
+                                                accept="image/*" onchange="updateFileName(this)" />
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p id="file-name"
+                                        class="text-xs leading-5 text-gray-600 bg-gray-400/10 rounded-md p-2">
+                                        No file chosen
+                                    </p>
+                                    <p class="text-xs leading-5 text-gray-600">
+                                        Note: Make sure image should be gif, jpeg, or png format.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="mb-4">
+                    <div class="flex gap-3">
+                        <button
+                            class="px-4 py-1 bg-gray-400/20 rounded-md text-gray-800 hover:bg-gray-400/50 transition font-semibold shadow">
+                            Cancel
+                        </button>
+                        <button
+                            class="px-5 py-1 bg-green-500 rounded-md text-white hover:bg-green-600 transition font-semibold shadow">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <script>
-            // JavaScript function to display uploaded image
-            function displayImage(input) {
-                var imageContainer = document.getElementById('imageContainer');
-
-                // Check if a file is uploaded
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        // Create a new <img> tag for the uploaded image
-                        var img = document.createElement("img");
-                        img.src = e.target.result;
-                        img.id = "uploadedImage";
-
-                        // Display the image inside #imageContainer
-                        imageContainer.innerHTML = '';
-                        imageContainer.appendChild(img);
-                    };
-
-                    reader.readAsDataURL(input.files[0]); // Read the uploaded file as URL
-                }
-            }
-        </script>
-
+    <script src="../scripts/scripts.js"></script>
 </body>
 
 </html>
