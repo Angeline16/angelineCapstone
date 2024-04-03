@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     *
     *
-        one way to get the  user's id is by using the following code snippet
+        one way to get the  user's id is by using the following code
     *
     *
 
