@@ -4,7 +4,6 @@ include ("../php/connection.php");
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     // Retrieve form data
     $item_name = $_POST['item_name'];
     $category_name = $_POST['category_name'];
@@ -17,7 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $year = $_POST['year'];
     $brand = $_POST['brand'];
 
+    // Check if a file was uploaded
+    if (isset($_FILES['file-upload'])) {
+        // Get the contents of the image file
+        $image_data = file_get_contents($_FILES['file-upload']['tmp_name']);
 
+        // Escape special characters to prevent SQL injection
+        $image_data = $link->real_escape_string($image_data);
+    }
     // Query to get category ID
     $category_query = "SELECT id FROM categories WHERE name = '$category_name'";
     $category_result = $link->query($category_query);
@@ -40,9 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Insert data into the database including UserID
-    $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID) 
-            VALUES ('$item_name', '$category_id', '$condition_id', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id')";
+    // Insert data into the database including UserID and image data
+    $sql = "INSERT INTO items (ItemName, CategoryId, `condition`, color, size, Description, wishlist, price, year, brand, UserID, image) 
+            VALUES ('$item_name', '$category_id', '$condition_id', '$color', '$size', '$description', '$wishlist', '$price', '$year', '$brand', '$user_id', '$image_data')";
 
     if ($link->query($sql) === TRUE) {
         header("Location: $_SERVER[PHP_SELF]?status=success");
@@ -52,9 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="text-gray-800 bg-gray-50 sm:pl-60 pt-5">
         <h1 class="text-xl font-semibold ml-10">Add new Item</h1>
         <div>
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
 
                 <div class="m-2 grid grid-cols-1 sm:grid-cols-2 mx-10">
                     <div class="">
@@ -213,10 +218,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                                 <span>Browse on your</span>
                                                 <input id="file-upload" name="file-upload" type="file" class="sr-only"
-                                                    accept="image/*" />
+                                                    accept="image/*" onchange="updateFileName(this)" />
                                             </label>
                                             <p class="pl-1">or drag and drop</p>
                                         </div>
+                                        <p id="file-name"
+                                            class="text-xs leading-5 text-gray-600 bg-gray-400/10 rounded-md p-2">No
+                                            file chosen</p>
                                         <p class="text-xs leading-5 text-gray-600">
                                             Note: Make sure image should be gif, jpeg, or png
                                             format.
@@ -276,6 +284,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         setTimeout(function () {
             document.getElementById('successNotification').style.display = 'none';
         }, 2000);
+
+        function updateFileName(input) {
+            const fileName = input.files[0].name;
+            document.getElementById('file-name').innerText = fileName;
+        }
 
 
         const toggleButton = document.getElementById("toggleSidebar");
