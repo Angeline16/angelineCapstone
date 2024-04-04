@@ -26,158 +26,59 @@
             class="text-2xl"
           ></iconify-icon>
         </a>
-        <h1 class="text-3xl font-extrabold">My Profile</h1>
+        <h1 class="text-3xl font-extrabold">Help Center</h1>
       </div>
       <div>
-        <p class="text-sm text-gray-700">Manage and protect your account</p>
         <hr class="my-2" />
-        <form
-          action=""
-          method="post"
-          enctype="multipart/form-data"
-          class="py-5"
-        >
-          <div class="m-2 grid grid-cols-1 sm:grid-cols-2">
-            <div class="mb-4">
-              <p class="font-semibold">
-                UserName <span class="text-red-400">*</span>
-              </p>
+        <div>
+          <div>
+            <h1 class="text-2xl font-bold text-center py-5">
+              Hi, how can we help you?
+            </h1>
+            <div class="flex justify-center items-center">
               <input
-                type="text"
-                required
-                id="color"
-                name="item_name"
-                class="border p-1 rounded-md text-sm w-full sm:w-3/4"
-              />
-            </div>
-
-            <div class="mb-4">
-              <p class="font-semibold">
-                Name <span class="text-red-400">*</span>
-              </p>
-              <input
-                type="text"
-                required
-                id="color"
-                name="item_name"
-                class="border p-1 rounded-md text-sm w-full sm:w-3/4"
-              />
-            </div>
-            <div class="mb-4">
-              <p class="font-semibold">
-                Email <span class="text-red-400">*</span>
-              </p>
-              <input
-                type="text"
-                required
-                id="color"
-                name="item_name"
-                class="border p-1 rounded-md text-sm w-full sm:w-3/4"
-              />
-            </div>
-            <div class="mb-4">
-              <p class="font-semibold">
-                Phone Number <span class="text-red-400">*</span>
-              </p>
-              <input
-                type="number"
-                required
-                id="color"
-                name="item_name"
-                class="border p-1 rounded-md text-sm w-full sm:w-3/4"
-              />
-            </div>
-            <div class="mb-4">
-              <p class="font-semibold">
-                Gender <span class="text-red-400">*</span>
-              </p>
-              <select
-                name="gender"
+                type="search"
+                placeholder="Search..."
+                name=""
+                class="border p-2 w-1/2"
                 id=""
-                class="w-full sm:w-3/4 p-1 rounded-md border"
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="others">Others</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <p class="font-semibold">
-                Date of Birth <span class="text-red-400">*</span>
-              </p>
-              <input
-                type="date"
-                required
-                id="color"
-                name="item_name"
-                class="border p-1 rounded-md text-sm w-full sm:w-3/4"
               />
-            </div>
-            <div class="mb-4">
-              <div class="col-span-full">
-                <p class="font-semibold">
-                  Select Image <span class="text-red-400">*</span>
-                </p>
-                <div
-                  class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
-                >
-                  <div class="text-center">
-                    <div class="flex justify-center items-center">
-                      <!-- put the image here if just to show i upload -->
-                      <img
-                        id="uploaded-image"
-                        class="rounded-full w-32 h-32 bg-gray-400 border border-green-500/20 shadow"
-                        src=""
-                      />
-
-                      <!--  -->
-                    </div>
-                    <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                      <label
-                        for="file-upload"
-                        class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                      >
-                        <span>Browse on your</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          class="sr-only"
-                          accept="image/*"
-                          onchange="updateImagePreview(this)"
-                        />
-                      </label>
-                      <p class="pl-1">or drag and drop</p>
-                    </div>
-                    <p
-                      id="file-name"
-                      class="text-xs leading-5 text-gray-600 bg-gray-400/10 rounded-md p-2"
-                    >
-                      No file chosen
-                    </p>
-                    <p class="text-xs leading-5 text-gray-600">
-                      Note: Make sure image should be gif, jpeg, or png format.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mb-4">
-            <div class="flex gap-3">
               <button
-                class="px-4 py-1 bg-gray-400/20 rounded-md text-gray-800 hover:bg-gray-400/50 transition font-semibold shadow"
+                class="bg-cyan-500 hover:bg-cyan-600 transition text-white p-2 flex justify-center items-center"
               >
-                Cancel
-              </button>
-              <button
-                class="px-5 py-1 bg-green-500 rounded-md text-white hover:bg-green-600 transition font-semibold shadow"
-              >
-                Save
+                <iconify-icon
+                  icon="material-symbols-light:search"
+                  class="text-2xl"
+                ></iconify-icon>
               </button>
             </div>
           </div>
-        </form>
+        </div>
+        <div>
+          <h1 class="text-base font-bold pt-5 pb-3">Having a problem?</h1>
+          <a href="" class="text-cyan-600"
+            ><span class="bg-cyan-200/10 rounded-md px-2 py-1 shadow"
+              >Report a problem</span
+            ></a
+          >
+          <hr class="my-3" />
+          <h1 class="text-base font-bold pt-5 pb-3">
+            Looking for something else?
+          </h1>
+          <p class="text-sm font-semibold">
+            [My Account] How do I change/update my phone number?
+          </p>
+          <p class="text-sm font-semibold">
+            [Order Cancellation] Can I cancel my order?
+          </p>
+          <p class="text-sm font-semibold">
+            [Return Refund] What are the effective supporting documents I can
+            submit as evidence for my refund/return request?
+          </p>
+          <p class="text-sm font-semibold">
+            [My Account] Why is my account being limited?
+          </p>
+        </div>
       </div>
     </div>
 

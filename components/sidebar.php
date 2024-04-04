@@ -46,7 +46,7 @@
                         Chat Messages
                     </a>
                     <a href="Helpcenter.php"
-                        class="py-2 flex justify-start items-center gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
+                        class="py-2 flex justify-start items-center help gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
                         <iconify-icon icon="material-symbols:live-help-sharp" class="text-xl"></iconify-icon>
 
                         Help Center
