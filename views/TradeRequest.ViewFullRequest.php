@@ -1,3 +1,24 @@
+<?php
+include ("../php/connection.php");
+session_start();
+
+if (isset($_GET['request_id'])) {
+    $request_id = $_GET['request_id'];
+
+    // Fetch user information based on recipient_id from the request table
+    $userInfoQuery = "SELECT * FROM users WHERE UserID IN (SELECT requester_id FROM requests WHERE request_id = ?)";
+    $stmt = $link->prepare($userInfoQuery);
+    $stmt->bind_param('i', $request_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Fetching the user information if available
+    if ($row = $result->fetch_assoc()) {
+        $userName = $row['Username'];
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +69,7 @@
                 <tbody class="text-gray-800">
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 whitespace-nowrap">
-                            Cecilia Lopez
+                            <?php echo $userName; ?>
                         </th>
                         <td class="px-6 py-4">Mittens</td>
                         <td class="px-6 py-4 text-center">
