@@ -4,11 +4,12 @@ include ("../php/connection.php");
 session_start();
 
 // Check if the user is not logged in
-if (!isset ($_SESSION['login'])) {
+if (!isset($_SESSION['login'])) {
     // Redirect to the login page
     header("Location: Login.php");
     exit;
 }
+
 
 // Retrieve categories from the database
 $categoryQuery = "SELECT * FROM categories";
@@ -25,7 +26,7 @@ if ($categoryResult->num_rows > 0) {
 }
 
 // Check if a category filter has been submitted
-if (isset ($_POST['category']) && $_POST['category'] != 'Category') {
+if (isset($_POST['category']) && $_POST['category'] != 'Category') {
     $selectedCategory = $_POST['category'];
     // Query to retrieve items filtered by category
     $getItems = "SELECT items.*, users.UserName AS userName 
@@ -94,7 +95,17 @@ if ($result->num_rows > 0) {
     <?php include '../components/sidebar.php'; ?>
     <!-- Your existing HTML content -->
     <div class="px-5 py-5 w-full sm:pl-60 bg-white text-gray-800">
-
+        <div>
+            <?php
+            if (isset($_SESSION['request_success']) && $_SESSION['request_success'] === true) {
+                // Display success message here, such as a popup
+                echo ' <div id="popupSuccess" class="absolute top-10 left-1/2 z-50">
+                            <span class="p-2 rounded-md shadow bg-green-500 text-white">Request Success!</span>
+                       </div>';
+                unset($_SESSION['request_success']);
+            }
+            ?>
+        </div>
         <div class="flex justify-between items-center px-2">
             <h1 class="font-extrabold text-3xl">Dashboard</h1>
 
@@ -125,7 +136,7 @@ if ($result->num_rows > 0) {
                                 <div
                                     class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                                     <!-- Display item image or "No Image Available" -->
-                                    <?php if (!empty ($item['image'])): ?>
+                                    <?php if (!empty($item['image'])): ?>
                                         <?php $imageData = base64_encode($item['image']); ?>
                                         <img src="data:image/jpeg;base64,<?php echo $imageData; ?>" alt="Item Image"
                                             class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
@@ -159,7 +170,24 @@ if ($result->num_rows > 0) {
         </div>
     </div>
 
-    <script src="../scripts/scripts.js"></script>
+    <script src="../../scripts/scripts.js"></script>
+    <script>
+        // Function to remove the success message after 2 seconds
+        function removeSuccessMessage() {
+            var successMessage = document.getElementById('popupSuccess');
+            if (successMessage) {
+                setTimeout(function () {
+                    successMessage.remove();
+                }, 2000); // Remove after 2 seconds (2000 milliseconds)
+            }
+        }
+
+        // Call the function when the page loads
+        window.onload = function () {
+            removeSuccessMessage();
+        };
+    </script>
+
 </body>
 
 </html>

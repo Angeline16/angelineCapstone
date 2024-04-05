@@ -62,6 +62,7 @@ if (isset($_POST['send_request'])) {
         $stmt->execute();
 
         // Redirect to prevent form resubmission on page refresh
+        $_SESSION['request_success'] = true;
         header("Location: Dashboard.php");
         exit(); // Make sure to exit after redirection
     }
