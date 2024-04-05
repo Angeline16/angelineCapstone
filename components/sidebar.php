@@ -51,6 +51,12 @@
 
                         Help Center
                     </a>
+                    <a href="RatingsAndReviews.php"
+                        class="py-2 flex justify-start items-center ratings gap-2 w-full hover:font-semibold hover:text-cyan-500 hover:bg-gray-300 transition rounded-md px-2">
+                        <iconify-icon icon="material-symbols:live-help-sharp" class="text-xl"></iconify-icon>
+
+                        Ratings & Reviews
+                    </a>
                 </div>
             </div>
         </div>
