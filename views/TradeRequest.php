@@ -82,7 +82,7 @@ $stmt->close();
                         $recipientData = $result_recipient->fetch_assoc();
                         $recipientName = $recipientData['Username'];
                     } else {
-                        $recipientName = "Unknown"; // Default if recipient not found
+                        $recipientName = "Unknown";
                     }
                     $stmt_recipient->close();
                     ?>
@@ -120,6 +120,41 @@ $stmt->close();
             echo "<p class='bg-cyan-400/10 p-2 rounded-md text-cyan-600'>No trade requests found.</p>";
         }
         ?>
+
+        <div class="pb-5">
+            <div class="flex justify-start">
+                <h1 class="text-xl font-extrabold py-5">Your Items</h1>
+            </div>
+            <div>
+                <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-x-4">
+                    <div>
+                        <div
+                            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-full">
+
+                            <img src="../assets/uploads/dress.png"
+                                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+                        </div>
+                        <div class="flex justify-between font-semibold py-3">
+                            <span>Dress</span>
+                            <span class="text-cyan-500 text-sm">$20.99</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div
+                            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-full">
+
+                            <img src="../assets/uploads/Bag.jpg"
+                                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+                        </div>
+                        <div class="flex justify-between font-semibold py-3">
+                            <span>Bag</span>
+                            <span class="text-cyan-500 text-sm">$19.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="../scripts/scripts.js"></script>
