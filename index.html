@@ -12,6 +12,18 @@
       body {
         font-family: "Nunito", sans-serif;
       }
+      .star-rating {
+        cursor: pointer;
+      }
+
+      .star {
+        font-size: 24px;
+        color: #ddd;
+      }
+
+      .star.selected {
+        color: gold;
+      }
     </style>
   </head>
 
@@ -26,62 +38,100 @@
             class="text-2xl"
           ></iconify-icon>
         </a>
-        <h1 class="text-3xl font-extrabold">Help Center</h1>
+        <h1 class="text-3xl font-extrabold">Rate Product</h1>
       </div>
       <div>
         <hr class="my-2" />
-        <div>
-          <div>
-            <h1 class="text-2xl font-bold text-center py-5">
-              Hi, how can we help you?
-            </h1>
-            <div class="flex justify-center items-center">
-              <input
-                type="search"
-                placeholder="Search..."
-                name=""
-                class="border p-2 w-1/2"
-                id=""
-              />
-              <button
-                class="bg-cyan-500 hover:bg-cyan-600 transition text-white p-2 flex justify-center items-center"
-              >
-                <iconify-icon
-                  icon="material-symbols-light:search"
-                  class="text-2xl"
-                ></iconify-icon>
-              </button>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 text-gray-800"
+        >
+          <div class="shadow flex justify-start relative items-center">
+            <div class="flex gap-2">
+              <div class="absolute top-0 right-0 z-10 text-white">
+                <button
+                  title="Mark as Completed"
+                  class="bg-green-400 p-1 flex justify-center items-center"
+                >
+                  <iconify-icon icon="ic:round-check"></iconify-icon>
+                </button>
+              </div>
+              <div>
+                <img
+                  src="./assets/uploads/dress.png"
+                  class="w-32 h-32 border-r"
+                />
+              </div>
+              <div>
+                <span class="font-semibold">Bag</span>
+                <div>
+                  <span class="text-xs font-semibold">Rate:</span>
+                  <div id="rating" class="flex gap-1"></div>
+                </div>
+                <span id="rating-text" class="text-green-600 capitalize"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <h1 class="text-base font-bold pt-5 pb-3">Having a problem?</h1>
-          <a href="" class="text-cyan-600"
-            ><span class="bg-cyan-200/10 rounded-md px-2 py-1 shadow"
-              >Report a problem</span
-            ></a
-          >
-          <hr class="my-3" />
-          <h1 class="text-base font-bold pt-5 pb-3">
-            Looking for something else?
-          </h1>
-          <p class="text-sm font-semibold">
-            [My Account] How do I change/update my phone number?
-          </p>
-          <p class="text-sm font-semibold">
-            [Order Cancellation] Can I cancel my order?
-          </p>
-          <p class="text-sm font-semibold">
-            [Return Refund] What are the effective supporting documents I can
-            submit as evidence for my refund/return request?
-          </p>
-          <p class="text-sm font-semibold">
-            [My Account] Why is my account being limited?
-          </p>
         </div>
       </div>
     </div>
 
     <script src="../scripts/scripts.js"></script>
+    <script>
+      const stars = document.getElementById("rating");
+      const ratingText = document.getElementById("rating-text");
+
+      // Add event listeners to stars
+      for (let i = 1; i <= 5; i++) {
+        const star = document.createElement("span");
+        star.classList.add("star", "star-rating");
+        star.innerHTML = "★";
+        star.dataset.value = i;
+        star.addEventListener("mouseover", highlightStars);
+        star.addEventListener("click", rateItem);
+        stars.appendChild(star);
+      }
+
+      // Function to highlight stars on mouseover
+      function highlightStars(event) {
+        const hoveredValue = parseInt(event.target.dataset.value);
+        const allStars = Array.from(stars.children);
+
+        allStars.forEach((star, index) => {
+          if (index < hoveredValue) {
+            star.classList.add("selected");
+          } else {
+            star.classList.remove("selected");
+          }
+        });
+      }
+
+      // Function to rate the item
+      function rateItem(event) {
+        const rating = parseInt(event.target.dataset.value);
+        const selectedStars =
+          document.querySelectorAll(".star.selected").length;
+
+        if (selectedStars === rating) {
+          ratingText.textContent = getRatingText(rating);
+        } else {
+          ratingText.textContent = getRatingText(selectedStars);
+        }
+      }
+
+      // Function to get rating text
+      function getRatingText(rating) {
+        switch (rating) {
+          case 1:
+            return "poor";
+          case 3:
+            return "good";
+          case 5:
+            return "awesome";
+          default:
+            return "average";
+        }
+      }
+    </script>
   </body>
 </html>
