@@ -10,9 +10,14 @@ $stmt = $link->prepare("SELECT * FROM requests WHERE recipient_id = ?");
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
-
 // Close statement
 $stmt->close();
+
+// Retrieve items associated with the logged-in user
+$stmt_user_items = $link->prepare("SELECT * FROM items WHERE userId = ?");
+$stmt_user_items->bind_param("i", $userId);
+$stmt_user_items->execute();
+$result_user_items = $stmt_user_items->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,34 +131,50 @@ $stmt->close();
                 <h1 class="text-xl font-extrabold py-5">Your Items</h1>
             </div>
             <div>
-                <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-x-4">
-                    <div>
-                        <div
-                            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-full">
+                <div class="relative overflow-x-auto py-5">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-cyan-500">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Id</th>
+                                <th scope="col" class="px-6 py-3">Item Name</th>
+                                <th scope="col" class="px-6 py-3">Price</th>
 
-                            <img src="../assets/uploads/dress.png"
-                                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
-                        </div>
-                        <div class="flex justify-between font-semibold py-3">
-                            <span>Dress</span>
-                            <span class="text-cyan-500 text-sm">$20.99</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div
-                            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-full">
-
-                            <img src="../assets/uploads/Bag.jpg"
-                                class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
-                        </div>
-                        <div class="flex justify-between font-semibold py-3">
-                            <span>Bag</span>
-                            <span class="text-cyan-500 text-sm">$19.99</span>
-                        </div>
-                    </div>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-800">
+                            <?php
+                            if ($result_user_items->num_rows > 0) {
+                                while ($row = $result_user_items->fetch_assoc()) {
+                                    ?>
+                                    <tr class='bg-white border-b'>
+                                        <td class='px-6 py-4'>
+                                            <?php echo $row['ItemID']; ?>
+                                        </td>
+                                        <td class='px-6 py-4'>
+                                            <?php echo $row['ItemName']; ?>
+                                        </td>
+                                        <td class='px-6 py-4'>$
+                                            <?php echo number_format($row['price'], 2); ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <tr>
+                                    <td colspan='3' class='text-center'>No items found.</td>
+                                </tr>
+                                <?php
+                            }
+                            $stmt_user_items->close();
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
         </div>
+    </div>
 
     </div>
 
