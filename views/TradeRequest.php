@@ -158,8 +158,10 @@ $result_user_items = $stmt_user_items->get_result();
                                             <?php echo number_format($row['price'], 2); ?>
                                         </td>
                                         <td class='px-6 py-4'>
-                                            <iconify-icon icon="material-symbols:edit"
-                                                class="text-xl text-green-500"></iconify-icon>
+                                            <a href="ManageItem.php?item_id=<?php echo $row['ItemID']; ?>">
+                                                <iconify-icon icon="material-symbols:edit"
+                                                    class="text-xl text-green-500"></iconify-icon>
+                                            </a>
                                         </td>
                                     </tr>
                                     <?php

@@ -32,106 +32,92 @@
     <?php include '../components/sidebar.php'; ?>
     <div class="m-3 sm:pl-60 text-gray-800">
       <div class="">
-        <a href="Dashboard.php" class="text-cyan-600">
+        <a href="Dashboard.php" class="text-green-600">
           <iconify-icon
             icon="lets-icons:back-light"
             class="text-2xl"
           ></iconify-icon>
         </a>
-        <h1 class="text-3xl font-extrabold">Rate Product</h1>
+        <h1 class="text-3xl font-extrabold">Manage Item</h1>
       </div>
       <div>
-        <hr class="my-2" />
+        <div class="flex justify-center items-center ">
 
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 text-gray-800"
-        >
-          <div class="shadow flex justify-start relative items-center">
-            <div class="flex gap-2">
-              <div class="absolute top-0 right-0 z-10 text-white">
-                <button
-                  title="Mark as Completed"
-                  class="bg-green-400 p-1 flex justify-center items-center"
-                >
-                  <iconify-icon icon="ic:round-check"></iconify-icon>
-                </button>
-              </div>
+          <div class="grid  py-10 grid-cols-1 gap-x-5 sm:grid-cols-2 m-auto  px-5  ">
+
               <div>
-                <img
-                  src="./assets/uploads/dress.png"
-                  class="w-32 h-32 border-r"
-                />
+                  <img src="./assets/uploads/dress.png" alt="Item Image" class=" rounded-md" />
               </div>
-              <div>
-                <span class="font-semibold">Bag</span>
-                <div>
-                  <span class="text-xs font-semibold">Rate:</span>
-                  <div id="rating" class="flex gap-1"></div>
-                </div>
-                <span id="rating-text" class="text-green-600 capitalize"></span>
-              </div>
-            </div>
-          </div>
-        </div>
+              <div class="py-5 sm:p-0">
+                  <h1 class="text-xl font-extrabold">
+                    Nike Air Force 1 Blue Paisley
+                  </h1>
+                  <div>
+                      <div class="py-2">
+                          <span class="text-sm text-green-600 shadow bg-green-300/10 rounded-full px-2 py-1">
+                            ₱ 3000.00
+                          </span>
+                      </div>
+                      <p class="text-sm font-semibold">Item description:</p>
+                      <p class="text-sm">
+                        The necklace features a stunning gold chain and a delicate flower pendant that is sure to catch the eye.
+                      </p>
+
+                      <!-- Additional information -->
+                      <hr class="border border-gray-400/10 my-2" />
+                      <p class="text-sm font-semibold">Category:</p>
+                      <p class="text-sm">
+                        Footwear
+                      </p>
+                      <hr class="border border-gray-400/10 my-2" />
+                      <p class="text-sm font-semibold">Wishlist:</p>
+                      <p class="text-sm">
+                        Used
+                      </p>
+                      <hr class="border border-gray-400/10 my-2" />
+                      <p class="text-sm font-semibold">Condition:</p>
+                      <p class="text-sm">
+                          White
+                      </p>
+                      <hr class="border border-gray-400/10 my-2" />
+                      <p class="text-sm font-semibold">Color:</p>
+                      <p class="text-sm">
+                          Black
+                      </p>
+                      <hr class="border border-gray-400/10 my-2" />
+                      <p class="text-sm font-semibold">Size:</p>
+                      <p class="text-sm">
+                          Large
+                      </p>
+                      <hr class="border border-gray-400/10 my-2" />
+                      <p class="text-sm font-semibold">Year:</p>
+                      <p class="text-sm">
+                          2023
+                      </p>
+                      <hr class="border border-gray-400/10 my-2" />
+                      <p class="text-sm font-semibold">Brand:
+                          Tabudi
+                      </p>
+                      <!-- Buttons -->
+                      <div class="mb-10 mt-4 flex">
+                          <form method="post">
+                              <button type="submit" name="send_request"
+                                  class="px-4 py-2 bg-green-500 shadow hover:bg-green-600 transition text-white rounded-md mr-2">
+                                  Update
+                              </button>
+                          </form>
+                          <form method="post" action="Chats.php?recipient_id=<?php echo $recipientId; ?>">
+                              <button type="submit" name="send_message"
+                                  class="px-4 py-2 bg-red-500/10 shadow hover:bg-red-600/20 transition text-red-500 rounded-md">
+                                  Delete
+                              </button>
+                          </form>
+
+                      </div>
+                  </div>
       </div>
     </div>
 
     <script src="../scripts/scripts.js"></script>
-    <script>
-      const stars = document.getElementById("rating");
-      const ratingText = document.getElementById("rating-text");
-
-      // Add event listeners to stars
-      for (let i = 1; i <= 5; i++) {
-        const star = document.createElement("span");
-        star.classList.add("star", "star-rating");
-        star.innerHTML = "★";
-        star.dataset.value = i;
-        star.addEventListener("mouseover", highlightStars);
-        star.addEventListener("click", rateItem);
-        stars.appendChild(star);
-      }
-
-      // Function to highlight stars on mouseover
-      function highlightStars(event) {
-        const hoveredValue = parseInt(event.target.dataset.value);
-        const allStars = Array.from(stars.children);
-
-        allStars.forEach((star, index) => {
-          if (index < hoveredValue) {
-            star.classList.add("selected");
-          } else {
-            star.classList.remove("selected");
-          }
-        });
-      }
-
-      // Function to rate the item
-      function rateItem(event) {
-        const rating = parseInt(event.target.dataset.value);
-        const selectedStars =
-          document.querySelectorAll(".star.selected").length;
-
-        if (selectedStars === rating) {
-          ratingText.textContent = getRatingText(rating);
-        } else {
-          ratingText.textContent = getRatingText(selectedStars);
-        }
-      }
-
-      // Function to get rating text
-      function getRatingText(rating) {
-        switch (rating) {
-          case 1:
-            return "poor";
-          case 3:
-            return "good";
-          case 5:
-            return "awesome";
-          default:
-            return "average";
-        }
-      }
-    </script>
   </body>
 </html>
