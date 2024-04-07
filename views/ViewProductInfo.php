@@ -29,6 +29,7 @@ if ($itemId) {
         $itemColor = $itemData['color'];
         $itemSize = $itemData['size'];
         $itemYear = $itemData['year'];
+        $wishlist = $itemData['wishlist'];
         $itemBrand = $itemData['brand'];
         $itemImage = $itemData['image'];
         // Convert blob data to base64 format
@@ -153,11 +154,17 @@ $link->close();
                         <p class="text-sm">
                             <?php echo $itemDescription; ?>
                         </p>
+
                         <!-- Additional information -->
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Category:</p>
                         <p class="text-sm">
                             <?php echo $categoryName; ?>
+                        </p>
+                        <hr class="border border-gray-400/10 my-2" />
+                        <p class="text-sm font-semibold">Wishlist:</p>
+                        <p class="text-sm">
+                            <?php echo $wishlist; ?>
                         </p>
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Condition:</p>
