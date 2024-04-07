@@ -138,6 +138,7 @@ $result_user_items = $stmt_user_items->get_result();
                                 <th scope="col" class="px-6 py-3">Id</th>
                                 <th scope="col" class="px-6 py-3">Item Name</th>
                                 <th scope="col" class="px-6 py-3">Price</th>
+                                <th scope="col" class="px-6 py-3">Manage</th>
 
                             </tr>
                         </thead>
@@ -155,6 +156,10 @@ $result_user_items = $stmt_user_items->get_result();
                                         </td>
                                         <td class='px-6 py-4'>$
                                             <?php echo number_format($row['price'], 2); ?>
+                                        </td>
+                                        <td class='px-6 py-4'>
+                                            <iconify-icon icon="material-symbols:edit"
+                                                class="text-xl text-green-500"></iconify-icon>
                                         </td>
                                     </tr>
                                     <?php
