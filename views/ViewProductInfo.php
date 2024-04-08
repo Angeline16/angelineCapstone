@@ -206,9 +206,15 @@ $link->close();
                                 to trade</span>
                             <div class="py-3 flex gap-2">
                                 <?php
-                                // Output buttons for each item
-                                while ($item = $itemsResult->fetch_assoc()) {
-                                    echo '<button onclick="selectItem(' . $item['ItemID'] . ', this)" class="capitalize item-button bg-gray-500/10 rounded-full text-gray-500 px-4 py-1 font-semibold">' . $item['ItemName'] . '</button>';
+                                // Check if there are any items associated with the user
+                                if ($itemsResult->num_rows > 0) {
+                                    // Output buttons for each item
+                                    while ($item = $itemsResult->fetch_assoc()) {
+                                        echo '<button onclick="selectItem(' . $item['ItemID'] . ', this)" class="capitalize item-button bg-gray-500/10 rounded-full text-gray-500 px-4 py-1 font-semibold">' . $item['ItemName'] . '</button>';
+                                    }
+                                } else {
+                                    // If no items, display a message
+                                    echo '<p class="px-3 py-1 bg-gray-500/10 text-sm font-semibold rounded-md text-gray-500">You have no products to trade for.</p>';
                                 }
                                 ?>
                             </div>
@@ -218,8 +224,8 @@ $link->close();
                         <!-- Buttons -->
                         <div class="mb-10 mt-4 flex">
                             <form method="post">
-                                <button type="submit" name="send_request"
-                                    class="px-4 py-2 bg-cyan-500 shadow hover:bg-cyan-600 transition text-white rounded-md mr-2">
+                                <button type="submit" name="send_request" <?php echo $itemsResult->num_rows <= 0 ? 'disabled' : ''; ?>
+                                    class=" <?php echo $itemsResult->num_rows <= 0 ? 'cursor-not-allowed bg-gray-500/10 text-gray-500 px-4 py-2 rounded-md mr-2' : 'px-4 py-2 bg-cyan-500 shadow hover:bg-cyan-600 transition text-white rounded-md mr-2'; ?>">
                                     Send Request
                                 </button>
                             </form>
