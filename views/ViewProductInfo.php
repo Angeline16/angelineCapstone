@@ -51,23 +51,37 @@ if ($itemId) {
 }
 
 // Check if the request button is clicked
+// Check if the request button is clicked
 if (isset($_POST['send_request'])) {
     if (isset($_SESSION['login'])) {
+        // Retrieve logged-in user's information
         $loginInfo = $_SESSION['login'];
-        // You can perform further validation here if needed
-        // Assuming user_id of the requester is stored in $_SESSION['user_id']
-        $requesterId = $loginInfo['UserID'];
-        // Insert the request into the database
-        $stmt = $link->prepare("INSERT INTO requests (item_id, requester_id, recipient_id) VALUES (?, ?, ?)");
-        $stmt->bind_param("iii", $itemId, $requesterId, $recipientId);
-        $stmt->execute();
+        $requesterId = $loginInfo['UserID']; // Assuming UserID is the correct field
 
-        // Redirect to prevent form resubmission on page refresh
-        $_SESSION['request_success'] = true;
-        header("Location: Dashboard.php");
-        exit(); // Make sure to exit after redirection
+        // Get the selected item ID from the hidden input field
+        $selectedItemId = isset($_POST['selected_item_id']) ? $_POST['selected_item_id'] : null;
+
+        // Check if an item is selected
+        if ($selectedItemId) {
+            // Insert the request and selected item into the database
+            $stmt = $link->prepare("INSERT INTO requests (item_id, item_to_trade, requester_id, recipient_id) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("iiii", $itemId, $selectedItemId, $requesterId, $recipientId);
+            $stmt->execute();
+
+            // Redirect to prevent form resubmission on page refresh
+            $_SESSION['request_success'] = true;
+            header("Location: Dashboard.php");
+            exit(); // Make sure to exit after redirection
+        } else {
+            // Handle case when no item is selected
+            echo "Please select an item to trade for.";
+        }
+    } else {
+        // Handle case when user is not logged in
+        echo "Please log in to send a request.";
     }
 }
+
 // Fetch category name corresponding to the category ID
 $categoryQuery = "SELECT name FROM categories WHERE id = ?";
 $stmt = $link->prepare($categoryQuery);
@@ -210,7 +224,7 @@ $link->close();
                                 if ($itemsResult->num_rows > 0) {
                                     // Output buttons for each item
                                     while ($item = $itemsResult->fetch_assoc()) {
-                                        echo '<button onclick="selectItem(' . $item['ItemID'] . ', this)" class="capitalize item-button bg-gray-500/10 rounded-full text-gray-500 px-4 py-1 font-semibold">' . $item['ItemName'] . '</button>';
+                                        echo '<button onclick="selectItem(' . $item['ItemID'] . ', this)" class="capitalize border item-button bg-gray-500/10 rounded-full text-gray-500 px-4 py-1 font-semibold">' . $item['ItemName'] . '</button>';
                                     }
                                 } else {
                                     // If no items, display a message
@@ -224,6 +238,7 @@ $link->close();
                         <!-- Buttons -->
                         <div class="mb-10 mt-4 flex">
                             <form method="post">
+                                <input type="hidden" name="selected_item_id" id="selectedItemId">
                                 <button type="submit" name="send_request" <?php echo $itemsResult->num_rows <= 0 ? 'disabled' : ''; ?>
                                     class=" <?php echo $itemsResult->num_rows <= 0 ? 'cursor-not-allowed bg-gray-500/10 text-gray-500 px-4 py-2 rounded-md mr-2' : 'px-4 py-2 bg-cyan-500 shadow hover:bg-cyan-600 transition text-white rounded-md mr-2'; ?>">
                                     Send Request
@@ -249,22 +264,22 @@ $link->close();
             // Reset style for all buttons
             var buttons = document.querySelectorAll('.item-button');
             buttons.forEach(function (btn) {
-                btn.style.border = 'none';
-                btn.classList.remove('text-cyan-500');
-                btn.classList.add('text-gray-500');
+                btn.classList.remove('text-cyan-500', 'border-cyan-500');
+                btn.classList.add('text-gray-500', 'border');
                 btn.style.backgroundColor = 'transparent';
                 btn.classList.remove('shadow');
             });
 
             // Highlight selected button
-            button.style.border = '1px solid #4299e1'; // Cyan-blue-500
             button.classList.remove('text-gray-500');
-            button.classList.add('text-cyan-500');
+            button.classList.add('text-cyan-500', 'border-cyan-500');
+            button.classList.remove('border');
             button.style.backgroundColor = '#ebf4ff'; // Cyan-blue-100
             button.classList.add('shadow');
 
             // Set the selected item ID in the hidden input field
             document.getElementById('selectedItemId').value = itemId;
+            console.log("Selected Item ID:", itemId);
         }
     </script>
 </body>
