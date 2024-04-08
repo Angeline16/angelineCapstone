@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2024 at 02:16 PM
+-- Generation Time: Apr 08, 2024 at 11:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,6 +40,31 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 (1, 'Clothing'),
 (2, 'Jewelry&Watches'),
 (3, 'Electronics');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `completed_items`
+--
+
+CREATE TABLE `completed_items` (
+  `completed_id` int(11) NOT NULL,
+  `item_id` int(11) DEFAULT NULL,
+  `requester_id` int(11) DEFAULT NULL,
+  `recipient_id` int(11) DEFAULT NULL,
+  `completion_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `completed_items`
+--
+
+INSERT INTO `completed_items` (`completed_id`, `item_id`, `requester_id`, `recipient_id`, `completion_date`) VALUES
+(3, 56, 20, 21, '2024-04-05 08:03:56'),
+(6, 56, 20, 21, '2024-04-06 05:18:19'),
+(7, 56, 20, 21, '2024-04-06 05:18:25'),
+(8, 56, 20, 21, '2024-04-06 05:19:30'),
+(9, 56, 20, 21, '2024-04-06 05:19:40');
 
 -- --------------------------------------------------------
 
@@ -153,17 +178,18 @@ CREATE TABLE `requests` (
   `item_id` int(11) DEFAULT NULL,
   `requester_id` int(11) DEFAULT NULL,
   `request_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `recipient_id` int(11) DEFAULT NULL
+  `recipient_id` int(11) DEFAULT NULL,
+  `item_to_trade` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `requests`
 --
 
-INSERT INTO `requests` (`request_id`, `item_id`, `requester_id`, `request_date`, `recipient_id`) VALUES
-(20, 21, 20, '2024-03-26 02:28:35', 21),
-(21, 20, 21, '2024-03-26 02:28:46', 20),
-(22, 22, 20, '2024-03-26 02:35:03', 21);
+INSERT INTO `requests` (`request_id`, `item_id`, `requester_id`, `request_date`, `recipient_id`, `item_to_trade`) VALUES
+(50, 56, 20, '2024-04-08 09:20:48', 20, 20),
+(51, 55, 20, '2024-04-08 09:24:24', 20, 56),
+(52, 21, 20, '2024-04-08 09:36:39', 21, 20);
 
 -- --------------------------------------------------------
 
@@ -204,6 +230,15 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `completed_items`
+--
+ALTER TABLE `completed_items`
+  ADD PRIMARY KEY (`completed_id`),
+  ADD KEY `item_id` (`item_id`),
+  ADD KEY `requester_id` (`requester_id`),
+  ADD KEY `recipient_id` (`recipient_id`);
+
+--
 -- Indexes for table `gender`
 --
 ALTER TABLE `gender`
@@ -231,7 +266,8 @@ ALTER TABLE `requests`
   ADD PRIMARY KEY (`request_id`),
   ADD KEY `item_id` (`item_id`),
   ADD KEY `requester_id` (`requester_id`),
-  ADD KEY `recipient_id` (`recipient_id`);
+  ADD KEY `recipient_id` (`recipient_id`),
+  ADD KEY `fk_item_to_trade` (`item_to_trade`);
 
 --
 -- Indexes for table `users`
@@ -250,6 +286,12 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `completed_items`
+--
+ALTER TABLE `completed_items`
+  MODIFY `completed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `gender`
 --
 ALTER TABLE `gender`
@@ -259,7 +301,7 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `ItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `ItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -271,7 +313,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -282,6 +324,14 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `completed_items`
+--
+ALTER TABLE `completed_items`
+  ADD CONSTRAINT `completed_items_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`ItemID`),
+  ADD CONSTRAINT `completed_items_ibfk_2` FOREIGN KEY (`requester_id`) REFERENCES `users` (`UserID`),
+  ADD CONSTRAINT `completed_items_ibfk_3` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`UserID`);
 
 --
 -- Constraints for table `items`
@@ -300,6 +350,7 @@ ALTER TABLE `messages`
 -- Constraints for table `requests`
 --
 ALTER TABLE `requests`
+  ADD CONSTRAINT `fk_item_to_trade` FOREIGN KEY (`item_to_trade`) REFERENCES `items` (`ItemID`),
   ADD CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`ItemID`),
   ADD CONSTRAINT `requests_ibfk_2` FOREIGN KEY (`requester_id`) REFERENCES `users` (`UserID`),
   ADD CONSTRAINT `requests_ibfk_3` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`UserID`);
