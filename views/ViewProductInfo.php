@@ -103,6 +103,15 @@ if ($conditionResult->num_rows > 0) {
     $conditionName = "Condition Not Found";
 }
 // Close statement and database connection
+$user_id = $_SESSION['user_id'];
+
+// Fetch distinct item names associated with the current user
+$stmt = $link->prepare("SELECT DISTINCT ItemID, ItemName FROM items WHERE UserID = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$itemsResult = $stmt->get_result();
+
+
 $stmt->close();
 $link->close();
 ?>
@@ -136,7 +145,6 @@ $link->close();
         <div class="flex justify-center items-center ">
 
             <div class="grid  py-10 grid-cols-1 gap-x-5 sm:grid-cols-2 m-auto  px-5  ">
-
                 <div>
                     <img src="<?php echo $imageSrc; ?>" alt="Item Image" class=" rounded-md" />
                 </div>
@@ -161,11 +169,11 @@ $link->close();
                         <p class="text-sm">
                             <?php echo $categoryName; ?>
                         </p>
-                        <hr class="border border-gray-400/10 my-2" />
+                        <!-- <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Wishlist:</p>
                         <p class="text-sm">
                             <?php echo $wishlist; ?>
-                        </p>
+                        </p> -->
                         <hr class="border border-gray-400/10 my-2" />
                         <p class="text-sm font-semibold">Condition:</p>
                         <p class="text-sm">
@@ -190,6 +198,23 @@ $link->close();
                         <p class="text-sm font-semibold">Brand:
                             <?php echo $itemBrand; ?>
                         </p>
+                        <hr class="my-2">
+
+
+                        <div class="my-4"><span
+                                class="bg-cyan-500/10 rounded-md text-cyan-500 px-4 py-1 font-semibold">Select items
+                                to trade</span>
+                            <div class="py-3 flex gap-2">
+                                <?php
+                                // Output buttons for each item
+                                while ($item = $itemsResult->fetch_assoc()) {
+                                    echo '<button onclick="selectItem(' . $item['ItemID'] . ', this)" class="capitalize item-button bg-gray-500/10 rounded-full text-gray-500 px-4 py-1 font-semibold">' . $item['ItemName'] . '</button>';
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+
                         <!-- Buttons -->
                         <div class="mb-10 mt-4 flex">
                             <form method="post">
@@ -212,6 +237,30 @@ $link->close();
         </div>
     </div>
     <script src="../scripts/scripts.js"></script>
+    <script>
+        // JavaScript function to handle item selection
+        function selectItem(itemId, button) {
+            // Reset style for all buttons
+            var buttons = document.querySelectorAll('.item-button');
+            buttons.forEach(function (btn) {
+                btn.style.border = 'none';
+                btn.classList.remove('text-cyan-500');
+                btn.classList.add('text-gray-500');
+                btn.style.backgroundColor = 'transparent';
+                btn.classList.remove('shadow');
+            });
+
+            // Highlight selected button
+            button.style.border = '1px solid #4299e1'; // Cyan-blue-500
+            button.classList.remove('text-gray-500');
+            button.classList.add('text-cyan-500');
+            button.style.backgroundColor = '#ebf4ff'; // Cyan-blue-100
+            button.classList.add('shadow');
+
+            // Set the selected item ID in the hidden input field
+            document.getElementById('selectedItemId').value = itemId;
+        }
+    </script>
 </body>
 
 </html>
