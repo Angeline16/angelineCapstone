@@ -58,6 +58,7 @@ if (isset($_POST['send_request'])) {
         $loginInfo = $_SESSION['login'];
         $requesterId = $loginInfo['UserID']; // Assuming UserID is the correct field
 
+
         // Get the selected item ID from the hidden input field
         $selectedItemId = isset($_POST['selected_item_id']) ? $_POST['selected_item_id'] : null;
 
@@ -72,6 +73,10 @@ if (isset($_POST['send_request'])) {
             $_SESSION['request_success'] = true;
             header("Location: Dashboard.php");
             exit(); // Make sure to exit after redirection
+        }
+        if ($requesterId == $recipientId) {
+            // Display an error message
+            echo "<p class='text-red-500 absolute top-20 sm:left-1/2 left-[25%] bg-red-500/10 px-4 py-2 shadow rounded-md text-base font-semibold'>You can't request your own item.</p>";
         } else {
             // Handle case when no item is selected
             echo "<p class='text-red-500 absolute top-20 sm:left-1/2 left-[25%] bg-red-500/10 px-4 py-2 shadow rounded-md text-base font-semibold'>Please select an item to trade.</p>";
