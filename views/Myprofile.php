@@ -164,7 +164,7 @@ $userImageBlob = getUserImageBlobData($user_id);
                                     </div>
                                     <div class="mt-4 flex text-sm leading-6 text-gray-600">
                                         <label for="file-upload"
-                                            class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                            class="relative cursor-pointer rounded-md bg-white font-semibold text-cyan-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-cyan-600 focus-within:ring-offset-2 hover:text-cyan-500">
                                             <span>Browse on your</span>
                                             <input id="file-upload" name="file-upload" type="file" class="sr-only"
                                                 accept="image/*" onchange="updateImagePreview(this)" />
