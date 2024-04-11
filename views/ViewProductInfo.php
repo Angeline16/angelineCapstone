@@ -74,11 +74,10 @@ if (isset($_POST['send_request'])) {
             exit(); // Make sure to exit after redirection
         } else {
             // Handle case when no item is selected
-            echo "Please select an item to trade for.";
+            echo "<p class='text-red-500 absolute top-20 sm:left-1/2 left-[25%] bg-red-500/10 px-4 py-2 shadow rounded-md text-base font-semibold'>Please select an item to trade.</p>";
         }
     } else {
-        // Handle case when user is not logged in
-        echo "Please log in to send a request.";
+
     }
 }
 
