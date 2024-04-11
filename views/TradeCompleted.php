@@ -28,7 +28,7 @@ session_start();
 <body>
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
-    <div class="m-3 sm:pl-60 text-gray-800">
+    <div class="m-3 sm:pl-60 text-gray-800 bg-gray-50">
         <div class="">
             <h1 class="text-3xl font-extrabold">Trade</h1>
         </div>

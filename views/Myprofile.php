@@ -77,7 +77,7 @@ $userImageBlob = getUserImageBlobData($user_id);
 <body>
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
-    <div class="m-3 sm:pl-60 text-gray-800">
+    <div class="m-3 sm:pl-60 text-gray-800 bg-gray-50">
         <div class="">
             <a href="Dashboard.php" class="text-cyan-600">
                 <iconify-icon icon="lets-icons:back-light" class="text-2xl"></iconify-icon>

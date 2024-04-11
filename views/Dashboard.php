@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
     <!-- Your existing HTML content -->
-    <div class="px-5 py-5 w-full sm:pl-60 bg-white text-gray-800">
+    <div class="px-5 py-5 w-full sm:pl-60 bg-gray-50 text-gray-800">
         <div>
             <?php
             if (isset($_SESSION['request_success']) && $_SESSION['request_success'] === true) {
@@ -124,7 +124,7 @@ if ($result->num_rows > 0) {
             </form>
         </div>
 
-        <div class="bg-white py-5">
+        <div class="bg-gray-50 py-5">
             <div class="px-5">
                 <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
                     <?php if (count($items) > 0): ?>

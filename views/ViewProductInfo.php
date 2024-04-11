@@ -156,7 +156,7 @@ $link->close();
 <body>
     <?php include '../components/header.php'; ?>
     <?php include '../components/sidebar.php'; ?>
-    <div class="px-5 py-5 w-full sm:pl-60 bg-white text-gray-800">
+    <div class="px-5 py-5 w-full sm:pl-60 bg-gray-50 text-gray-800">
         <a href="Dashboard.php" class="text-cyan-600 px-5">
             <iconify-icon icon="lets-icons:back-light" class="text-3xl"></iconify-icon>
         </a>
