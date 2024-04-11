@@ -11,12 +11,14 @@ if (isset($_SESSION['login'])) {
     $id = $loginInfo['UserID'];
     include ("../php/messageFunctions.php");
 
-
     $sender_id = $id;
     if (isset($_GET['recipient_id'])) {
         $recipient_id = $_GET['recipient_id'];
         $receiver_id = $recipient_id;
     }
+
+    // Get the item ID if it's provided in the URL
+    $itemId = isset($_GET['item_id']) ? $_GET['item_id'] : null;
 
     // Call fetchMessages() function to get messages
     $messages = fetchMessages($sender_id, $receiver_id, $link);
@@ -27,13 +29,19 @@ if (isset($_SESSION['login'])) {
         return date('h:i A', strtotime($timestamp)); // Format timestamp as 12-hour time
     }
 
-
-    // get the reciever info
+    // Retrieve receiver information
     $receiverQuery = "SELECT * FROM users WHERE UserID = ?";
     $stmt = $link->prepare($receiverQuery);
     $stmt->bind_param('i', $receiver_id);
     $stmt->execute();
     $result = $stmt->get_result();
+
+    // Fetch item information based on item ID
+    $itemQuery = "SELECT * FROM items WHERE ItemID = ?";
+    $stmt = $link->prepare($itemQuery);
+    $stmt->bind_param('i', $itemId);
+    $stmt->execute();
+    $itemResult = $stmt->get_result();
 
 } else {
     // Redirect the user to the login page or handle the case where the user is not logged in
@@ -49,7 +57,7 @@ if (isset($_SESSION['login'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Chat</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
     <style>
@@ -74,6 +82,7 @@ if (isset($_SESSION['login'])) {
             <a href="Dashboard.php" class="text-cyan-600 px-5">
                 <iconify-icon icon="lets-icons:back-light" class="text-2xl"></iconify-icon>
             </a>
+
             <div class="flex justify-center gap-2 items-center">
                 <?php
                 if ($row = $result->fetch_assoc()) {
@@ -96,10 +105,38 @@ if (isset($_SESSION['login'])) {
             </div>
         </div>
 
+        <?php
+        // Display item information if item ID is provided
+        if ($itemResult->num_rows > 0) {
+            // Fetch item data
+            $itemData = $itemResult->fetch_assoc();
+            ?>
+            <div class="flex justify-end my-5 mr-5">
+                <span class="flex gap-2 bg-gray-500/10 px-4 py-2 rounded-md">
+                    <div>
+                        <h1 class="font-semibold text-base text-cyan-500 capitalize"><?php echo $itemData['ItemName']; ?>
+                        </h1>
+                        <span class="text-sm">Posted by <?php echo $row['Username']; ?></span>
+                    </div>
+                    <div>
+                        <?php
+                        // Convert BLOB image data to base64 format
+                        $item_image_blob = $itemData['image'];
+                        if ($item_image_blob) {
+                            $item_image_data = base64_encode($item_image_blob);
+                            echo "<img src='data:image/jpeg;base64,$item_image_data' class='w-12 h-12' alt='Item Image'>";
+                        } else {
+                            // If no item image is available
+                            echo "<div class='w-12 h-12 bg-gray-400'></div>";
+                        }
+                        ?>
+                    </div>
+                </span>
+            </div>
+        <?php } ?>
 
-        <!-- chat box -->
         <div class="p-5 relative">
-            <div class="">
+            <div>
                 <?php if (empty($messages)): ?>
                     <p class="text-cyan-600 p-2 rounded-md bg-cyan-400/10">No messages yet.</p>
                 <?php else: ?>
@@ -126,8 +163,7 @@ if (isset($_SESSION['login'])) {
                     <?php endif; ?>
                 </div>
 
-                <!--  send message form -->
-                <div class="">
+                <div>
                     <div class="fixed bottom-0 bg-white p-5 sm:pl-64 w-full right-0">
                         <div class="flex w-full justify-center items-center gap-2">
                             <form action="../php/sendMessage.php" method="post"
@@ -164,8 +200,8 @@ if (isset($_SESSION['login'])) {
                                         <iconify-icon icon="solar:like-bold"></iconify-icon>
                                     </button>
                                 </div>
+                            </form>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>

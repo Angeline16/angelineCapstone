@@ -243,12 +243,14 @@ $link->close();
                                     Send Request
                                 </button>
                             </form>
-                            <form method="post" action="Chats.php?recipient_id=<?php echo $recipientId; ?>">
+                            <form method="post"
+                                action="Chats.php?recipient_id=<?php echo $recipientId; ?>&item_id=<?php echo $itemId; ?>">
                                 <button type="submit" name="send_message"
                                     class="px-4 py-2 bg-green-500 shadow hover:bg-green-600 transition text-white rounded-md">
                                     Send Message
                                 </button>
                             </form>
+
 
                         </div>
                     </div>
