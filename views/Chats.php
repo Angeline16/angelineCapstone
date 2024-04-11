@@ -1,5 +1,4 @@
 <?php
-// Include the database connection file
 include ("../php/connection.php");
 // Start the session
 session_start();
@@ -44,7 +43,6 @@ if (isset($_SESSION['login'])) {
     $itemResult = $stmt->get_result();
 
 } else {
-    // Redirect the user to the login page or handle the case where the user is not logged in
     header("Location: login.php");
     exit;
 }
@@ -89,11 +87,9 @@ if (isset($_SESSION['login'])) {
                     echo '<div class="h-10 w-10 bg-cyan-500 rounded-full">';
                     $profile_image_blob = $row['image'];
                     if ($profile_image_blob) {
-                        // If profile image blob data is available
                         $profile_image_data = base64_encode($profile_image_blob);
                         echo "<img src='data:image/jpeg;base64,$profile_image_data' alt='Receiver Profile Image' class='h-10 w-10 rounded-full'>";
                     } else {
-                        // If no profile image is available
                         echo "<div class='h-10 w-10 bg-gray-400 rounded-full'></div>";
                     }
                     echo '</div>';
@@ -106,9 +102,7 @@ if (isset($_SESSION['login'])) {
         </div>
 
         <?php
-        // Display item information if item ID is provided
         if ($itemResult->num_rows > 0) {
-            // Fetch item data
             $itemData = $itemResult->fetch_assoc();
             ?>
             <div class="flex justify-end my-5 mr-5">
@@ -120,13 +114,11 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <div>
                         <?php
-                        // Convert BLOB image data to base64 format
                         $item_image_blob = $itemData['image'];
                         if ($item_image_blob) {
                             $item_image_data = base64_encode($item_image_blob);
                             echo "<img src='data:image/jpeg;base64,$item_image_data' class='w-12 h-12' alt='Item Image'>";
                         } else {
-                            // If no item image is available
                             echo "<div class='w-12 h-12 bg-gray-400'></div>";
                         }
                         ?>
